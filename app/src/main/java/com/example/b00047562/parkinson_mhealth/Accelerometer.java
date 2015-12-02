@@ -23,23 +23,15 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
     private TextView txtXValue, txtYValue, txtZValue;
     private SensorManager MySensorManager;
     private Sensor MyAclmeter;
-    private int ax , ay, az;
+    private float ax , ay, az;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_accelerometer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         txtXValue = (TextView) findViewById(R.id.txtXValue);
         txtYValue = (TextView) findViewById(R.id.txtYValue);
@@ -49,7 +41,7 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
         MySensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         if(MySensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)!= null){
             MyAclmeter = MySensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-            MySensorManager.registerListener(this, MyAclmeter, SensorManager.SENSOR_DELAY_NORMAL);
+            MySensorManager.registerListener(this, MyAclmeter, 1000000);
         }
         else {
             Log.d("Accelerometer not found", "Accelerometer not found");
@@ -80,15 +72,22 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
-            //Get accelerometer values
-            ax = (int)event.values[0];
-            ay = (int)event.values[1];
-            az = (int)event.values[2];
-            //change display values
-            txtXValue.setText(ax + "");
-            txtYValue.setText(ay + "");
-            txtZValue.setText(az + "");
+        try {
+            if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
+                //Get accelerometer values
+                ax = (float)event.values[0];
+                ay = (float)event.values[1];
+                az = (float)event.values[2];
+                String x = String.format("%2f",ax);
+                String y = String.format("%2f",ay);
+                String z = String.format("%2f",az);
+                //change display values
+                txtXValue.setText(x);
+                txtYValue.setText(y);
+                txtZValue.setText(z);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

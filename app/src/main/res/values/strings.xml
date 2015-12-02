@@ -8,4 +8,5 @@
     <string name="txtYValue" />
     <string name="txtZLabel">Z:</string>
     <string name="txtZValue" />
+    <string name="acc_btn">Accelerometer Test</string>
 </resources>
