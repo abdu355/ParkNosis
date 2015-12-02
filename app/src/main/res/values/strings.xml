@@ -9,4 +9,5 @@
     <string name="txtZLabel">Z:</string>
     <string name="txtZValue" />
     <string name="acc_btn">Accelerometer Test</string>
+    <string name="tv_shak">Steady</string>
 </resources>
