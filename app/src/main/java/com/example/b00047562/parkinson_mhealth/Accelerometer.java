@@ -62,7 +62,7 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
         else {
             Log.d("Accelerometer not found", "Accelerometer not found");
         }
-        Thread t = new Thread() {
+        Thread t = new Thread() {//http://stackoverflow.com/questions/14814714/update-textview-every-second
 
             @Override
             public void run() {

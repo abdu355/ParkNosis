@@ -10,4 +10,7 @@
     <string name="txtZValue" />
     <string name="acc_btn">Accelerometer Test</string>
     <string name="tv_shak">Steady</string>
+    <string name="title_activity_spiral">Spiral</string>
+    <string name="spiral_btn">Spiral Test</string>
+    <string name="btn_clear">Clear</string>
 </resources>

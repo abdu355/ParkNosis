@@ -2,6 +2,7 @@ package com.example.b00047562.parkinson_mhealth;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.speech.SpeechRecognizer;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -13,7 +14,7 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button acc_btn;
+    private Button acc_btn,spiral_btn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,9 +23,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setSupportActionBar(toolbar);
 
         acc_btn=(Button)findViewById(R.id.acc_btn);
+        spiral_btn=(Button)findViewById(R.id.spiral_btn);
 
         acc_btn.setOnClickListener(this);
-
+        spiral_btn.setOnClickListener(this);
     }
 
     @Override
@@ -55,8 +57,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         {
 
             case R.id.acc_btn:
-                Intent i = new Intent(this,Accelerometer.class);
-                this.startActivity(i);
+                this.startActivity(  new Intent(this,Accelerometer.class));
+                break;
+            case R.id.spiral_btn:
+                this.startActivity(  new Intent(this,Spiral.class));
                 break;
         }
     }

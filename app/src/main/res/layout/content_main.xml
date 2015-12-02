@@ -10,9 +10,17 @@
     tools:showIn="@layout/activity_main" tools:context=".MainActivity">
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/acc_btn"
         android:id="@+id/acc_btn"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/spiral_btn"
+        android:id="@+id/spiral_btn"
+        android:layout_below="@+id/acc_btn"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>
