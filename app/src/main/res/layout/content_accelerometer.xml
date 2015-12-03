@@ -9,13 +9,6 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_accelerometer" tools:context=".Accelerometer">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </LinearLayout>
-
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -31,7 +24,6 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/txtXLabel"
                 android:id="@+id/txtXLabel"
-                android:layout_marginTop="25dp"
                 android:layout_alignParentTop="true"
                 android:layout_toLeftOf="@+id/txtYLabel"
                 android:layout_toStartOf="@+id/txtYLabel"
@@ -43,7 +35,6 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="@string/txtXValue"
                 android:id="@+id/txtXValue"
-                android:layout_marginTop="25dp"
                 android:layout_column="2"
                 android:layout_weight="1" />
         </TableRow>
@@ -58,7 +49,6 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/txtYLabel"
                 android:id="@+id/txtYLabel"
-                android:layout_marginTop="25dp"
                 android:layout_below="@+id/txtXLabel"
                 android:layout_alignLeft="@+id/txtZLabel"
                 android:layout_alignStart="@+id/txtZLabel"
@@ -70,7 +60,6 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="@string/txtYValue"
                 android:id="@+id/txtYValue"
-                android:layout_marginTop="25dp"
                 android:layout_column="2"
                 android:layout_weight="1" />
         </TableRow>
@@ -88,7 +77,6 @@
                 android:layout_below="@+id/txtYLabel"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginTop="25dp"
                 android:layout_weight="1" />
 
             <TextView
@@ -97,31 +85,8 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="@string/txtZValue"
                 android:id="@+id/txtZValue"
-                android:layout_marginTop="25dp"
                 android:layout_column="2"
                 android:layout_weight="1" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/textView2" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/textView" />
         </TableRow>
 
         <TextView
@@ -133,5 +98,18 @@
             android:layout_column="14"
             android:gravity="center" />
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/BtnShowGraph"
+            android:id="@+id/BtnShowGraph" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/Layout_Graph_Container"></LinearLayout>
+
     </TableLayout>
+
 </RelativeLayout>
