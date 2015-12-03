@@ -27,6 +27,12 @@ import org.achartengine.renderer.XYSeriesRenderer;
 
 import java.util.ArrayList;
 
+/*TODO- Check these lines of code:
+com/example/b00047562/parkinson_mhealth/Accelerometer.java:153
+com/example/b00047562/parkinson_mhealth/Accelerometer.java:210
+Click on Navigate in Menu Bar > Line > Type Line number
+ */
+
 public class Accelerometer extends AppCompatActivity implements SensorEventListener, View.OnClickListener{
 
     private TextView txtXValue, txtYValue, txtZValue,tv_shakeAlert;
@@ -41,6 +47,7 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
     private ArrayList<AccelData> sensorData;
     private View mChart;
     private Button BtnShowGraph;
+    //private int i=0;
 
     /* Handles the refresh */
     private Handler outputUpdater = new Handler();
@@ -65,7 +72,7 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
         tv_shakeAlert=(TextView)findViewById(R.id.tv_shake);
 
         SensorGraph = (LinearLayout) findViewById(R.id.Layout_Graph_Container);
-        sensorData = new <AccelData>ArrayList();
+        sensorData = new ArrayList<AccelData>();
         BtnShowGraph = (Button) findViewById(R.id.BtnShowGraph);
         BtnShowGraph.setOnClickListener(this);
 
@@ -127,7 +134,7 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
     public void onSensorChanged(SensorEvent event) {
         try {
             if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-               // outputUpdater.post(outputUpdaterTask);
+                // outputUpdater.post(outputUpdaterTask);
                 long curTime = System.currentTimeMillis();
                 if ((curTime - lastUpdate) > 100) {
                     long diffTime = (curTime - lastUpdate);
@@ -140,9 +147,11 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
                     float speed = Math.abs(ax + ay + az - lastx - lasty - lastz) / diffTime * 10000;
 
                     //record accelerometer values and store in arraylist of data
-                    long timestamp = System.currentTimeMillis();
-                    AccelData data = new AccelData(timestamp,ax,ay,az);
+
+                    //long timestamp = System.currentTimeMillis();
+                    AccelData data = new AccelData(curTime,ax,ay,az);
                     sensorData.add(data);
+
 
                     if (speed > SHAKE_THRESHOLD) {
                         //Log.d("sensor", "shake detected w/ speed: " + speed);
@@ -151,9 +160,9 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
                         tv_shakeAlert.setTextColor(Color.RED);
                     }
 
-                lastx = ax;
-                lasty = ay;
-                lastz = az;
+                    lastx = ax;
+                    lasty = ay;
+                    lastz = az;
                 }
                 String x = String.format("%2f", ax);
                 String y = String.format("%2f", ay);
@@ -192,12 +201,19 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
 
     private void openChart() {
         if (sensorData != null || sensorData.size() > 0) {
-            long t = sensorData.get(0).getTimestamp();
-            XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
+            long t = 0;
+            XYMultipleSeriesDataset dataset = null;
+            XYSeries xSeries = null;
+            XYSeries ySeries = null;
+            XYSeries zSeries = null;
 
-            XYSeries xSeries = new XYSeries("X");
-            XYSeries ySeries = new XYSeries("Y");
-            XYSeries zSeries = new XYSeries("Z");
+            t = sensorData.get(0).getTimestamp();
+            dataset = new XYMultipleSeriesDataset();
+
+            xSeries = new XYSeries("X");
+            ySeries = new XYSeries("Y");
+            zSeries = new XYSeries("Z");
+
 
             for (AccelData data : sensorData) {
                 xSeries.add(data.getTimestamp() - t, data.getX());
