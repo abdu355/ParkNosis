@@ -46,7 +46,7 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
     private LinearLayout SensorGraph;
     private ArrayList<AccelData> sensorData;
     private View mChart;
-    private Button BtnShowGraph;
+    private Button BtnShowGraph,BtnReadAccel;
     //private int i=0;
 
     /* Handles the refresh */
@@ -71,16 +71,21 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
         txtZValue = (TextView) findViewById(R.id.txtZValue);
         tv_shakeAlert=(TextView)findViewById(R.id.tv_shake);
 
+
         SensorGraph = (LinearLayout) findViewById(R.id.Layout_Graph_Container);
-        sensorData = new ArrayList<AccelData>();
-        BtnShowGraph = (Button) findViewById(R.id.BtnShowGraph);
+        sensorData = new ArrayList();
+        BtnShowGraph = (Button) findViewById(R.id.BtnReadGraph);
+        BtnReadAccel = (Button)findViewById(R.id.show_btn);
         BtnShowGraph.setOnClickListener(this);
+        BtnReadAccel.setOnClickListener(this);
+
+        BtnReadAccel.setEnabled(false);
 
         //Get SensorManager and accelerometer
         MySensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         if(MySensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)!= null){
             MyAclmeter = MySensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-            MySensorManager.registerListener(this, MyAclmeter, 1000000);
+            MySensorManager.registerListener(this, MyAclmeter, SensorManager.SENSOR_DELAY_FASTEST);
         }
         else {
             Log.d("Accelerometer not found", "Accelerometer not found");
@@ -192,8 +197,15 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
     public void onClick(View v) {
         switch(v.getId())
         {
-            case R.id.BtnShowGraph:
-                sensorData = new <AccelData>ArrayList();
+            case R.id.BtnReadGraph:
+                sensorData = new ArrayList();
+                BtnShowGraph.setEnabled(false);
+                BtnReadAccel.setEnabled(true);
+                //openChart();
+                break;
+            case R.id.show_btn:
+                BtnShowGraph.setEnabled(true);
+                BtnReadAccel.setEnabled(false);
                 openChart();
                 break;
         }

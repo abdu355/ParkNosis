@@ -13,5 +13,6 @@
     <string name="title_activity_spiral">Spiral</string>
     <string name="spiral_btn">Spiral Test</string>
     <string name="btn_clear">Clear</string>
-    <string name="BtnShowGraph">Show Graph</string>
+    <string name="BtnShowGraph">Read Data</string>
+    <string name="show_btn">Show Graph</string>
 </resources>
