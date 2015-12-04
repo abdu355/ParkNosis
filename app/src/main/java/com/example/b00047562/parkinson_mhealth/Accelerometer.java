@@ -206,6 +206,7 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
             case R.id.show_btn:
                 BtnShowGraph.setEnabled(true);
                 BtnReadAccel.setEnabled(false);
+                SensorGraph.removeAllViews(); //reset graph
                 openChart();
                 break;
         }

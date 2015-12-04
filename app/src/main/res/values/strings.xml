@@ -15,4 +15,6 @@
     <string name="btn_clear">Clear</string>
     <string name="BtnShowGraph">Read Data</string>
     <string name="show_btn">Show Graph</string>
+    <string name="spiral2">spiral</string>
+    <string name="tv_alert">OK!</string>
 </resources>

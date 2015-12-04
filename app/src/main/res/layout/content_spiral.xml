@@ -29,15 +29,35 @@
             android:layout_gravity="center" />
 
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/tv_alert"
+            android:id="@+id/tv_alert"
+            android:layout_gravity="center"
+            android:textColor="#00e676"
+            android:textStyle="bold" />
+
         <com.example.b00047562.parkinson_mhealth.DrawView
             android:id="@+id/drawing"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_marginTop="3dp"
             android:layout_weight="1" />
+        <ImageView
+            android:id="@+id/outside_imageview"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="center"
+            android:src="@drawable/spiral"
+            android:contentDescription="@string/spiral2"
+            android:layout_marginTop="-400dp"
+            android:alpha="0.2"
+            android:layout_marginRight="10dp" />
 
         <Button
             android:layout_width="wrap_content"
@@ -46,5 +66,7 @@
             android:id="@+id/btn_clear"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="50dp" />
+
+
     </LinearLayout>
 </RelativeLayout>
