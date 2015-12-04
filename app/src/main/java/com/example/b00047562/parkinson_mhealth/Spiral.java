@@ -13,12 +13,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.MotionEvent;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class Spiral extends AppCompatActivity implements  View.OnClickListener {
 
     private Button clear;
     private DrawView myview;
+    public static TextView alert;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +31,7 @@ public class Spiral extends AppCompatActivity implements  View.OnClickListener {
 
         clear=(Button)findViewById(R.id.btn_clear);
         myview=(DrawView)findViewById(R.id.drawing);
-
+        alert=(TextView)findViewById(R.id.tv_alert);
         clear.setOnClickListener(this);
 
     }

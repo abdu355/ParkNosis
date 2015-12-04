@@ -32,14 +32,13 @@ public class DrawView extends View {
     private TextPaint mTextPaint;
     private float mTextWidth;
     private float mTextHeight;
-    private TextView alert;
+
 
 
 
     public DrawView(Context context, AttributeSet attrs){
         super(context, attrs);
         setupDrawing();
-        alert=(TextView)findViewById(R.id.tv_alert);
     }
     private void setupDrawing(){
 //get drawing area setup for interaction
@@ -75,18 +74,23 @@ public class DrawView extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 //detect user touch
+
         float touchX = event.getX();
         float touchY = event.getY();
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 drawPath.moveTo(touchX, touchY);
+                Spiral.alert.setTextColor(Color.parseColor("#00e676"));
+                Spiral.alert.setText("OK!");
                 break;
             case MotionEvent.ACTION_MOVE:
                 drawPath.lineTo(touchX, touchY);
                 break;
             case MotionEvent.ACTION_UP:
                 drawCanvas.drawPath(drawPath, drawPaint);
+                Spiral.alert.setTextColor(Color.RED);
+                Spiral.alert.setText("KEEP TOUCHING!");
                 drawPath.reset();
                 break;
             default:
