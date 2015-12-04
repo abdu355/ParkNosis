@@ -104,18 +104,20 @@
             android:text="@string/BtnShowGraph"
             android:id="@+id/BtnReadGraph" />
 
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/show_btn"
+            android:id="@+id/show_btn"
+            android:layout_gravity="center_horizontal" />
+
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/Layout_Graph_Container">
+            android:id="@+id/Layout_Graph_Container"
+            android:layout_marginBottom="35dp">
 
-            <Button
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/show_btn"
-                android:id="@+id/show_btn"
-                android:layout_gravity="center_horizontal" />
         </LinearLayout>
 
     </TableLayout>
