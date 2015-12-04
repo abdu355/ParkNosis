@@ -13,6 +13,7 @@ import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 
@@ -38,6 +39,7 @@ public class DrawView extends View {
     public DrawView(Context context, AttributeSet attrs){
         super(context, attrs);
         setupDrawing();
+        alert=(TextView)findViewById(R.id.tv_alert);
     }
     private void setupDrawing(){
 //get drawing area setup for interaction
