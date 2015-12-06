@@ -27,11 +27,7 @@ import org.achartengine.renderer.XYSeriesRenderer;
 
 import java.util.ArrayList;
 
-/*TODO- Check these lines of code:
-com/example/b00047562/parkinson_mhealth/Accelerometer.java:153
-com/example/b00047562/parkinson_mhealth/Accelerometer.java:210
-Click on Navigate in Menu Bar > Line > Type Line number
- */
+
 
 public class Accelerometer extends AppCompatActivity implements SensorEventListener, View.OnClickListener{
 
@@ -153,7 +149,6 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
 
                     //record accelerometer values and store in arraylist of data
 
-                    //long timestamp = System.currentTimeMillis();
                     AccelData data = new AccelData(curTime,ax,ay,az);
                     sensorData.add(data);
 
@@ -284,6 +279,7 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
             // Creating a Line Chart
             mChart = ChartFactory.getLineChartView(getBaseContext(), dataset,
                     multiRenderer);
+
 
             // Adding the Line Chart to the LinearLayout
             SensorGraph.addView(mChart);

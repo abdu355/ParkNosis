@@ -12,9 +12,11 @@
     <string name="tv_shak">Steady</string>
     <string name="title_activity_spiral">Spiral</string>
     <string name="spiral_btn">Spiral Test</string>
-    <string name="btn_clear">Clear</string>
+    <string name="btn_clear">Open Redraw</string>
     <string name="BtnShowGraph">Read Data</string>
     <string name="show_btn">Show Graph</string>
     <string name="spiral2">spiral</string>
     <string name="tv_alert">OK!</string>
+    <string name="title_activity_spiral_redraw">SpiralRedraw</string>
+    <string name="btn_drawspiral">Redraw</string>
 </resources>

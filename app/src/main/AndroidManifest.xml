@@ -20,10 +20,14 @@
         <activity
             android:name=".Accelerometer"
             android:label="@string/title_activity_accelerometer"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Spiral"
             android:label="@string/title_activity_spiral"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".SpiralRedraw"
+            android:label="@string/title_activity_spiral_redraw"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

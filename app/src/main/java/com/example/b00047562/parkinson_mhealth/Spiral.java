@@ -1,5 +1,6 @@
 package com.example.b00047562.parkinson_mhealth;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -18,7 +19,7 @@ import android.widget.Toast;
 
 public class Spiral extends AppCompatActivity implements  View.OnClickListener {
 
-    private Button clear;
+    private Button redrawopen;
     private DrawView myview;
     public static TextView alert;
 
@@ -29,10 +30,10 @@ public class Spiral extends AppCompatActivity implements  View.OnClickListener {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        clear=(Button)findViewById(R.id.btn_clear);
+        redrawopen=(Button)findViewById(R.id.btn_clear);
         myview=(DrawView)findViewById(R.id.drawing);
         alert=(TextView)findViewById(R.id.tv_alert);
-        clear.setOnClickListener(this);
+        redrawopen.setOnClickListener(this);
 
     }
 
@@ -43,7 +44,8 @@ public class Spiral extends AppCompatActivity implements  View.OnClickListener {
 
             case R.id.btn_clear:
                 //Toast.makeText(this,"clear",Toast.LENGTH_SHORT).show();
-                myview.cleardisp();
+                //myview.cleardisp();
+                this.startActivity(new Intent(this, SpiralRedraw.class));
                 break;
         }
     }

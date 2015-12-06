@@ -45,8 +45,8 @@
             android:layout_height="0dp"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="0dp"
-            android:layout_marginRight="0dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginRight="-5dp"
+            android:layout_marginTop="40dp"
             android:layout_weight="1" />
         <ImageView
             android:id="@+id/outside_imageview"
@@ -65,7 +65,7 @@
             android:text="@string/btn_clear"
             android:id="@+id/btn_clear"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="50dp" />
+            android:layout_marginBottom="20dp" />
 
 
     </LinearLayout>

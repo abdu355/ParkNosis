@@ -16,6 +16,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 
 public class DrawView extends View {
     //drawing path
@@ -33,7 +35,8 @@ public class DrawView extends View {
     private float mTextWidth;
     private float mTextHeight;
 
-
+    //usable by SpiralRedraw
+    public static ArrayList<SpiralData> spiralData;
 
 
     public DrawView(Context context, AttributeSet attrs){
@@ -55,6 +58,9 @@ public class DrawView extends View {
 
         canvasPaint = new Paint(Paint.DITHER_FLAG);
 
+        //start new list
+        spiralData = new ArrayList<>();
+
     }
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
@@ -74,9 +80,13 @@ public class DrawView extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 //detect user touch
-
+        long curTime = System.currentTimeMillis();
         float touchX = event.getX();
         float touchY = event.getY();
+
+        //store spiral draw points
+        SpiralData data = new SpiralData(curTime,touchX,touchY);
+        spiralData.add(data);
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
