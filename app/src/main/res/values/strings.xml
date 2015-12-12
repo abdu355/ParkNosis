@@ -19,4 +19,23 @@
     <string name="tv_alert">OK!</string>
     <string name="title_activity_spiral_redraw">SpiralRedraw</string>
     <string name="btn_drawspiral">Redraw</string>
+    <string name="title_activity_login">Login</string>
+    <string name="et_email">Email</string>
+    <string name="et_pass">Password</string>
+    <string name="btn_login">Login</string>
+    <string name="btn_signup">Sign Up</string>
+    <string name="et_usremail" />
+    <string name="title_activity_signup">Signup</string>
+    <string name="login_error_message">Enter username and password</string>
+    <string name="login_error_title">Invalid</string>
+    <string name="action_login">Login</string>
+    <string name="logout_label">Logout</string>
+    <string name="et_name">Name/Alias </string>
+    <string name="et_passsign">Password</string>
+    <string name="et_emailsign">Email</string>
+    <string name="et_dob">DOB</string>
+    <string name="signup_error_title">Invalid</string>
+    <string name="signup_error_message">Please fill all fields</string>
+
+
 </resources>

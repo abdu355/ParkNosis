@@ -12,6 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
+import com.parse.ParseUser;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button acc_btn,spiral_btn;
@@ -27,6 +29,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         acc_btn.setOnClickListener(this);
         spiral_btn.setOnClickListener(this);
+
+        ParseUser currentUser = ParseUser.getCurrentUser();//check if user logged in
+        if (currentUser == null) {
+            loadLoginView();
+        }
+    }
+    private void loadLoginView() {
+        Intent intent = new Intent(this, Login.class); //go to login activity
+        startActivity(intent);
     }
 
     @Override
@@ -46,6 +57,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }
+        if(id==R.id.action_logout)
+        {
+                ParseUser.logOut();//update Parse current user
+                loadLoginView();//load login activity
         }
 
         return super.onOptionsItemSelected(item);
