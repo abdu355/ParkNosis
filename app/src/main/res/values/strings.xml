@@ -36,6 +36,11 @@
     <string name="et_dob">DOB</string>
     <string name="signup_error_title">Invalid</string>
     <string name="signup_error_message">Please fill all fields</string>
+    <string name="title_activity_user_info">UserInfo</string>
+    <string name="tv_nameusrinfo" />
+    <string name="tv_emailusrinfo" />
+    <string name="tv_dobusrinfo" />
+    <string name="tv_genusrinfo" />
 
 
 </resources>
