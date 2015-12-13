@@ -18,23 +18,32 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
+
 import org.achartengine.ChartFactory;
 import org.achartengine.chart.PointStyle;
 import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.model.XYSeries;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
+import org.json.JSONArray;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 
+public class Accelerometer extends AppCompatActivity implements SensorEventListener, View.OnClickListener {
 
-public class Accelerometer extends AppCompatActivity implements SensorEventListener, View.OnClickListener{
-
-    private TextView txtXValue, txtYValue, txtZValue,tv_shakeAlert;
+    private TextView txtXValue, txtYValue, txtZValue, tv_shakeAlert;
     private SensorManager MySensorManager;
     private Sensor MyAclmeter;
-    private float ax , ay, az,lastx,lasty,lastz;
+    private float ax, ay, az, lastx, lasty, lastz;
     private long lastUpdate;
     private static final int SHAKE_THRESHOLD = 1700;
     private static boolean output_upToDate = true;
@@ -42,7 +51,7 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
     private LinearLayout SensorGraph;
     private ArrayList<AccelData> sensorData;
     private View mChart;
-    private Button BtnShowGraph,BtnReadAccel;
+    private Button BtnShowGraph, BtnReadAccel;
     //private int i=0;
 
     /* Handles the refresh */
@@ -65,13 +74,13 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
         txtXValue = (TextView) findViewById(R.id.txtXValue);
         txtYValue = (TextView) findViewById(R.id.txtYValue);
         txtZValue = (TextView) findViewById(R.id.txtZValue);
-        tv_shakeAlert=(TextView)findViewById(R.id.tv_shake);
+        tv_shakeAlert = (TextView) findViewById(R.id.tv_shake);
 
 
         SensorGraph = (LinearLayout) findViewById(R.id.Layout_Graph_Container);
         sensorData = new ArrayList();
         BtnShowGraph = (Button) findViewById(R.id.BtnReadGraph);
-        BtnReadAccel = (Button)findViewById(R.id.show_btn);
+        BtnReadAccel = (Button) findViewById(R.id.show_btn);
         BtnShowGraph.setOnClickListener(this);
         BtnReadAccel.setOnClickListener(this);
 
@@ -79,11 +88,10 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
 
         //Get SensorManager and accelerometer
         MySensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        if(MySensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)!= null){
+        if (MySensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
             MyAclmeter = MySensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
             MySensorManager.registerListener(this, MyAclmeter, SensorManager.SENSOR_DELAY_FASTEST);
-        }
-        else {
+        } else {
             Log.d("Accelerometer not found", "Accelerometer not found");
         }
         Thread t = new Thread() {//http://stackoverflow.com/questions/14814714/update-textview-every-second
@@ -149,7 +157,7 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
 
                     //record accelerometer values and store in arraylist of data
 
-                    AccelData data = new AccelData(curTime,ax,ay,az);
+                    AccelData data = new AccelData(curTime, ax, ay, az);
                     sensorData.add(data);
 
 
@@ -190,8 +198,7 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
 
     @Override
     public void onClick(View v) {
-        switch(v.getId())
-        {
+        switch (v.getId()) {
             case R.id.BtnReadGraph:
                 sensorData = new ArrayList();
                 BtnShowGraph.setEnabled(false);
@@ -202,6 +209,12 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
                 BtnShowGraph.setEnabled(true);
                 BtnReadAccel.setEnabled(false);
                 SensorGraph.removeAllViews(); //reset graph
+                //push accel data to Parse
+                String json = new Gson().toJson(sensorData);
+                ParseObject acc = new ParseObject("AccelData");
+                acc.put("ArrayList",json);
+                acc.put("username", ParseUser.getCurrentUser().getUsername());
+                acc.saveInBackground();
                 openChart();
                 break;
         }
@@ -267,7 +280,7 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
                         + (sensorData.get(i).getTimestamp() - t));
             }
             for (int i = 0; i < 12; i++) {
-                multiRenderer.addYTextLabel(i + 1, ""+i);
+                multiRenderer.addYTextLabel(i + 1, "" + i);
             }
 
             multiRenderer.addSeriesRenderer(xRenderer);

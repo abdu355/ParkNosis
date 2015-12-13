@@ -74,8 +74,9 @@ public class Signup extends ActionBarActivity {
                     newUser.setUsername(username);
                     newUser.setPassword(password);
                     newUser.setEmail(email);
-                    newUser.put("DOB",dobEditText.getText().toString());
+                    newUser.put("DOB", dobEditText.getText().toString());
 
+                    //newUser.pinInBackground();
                     newUser.signUpInBackground(new SignUpCallback() {
                         @Override
                         public void done(ParseException e) {
@@ -89,12 +90,16 @@ public class Signup extends ActionBarActivity {
                                 startActivity(intent);
                             }
                             else {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(Signup.this);
-                                builder.setMessage(e.getMessage())
-                                        .setTitle(R.string.signup_error_title)
-                                        .setPositiveButton(android.R.string.ok, null);
-                                AlertDialog dialog = builder.create();
-                                dialog.show();
+                                try {
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(Signup.this);
+                                    builder.setMessage(e.getMessage())
+                                            .setTitle(R.string.signup_error_title)
+                                            .setPositiveButton(android.R.string.ok, null);
+                                    AlertDialog dialog = builder.create();
+                                    dialog.show();
+                                } catch (Exception e1) {
+                                    e1.printStackTrace();
+                                }
                             }
                         }
                     });

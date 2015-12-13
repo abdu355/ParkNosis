@@ -8,7 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.parse.GetCallback;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import org.w3c.dom.Text;
@@ -31,10 +35,10 @@ public class UserInfo extends AppCompatActivity {
         gender=(TextView)findViewById(R.id.tv_genusrinfo);
 
         ParseUser currentUser = ParseUser.getCurrentUser();
+
         if (currentUser != null) {
-
-
             try {
+                //Toast.makeText(this,"Updated Info",Toast.LENGTH_SHORT).show();
                 name.setText(currentUser.getUsername());
                 email.setText(currentUser.getEmail());
                 dob.setText(currentUser.getString("DOB"));
@@ -43,9 +47,9 @@ public class UserInfo extends AppCompatActivity {
                 e.printStackTrace();
 
             }
-
         } else {
-            new MainActivity().loadLoginView();
+
+
         }
 
     }
