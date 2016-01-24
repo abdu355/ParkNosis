@@ -16,7 +16,7 @@ import com.parse.ParseUser;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button acc_btn,spiral_btn,usrinfo_btn;
+    private Button acc_btn,spiral_btn,usrinfo_btn,tap_btn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,10 +27,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         acc_btn=(Button)findViewById(R.id.acc_btn);
         spiral_btn=(Button)findViewById(R.id.spiral_btn);
         usrinfo_btn=(Button)findViewById(R.id.btn_usrinfo_main);
+        tap_btn=(Button)findViewById(R.id.btn_tap_main);
 
         acc_btn.setOnClickListener(this);
         spiral_btn.setOnClickListener(this);
         usrinfo_btn.setOnClickListener(this);
+        tap_btn.setOnClickListener(this);
 
         ParseUser currentUser = ParseUser.getCurrentUser();//check if user logged in
         if (currentUser == null) {
@@ -82,6 +84,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_usrinfo_main:
                 this.startActivity(new Intent(this,UserInfo.class));
+                break;
+            case R.id.btn_tap_main:
+                this.startActivity(new Intent(this,TapUI.class));
                 break;
         }
     }

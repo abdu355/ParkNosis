@@ -53,6 +53,10 @@
         <activity
             android:name=".UserInfo"
             android:label="@string/title_activity_user_info"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".TapUI"
+            android:label="@string/title_activity_tap_ui"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

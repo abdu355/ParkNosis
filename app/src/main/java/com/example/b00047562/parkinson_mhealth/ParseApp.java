@@ -6,7 +6,7 @@ import com.parse.Parse;
 import com.parse.ParseObject;
 
 /**
- * Created by Administrator on 12/11/2015.
+ * Created by Abdu Sah on 12/11/2015.
  */
 public class ParseApp extends Application {
     public static final String YOUR_APPLICATION_ID = "VQiDfFq3nK7WByBY6Gr08X9C6rceopcksCB04kSu";
@@ -20,8 +20,8 @@ public class ParseApp extends Application {
         Parse.enableLocalDatastore(this);
         Parse.initialize(this, YOUR_APPLICATION_ID, YOUR_CLIENT_KEY);
 
-       // ParseObject testObject = new ParseObject("TestObject");
-       // testObject.put("object1","Spiral");
-       // testObject.saveInBackground();
+        // ParseObject testObject = new ParseObject("TestObject");
+        // testObject.put("object1","Spiral");
+        // testObject.saveInBackground();
     }
 }

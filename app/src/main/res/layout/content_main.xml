@@ -27,9 +27,18 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:text="@string/taptest_btn"
+        android:id="@+id/btn_tap_main"
+        android:layout_below="@+id/spiral_btn"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:text="User Info"
         android:id="@+id/btn_usrinfo_main"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="62dp" />
+
 </RelativeLayout>
