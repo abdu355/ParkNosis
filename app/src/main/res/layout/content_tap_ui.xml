@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Next Test >>"
-        android:id="@+id/button"
+        android:id="@+id/btn_next1"
         android:layout_marginBottom="34dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
@@ -50,4 +50,14 @@
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RESTART"
+        android:id="@+id/btn_restart"
+        android:layout_alignBottom="@+id/btn_next1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:enabled="false" />
 </RelativeLayout>

@@ -41,9 +41,10 @@
     <string name="tv_emailusrinfo" />
     <string name="tv_dobusrinfo" />
     <string name="tv_genusrinfo" />
-    <string name="title_activity_tap_ui">TapUI</string>
+    <string name="title_activity_tap_ui">Simple Tapping</string>
     <string name="taptest_btn">Tapping Test</string>
     <string name="tv_avgtime" />
+    <string name="title_activity_alternate_tapping">Alternate Tapping</string>
 
 
 </resources>

@@ -57,6 +57,10 @@
         <activity
             android:name=".TapUI"
             android:label="@string/title_activity_tap_ui"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AlternateTapping"
+            android:label="@string/title_activity_alternate_tapping"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.b00047562.parkinson_mhealth.AlternateTapping"
+    tools:showIn="@layout/activity_alternate_tapping">
+
+    <Button
+        android:layout_width="120dp"
+        android:layout_height="200dp"
+        android:text="TAP"
+        android:id="@+id/alttap_btn1"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="37dp"
+        android:layout_marginStart="37dp"
+        android:layout_marginTop="172dp" />
+
+    <Button
+        android:layout_width="120dp"
+        android:layout_height="200dp"
+        android:text="TAP"
+        android:id="@+id/alttap_btn2"
+        android:layout_alignTop="@+id/alttap_btn1"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="37dp"
+        android:layout_marginEnd="37dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Time between taps will be calculated"
+        android:id="@+id/textView2"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Next Test >>"
+        android:id="@+id/button2"
+        android:layout_marginBottom="38dp"
+        android:enabled="false"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="&lt;&lt;Back"
+        android:id="@+id/btn_back1"
+        android:enabled="false"
+        android:layout_alignBottom="@+id/button2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RESTART"
+        android:id="@+id/button"
+        android:layout_alignBottom="@+id/btn_back1"
+        android:layout_toRightOf="@+id/btn_back1"
+        android:layout_toEndOf="@+id/btn_back1"
+        android:enabled="false" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="START"
+        android:id="@+id/start_btn"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/tv_time1"
+        android:layout_marginBottom="25dp"
+        android:layout_above="@+id/alttap_btn2"
+        android:layout_alignLeft="@+id/alttap_btn1"
+        android:layout_alignStart="@+id/alttap_btn1" />
+
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/tv_time2"
+        android:layout_alignBottom="@+id/tv_time1"
+        android:layout_alignRight="@+id/alttap_btn2"
+        android:layout_alignEnd="@+id/alttap_btn2" />
+
+    <ProgressBar
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:id="@+id/progressBar_alttap"
+        android:indeterminate="false"
+        android:layout_above="@+id/button2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:max="100"
+        android:progress="100" />
+
+</RelativeLayout>

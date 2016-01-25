@@ -1,5 +1,6 @@
 package com.example.b00047562.parkinson_mhealth;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -17,7 +18,7 @@ import java.util.List;
 
 public class TapUI extends AppCompatActivity implements View.OnClickListener {
 
-    private Button tap;
+    private Button tap,next;
     private int tapcounter;
     private long previousClickTime;
     private AlphaAnimation alphaDown,alphaUp;
@@ -33,8 +34,11 @@ public class TapUI extends AppCompatActivity implements View.OnClickListener {
 
 
         tap=(Button)findViewById(R.id.btn_tap);
+        next=(Button)findViewById(R.id.btn_next1);
         avgtimedisp=(TextView)findViewById(R.id.tv_avgtime);
+
         tap.setOnClickListener(this);
+        next.setOnClickListener(this);
 
 
         delaylist = new ArrayList<>();
@@ -78,8 +82,12 @@ public class TapUI extends AppCompatActivity implements View.OnClickListener {
                     tap.setBackgroundColor(Color.parseColor("#FFE1BEE7"));
                     tap.setText("DONE!");
                     tap.setEnabled(false);
-                    avgtimedisp.setText("Average: "+average(delaylist)+" ms");
+                    avgtimedisp.setText("Average: " + average(delaylist) + " ms");
+                    next.setEnabled(true);
                 }
+                break;
+            case R.id.btn_next1:
+                startActivity(new Intent(getApplicationContext(),AlternateTapping.class));
                 break;
         }
     }
