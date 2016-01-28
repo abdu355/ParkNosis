@@ -74,7 +74,7 @@ public class ParseFunctions {
 
     }
 
-    public void pushParseList(ParseUser user, int numofitems, String ... params) //upload to Parse multiple rows
+    public void pushParseList(ParseUser user, int numofitems, String ... params) //upload to Parse multiple rows - used for tapping test currently
     {
         List<ParseObject> objectlist = new ArrayList<ParseObject>();
         ParseObject ob = new ParseObject(params[0]);
@@ -86,7 +86,7 @@ public class ParseFunctions {
                 ob.put(params[1],params[2+i]); //2+i to get next paramater of different data,  params[2] and params[3] will be the data containers
                 ob.put("username", ParseUser.getCurrentUser().getUsername());
                 ob.put("createdBy", ParseUser.getCurrentUser());
-                ob.put("position",params[4+i]);
+                ob.put("position",params[numofitems+(i+2)]); //get remaining parameters
                 objectlist.add(i++, ob);
             } catch (Exception e) {
                 Log.d("ParseError",e.getMessage());
