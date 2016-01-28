@@ -50,7 +50,7 @@ public class ParseFunctions {
                      type = new TypeToken<List<String[]>>() {}.getType();
 
                 } else {
-                    Log.d("ParseError", "Error fetching from Parse");
+                    Log.d("ParseError", e.getMessage());
                 }
 
             }
@@ -59,18 +59,40 @@ public class ParseFunctions {
         return new Gson().fromJson(result1,type);
 
     }
-    public void pushParseData(ParseUser user, String ... params) //upload to Parse
+    public void pushParseData(ParseUser user, String ... params) //upload to Parse single row
     //0: class name -- 1: column name -- 2: json String
     // user: pointer to ParseUser (use ParseUser.getCurrentUser())
     //you may add additional String parameters as necessary
     {
 
-        ParseObject acc = new ParseObject(params[0]);
-        acc.put(params[1],params[2]);
-        acc.put("username", user.getUsername());
-        acc.put("createdBy",user);
+        ParseObject ob = new ParseObject(params[0]);
+        ob.put(params[1],params[2]);
+        ob.put("username", user.getUsername());
+        ob.put("createdBy", user);
         //add additional query paramters here if needed ( make sure to also include the params[index] for it ) ...
-        acc.saveInBackground();
+        ob.saveInBackground();
+
+    }
+
+    public void pushParseList(ParseUser user, int numofitems, String ... params) //upload to Parse multiple rows
+    {
+        List<ParseObject> objectlist = new ArrayList<ParseObject>();
+        ParseObject ob = new ParseObject(params[0]);
+        int i=0;
+        while(i<numofitems)
+        {
+            try {
+                ob = new ParseObject(params[0]);
+                ob.put(params[1],params[2+i]); //2+i to get next paramater of different data,  params[2] and params[3] will be the data containers
+                ob.put("username", ParseUser.getCurrentUser().getUsername());
+                ob.put("createdBy", ParseUser.getCurrentUser());
+                ob.put("position",params[4+i]);
+                objectlist.add(i++, ob);
+            } catch (Exception e) {
+                Log.d("ParseError",e.getMessage());
+            }
+        }
+        ob.saveAllInBackground(objectlist);
 
     }
 

@@ -41,4 +41,12 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="62dp" />
 
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/results_btn"
+        android:id="@+id/btn_resultsmain"
+        android:layout_above="@+id/btn_usrinfo_main"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

@@ -16,7 +16,7 @@ import com.parse.ParseUser;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button acc_btn,spiral_btn,usrinfo_btn,tap_btn;
+    private Button acc_btn,spiral_btn,usrinfo_btn,tap_btn,results;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,11 +28,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         spiral_btn=(Button)findViewById(R.id.spiral_btn);
         usrinfo_btn=(Button)findViewById(R.id.btn_usrinfo_main);
         tap_btn=(Button)findViewById(R.id.btn_tap_main);
+        results=(Button)findViewById(R.id.btn_resultsmain); // display results activity button
 
         acc_btn.setOnClickListener(this);
         spiral_btn.setOnClickListener(this);
         usrinfo_btn.setOnClickListener(this);
         tap_btn.setOnClickListener(this);
+        results.setOnClickListener(this);
 
         ParseUser currentUser = ParseUser.getCurrentUser();//check if user logged in
         if (currentUser == null) {
@@ -86,7 +88,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 this.startActivity(new Intent(this,UserInfo.class));
                 break;
             case R.id.btn_tap_main:
-                this.startActivity(new Intent(this,TapUI.class));
+                this.startActivity(new Intent(this,SimpleTapping.class));
+                break;
+            case R.id.btn_resultsmain: //display results in seperate activity
+                this.startActivity(new Intent(this,ResultsAnalysis.class));
                 break;
         }
     }

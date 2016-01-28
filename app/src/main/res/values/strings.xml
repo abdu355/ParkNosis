@@ -45,6 +45,8 @@
     <string name="taptest_btn">Tapping Test</string>
     <string name="tv_avgtime" />
     <string name="title_activity_alternate_tapping">Alternate Tapping</string>
+    <string name="results_btn">Analyze Results</string>
+    <string name="title_activity_results_analysis">Results &amp; Analysis</string>
 
 
 </resources>

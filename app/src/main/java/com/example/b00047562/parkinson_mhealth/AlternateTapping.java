@@ -14,6 +14,9 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.parse.ParseUser;
+
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
@@ -25,6 +28,7 @@ public class AlternateTapping extends AppCompatActivity implements View.OnClickL
     private Button btn1,btn2,start;
     private int tapcounter1,tapcounter2;
     private CountDownTimer countDownTimer;
+    private ParseFunctions customParse;
 
 
     Runnable mRunnable;
@@ -54,6 +58,7 @@ public class AlternateTapping extends AppCompatActivity implements View.OnClickL
         btn1.setOnClickListener(this);
         btn2.setOnClickListener(this);
         start.setOnClickListener(this);
+        customParse= new ParseFunctions();
 
 
     }
@@ -76,6 +81,12 @@ public class AlternateTapping extends AppCompatActivity implements View.OnClickL
                 //display avg times
                 time1.setText("Avg: "+String.format("%.1f", average(delaylist1))+" ms");
                 time2.setText("Avg: "+String.format("%.1f", average(delaylist2))+" ms");
+
+                String json1 = new Gson().toJson(delaylist1);
+                String json2 = new Gson().toJson(delaylist2);
+
+                customParse.pushParseList(ParseUser.getCurrentUser(),2,"TappingData","ArrayList",json1,json2,"Left","Right");
+
             }
         }.start();
 

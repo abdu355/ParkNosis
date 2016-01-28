@@ -13,10 +13,13 @@ import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.parse.ParseUser;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class TapUI extends AppCompatActivity implements View.OnClickListener {
+public class SimpleTapping extends AppCompatActivity implements View.OnClickListener {
 
     private Button tap,next;
     private int tapcounter;
@@ -24,7 +27,7 @@ public class TapUI extends AppCompatActivity implements View.OnClickListener {
     private AlphaAnimation alphaDown,alphaUp;
     private TextView avgtimedisp;
     private ArrayList<Long> delaylist;
-
+    private ParseFunctions customParse;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +45,7 @@ public class TapUI extends AppCompatActivity implements View.OnClickListener {
 
 
         delaylist = new ArrayList<>();
+        customParse= new ParseFunctions();
     }
 
     @Override
@@ -84,6 +88,9 @@ public class TapUI extends AppCompatActivity implements View.OnClickListener {
                     tap.setEnabled(false);
                     avgtimedisp.setText("Average: " + average(delaylist) + " ms");
                     next.setEnabled(true);
+                    String json = new Gson().toJson(delaylist);
+                    customParse.pushParseData(ParseUser.getCurrentUser(),"TappingData","ArrayList",json);
+
                 }
                 break;
             case R.id.btn_next1:

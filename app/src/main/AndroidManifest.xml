@@ -13,6 +13,7 @@
     <application
         android:name=".ParseApp"
         android:allowBackup="true"
+        android:icon="@mipmap/brain48"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
@@ -55,12 +56,16 @@
             android:label="@string/title_activity_user_info"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".TapUI"
+            android:name=".SimpleTapping"
             android:label="@string/title_activity_tap_ui"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AlternateTapping"
             android:label="@string/title_activity_alternate_tapping"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ResultsAnalysis"
+            android:label="@string/title_activity_results_analysis"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
