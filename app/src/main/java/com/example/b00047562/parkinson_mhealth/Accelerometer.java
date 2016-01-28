@@ -52,6 +52,7 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
     private ArrayList<AccelData> sensorData;
     private View mChart;
     private Button BtnShowGraph, BtnReadAccel;
+    private ParseFunctions customParse; //for custom parse functions from ParseFunctions class
     //private int i=0;
 
     /* Handles the refresh */
@@ -115,6 +116,7 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
 
         t.start();
 
+        customParse = new ParseFunctions(); //initialized
     }
 
     @Override
@@ -196,6 +198,7 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
     }
 
 
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -211,10 +214,16 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
                 SensorGraph.removeAllViews(); //reset graph
                 //push accel data to Parse
                 String json = new Gson().toJson(sensorData);
-                ParseObject acc = new ParseObject("AccelData");
+                /*ParseObject acc = new ParseObject("AccelData");
                 acc.put("ArrayList",json);
                 acc.put("username", ParseUser.getCurrentUser().getUsername());
-                acc.saveInBackground();
+                acc.put("createdBy",ParseUser.getCurrentUser());
+                acc.saveInBackground();*/
+
+                /*TODO
+                instead of using all these lines of code above use this line below:
+                 */
+                customParse.pushParseData(ParseUser.getCurrentUser(),"AccelData","ArrayList",json); //user pointer
                 openChart();
                 break;
         }
