@@ -19,7 +19,8 @@
         android:id="@+id/btn_tap"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        android:enabled="false" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -42,15 +43,6 @@
         android:layout_alignParentEnd="true"
         android:enabled="false" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/tv_avgtime"
-        android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp" />
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -60,4 +52,32 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:enabled="false" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LEFT"
+        android:id="@+id/btn_lefthand"
+        android:layout_below="@+id/textView"
+        android:layout_alignLeft="@+id/btn_tap"
+        android:layout_alignStart="@+id/btn_tap" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RIGHT"
+        android:id="@+id/btn_righthand"
+        android:layout_below="@+id/textView"
+        android:layout_alignRight="@+id/btn_tap"
+        android:layout_alignEnd="@+id/btn_tap" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/tv_avgtime"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:gravity="center_vertical|center_horizontal" />
 </RelativeLayout>

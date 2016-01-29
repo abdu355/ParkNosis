@@ -19,7 +19,7 @@ import android.widget.Toast;
 
 public class Spiral extends AppCompatActivity implements  View.OnClickListener {
 
-    private Button redrawopen;
+    public static Button redrawopen;
     private DrawView myview;
     public static TextView alert;
 
@@ -35,6 +35,7 @@ public class Spiral extends AppCompatActivity implements  View.OnClickListener {
         alert=(TextView)findViewById(R.id.tv_alert);
         redrawopen.setOnClickListener(this);
 
+
     }
 
     @Override
@@ -47,6 +48,7 @@ public class Spiral extends AppCompatActivity implements  View.OnClickListener {
                 //myview.cleardisp();
                 this.startActivity(new Intent(this, SpiralRedraw.class));
                 break;
+
         }
     }
 }

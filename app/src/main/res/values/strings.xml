@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ParkDetect</string>
+    <string name="app_name">ParkSearch</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_accelerometer">Accelerometer</string>
     <string name="txtXLabel">X:</string>

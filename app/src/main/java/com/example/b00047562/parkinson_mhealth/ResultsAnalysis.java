@@ -23,10 +23,20 @@ public class ResultsAnalysis extends AppCompatActivity {
 
         tapresults= new TappingTestFunctions();
 
-        tapresults.runAlgorithm(tapresults.fetchData());   //run algo on arraylist retreived from parse
-        tapresults.displayResults();
 
     }
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        displayData();
+
+    }
+
+     private void displayData()
+    {
+        //tapresults.runAlgorithm(tapresults.fetchData());   //run algo on arraylist retreived from parse
+        //tapresults.displayResults();
+    }
 }

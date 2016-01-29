@@ -32,8 +32,11 @@ public class ParseFunctions {
     private Type type;
 
 
-
-    public ArrayList getParseData(ParseUser user , final int listPointer, final String ... params) //fetch from Parse
+    /*TODO
+          WARNING : this function is returning null objects
+         attempting to fix it
+    */
+    public String getParseData(ParseUser user , final int listPointer, final String ... params) //fetch from Parse
     //0: class name -- 1: orderby String  -- 2: column name
     // user: pointer to ParseUser (use ParseUser.getCurrentUser())
     // you may add additional String parameters as necessary
@@ -48,6 +51,7 @@ public class ParseFunctions {
 
                      result1 = results.get(listPointer).getString(params[2]); // column name goes here ( e.g: "ArrayList") ; listPointer = 0 means get latest row
                      type = new TypeToken<List<String[]>>() {}.getType();
+                     //Log.d("ParseResult",result1.toString());
 
                 } else {
                     Log.d("ParseError", e.getMessage());
@@ -56,7 +60,9 @@ public class ParseFunctions {
             }
 
         });
-        return new Gson().fromJson(result1,type);
+        //return new Gson().fromJson(result1,type);
+        return result1;
+
 
     }
     public void pushParseData(ParseUser user, String ... params) //upload to Parse single row
@@ -69,6 +75,8 @@ public class ParseFunctions {
         ob.put(params[1],params[2]);
         ob.put("username", user.getUsername());
         ob.put("createdBy", user);
+        ob.put("numoftaps",params[3]); //if not using taps just put "" [empty String]
+        ob.put("hand",params[4]);
         //add additional query paramters here if needed ( make sure to also include the params[index] for it ) ...
         ob.saveInBackground();
 
@@ -79,7 +87,7 @@ public class ParseFunctions {
         List<ParseObject> objectlist = new ArrayList<ParseObject>();
         ParseObject ob = new ParseObject(params[0]);
         int i=0;
-        while(i<numofitems)
+        while(i<numofitems)//num of items can only be 2 at the moment - create other custom function for your needs
         {
             try {
                 ob = new ParseObject(params[0]);
@@ -87,6 +95,7 @@ public class ParseFunctions {
                 ob.put("username", ParseUser.getCurrentUser().getUsername());
                 ob.put("createdBy", ParseUser.getCurrentUser());
                 ob.put("position",params[numofitems+(i+2)]); //get remaining parameters
+                ob.put("numoftaps",params[numofitems+(i+4)]);
                 objectlist.add(i++, ob);
             } catch (Exception e) {
                 Log.d("ParseError",e.getMessage());

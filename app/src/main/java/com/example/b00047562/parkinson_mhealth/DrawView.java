@@ -102,6 +102,7 @@ public class DrawView extends View {
                 Spiral.alert.setTextColor(Color.RED);
                 Spiral.alert.setText("KEEP TOUCHING!");
                 drawPath.reset();
+                Spiral.redrawopen.setEnabled(true); // to prevent crashing or redrawing when no data is available - this will updated soon
                 break;
             default:
                 return false;

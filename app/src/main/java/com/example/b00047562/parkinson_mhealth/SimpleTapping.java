@@ -21,13 +21,14 @@ import java.util.List;
 
 public class SimpleTapping extends AppCompatActivity implements View.OnClickListener {
 
-    private Button tap,next;
+    private Button tap,next,left,right;
     private int tapcounter;
     private long previousClickTime;
     private AlphaAnimation alphaDown,alphaUp;
     private TextView avgtimedisp;
     private ArrayList<Long> delaylist;
     private ParseFunctions customParse;
+    private String RL;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,10 +39,14 @@ public class SimpleTapping extends AppCompatActivity implements View.OnClickList
 
         tap=(Button)findViewById(R.id.btn_tap);
         next=(Button)findViewById(R.id.btn_next1);
+        left=(Button)findViewById(R.id.btn_lefthand);
+        right=(Button)findViewById(R.id.btn_righthand);
         avgtimedisp=(TextView)findViewById(R.id.tv_avgtime);
 
         tap.setOnClickListener(this);
         next.setOnClickListener(this);
+        left.setOnClickListener(this);
+        right.setOnClickListener(this);
 
 
         delaylist = new ArrayList<>();
@@ -89,12 +94,22 @@ public class SimpleTapping extends AppCompatActivity implements View.OnClickList
                     avgtimedisp.setText("Average: " + average(delaylist) + " ms");
                     next.setEnabled(true);
                     String json = new Gson().toJson(delaylist);
-                    customParse.pushParseData(ParseUser.getCurrentUser(),"TappingData","ArrayList",json);
+                    customParse.pushParseData(ParseUser.getCurrentUser(),"TappingData","ArrayList",json,Integer.toString(tapcounter),RL);
 
                 }
                 break;
             case R.id.btn_next1:
                 startActivity(new Intent(getApplicationContext(),AlternateTapping.class));
+                break;
+            case R.id.btn_lefthand:
+                right.setEnabled(false);
+                tap.setEnabled(true);
+                RL = "left";
+                break;
+            case R.id.btn_righthand:
+                left.setEnabled(false);
+                tap.setEnabled(true);
+                RL = "right";
                 break;
         }
     }

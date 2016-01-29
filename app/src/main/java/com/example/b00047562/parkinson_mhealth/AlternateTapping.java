@@ -85,7 +85,7 @@ public class AlternateTapping extends AppCompatActivity implements View.OnClickL
                 String json1 = new Gson().toJson(delaylist1);
                 String json2 = new Gson().toJson(delaylist2);
 
-                customParse.pushParseList(ParseUser.getCurrentUser(),2,"TappingData","ArrayList",json1,json2,"Left","Right");
+                customParse.pushParseList(ParseUser.getCurrentUser(),2,"TappingData","ArrayList",json1,json2,"Left","Right",Integer.toString(tapcounter1),Integer.toString(tapcounter2));
 
             }
         }.start();
@@ -96,7 +96,7 @@ public class AlternateTapping extends AppCompatActivity implements View.OnClickL
     protected void onResume() {
         super.onResume();
         tapcounter1 = 0;
-        tapcounter2=0;
+        tapcounter2 = 0;
         delaylist1 = new ArrayList<>();
         delaylist2= new ArrayList<>();
 
