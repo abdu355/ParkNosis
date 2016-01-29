@@ -19,9 +19,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 import org.achartengine.ChartFactory;
@@ -30,11 +27,7 @@ import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.model.XYSeries;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
-import org.json.JSONArray;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 
@@ -51,7 +44,7 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
     private LinearLayout SensorGraph;
     private ArrayList<AccelData> sensorData;
     private View mChart;
-    private Button BtnShowGraph, BtnReadAccel;
+    private Button BtnShowGraph, BtnReadAccel, BtnShowAnalysis;
     private ParseFunctions customParse; //for custom parse functions from ParseFunctions class
     //private int i=0;
 
@@ -80,12 +73,17 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
 
         SensorGraph = (LinearLayout) findViewById(R.id.Layout_Graph_Container);
         sensorData = new ArrayList();
-        BtnShowGraph = (Button) findViewById(R.id.BtnReadGraph);
-        BtnReadAccel = (Button) findViewById(R.id.show_btn);
-        BtnShowGraph.setOnClickListener(this);
-        BtnReadAccel.setOnClickListener(this);
 
-        BtnReadAccel.setEnabled(false);
+        BtnReadAccel = (Button) findViewById(R.id.read_btn);
+        BtnShowGraph = (Button) findViewById(R.id.show_btn);
+        BtnShowAnalysis = (Button) findViewById(R.id.analysis_btn);
+
+        BtnReadAccel.setOnClickListener(this);
+        BtnShowGraph.setOnClickListener(this);
+        BtnShowAnalysis.setOnClickListener(this);
+
+        BtnShowGraph.setEnabled(false);
+        BtnShowAnalysis.setEnabled(false);
 
         //Get SensorManager and accelerometer
         MySensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -202,15 +200,17 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.BtnReadGraph:
+            case R.id.read_btn:
                 sensorData = new ArrayList();
-                BtnShowGraph.setEnabled(false);
-                BtnReadAccel.setEnabled(true);
-                //openChart();
+                BtnReadAccel.setEnabled(false);
+                BtnShowGraph.setEnabled(true);
+                BtnShowAnalysis.setEnabled(false);
                 break;
             case R.id.show_btn:
-                BtnShowGraph.setEnabled(true);
-                BtnReadAccel.setEnabled(false);
+                BtnReadAccel.setEnabled(true);
+                BtnShowGraph.setEnabled(false);
+                BtnShowAnalysis.setEnabled(true);
+
                 SensorGraph.removeAllViews(); //reset graph
                 //push accel data to Parse
                 String json = new Gson().toJson(sensorData);
@@ -225,6 +225,11 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
                  */
                 customParse.pushParseData(ParseUser.getCurrentUser(),"AccelData","ArrayList",json); //user pointer
                 openChart();
+                break;
+            case R.id.analysis_btn:
+                /*TODO
+                Intent and go to new activity
+                */
                 break;
         }
     }

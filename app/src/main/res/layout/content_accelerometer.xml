@@ -101,15 +101,28 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/BtnShowGraph"
-            android:id="@+id/BtnReadGraph" />
+            android:text="@string/read_btn"
+            android:id="@+id/read_btn" />
 
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/show_btn"
-            android:id="@+id/show_btn"
-            android:layout_gravity="center_horizontal" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/show_btn"
+                android:id="@+id/show_btn"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/analysis_btn"
+                android:layout_weight="1"
+                android:text="@string/analysis_btn" />
+        </TableRow>
 
         <LinearLayout
             android:orientation="vertical"
