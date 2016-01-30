@@ -14,7 +14,7 @@ public class TappingTestFunctions {
     private ParseFunctions customParse;
     //shared vars
     private String hand;
-    private String array;
+    //private String array;
     private long delay;
 
     //alternate tapping vars
@@ -28,9 +28,9 @@ public class TappingTestFunctions {
     public ArrayList fetchData() {
         customParse = new ParseFunctions();
         rightfingerarr = new ArrayList<>();
-        array =  customParse.getParseData(ParseUser.getCurrentUser(),0,"TappingData","createdAt","ArrayList");
+        rightfingerarr =  customParse.getParseData(ParseUser.getCurrentUser(),0,"TappingData","createdAt","ArrayList");
 
-        Log.d("TappingTest",array);
+        Log.d("TappingTest",rightfingerarr.toString());
 
         return new ArrayList();
     }

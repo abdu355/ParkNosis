@@ -36,7 +36,7 @@ public class ResultsAnalysis extends AppCompatActivity {
 
      private void displayData()
     {
-        //tapresults.runAlgorithm(tapresults.fetchData());   //run algo on arraylist retreived from parse
-        //tapresults.displayResults();
+        tapresults.runAlgorithm(tapresults.fetchData());   //run algo on arraylist retreived from parse
+        tapresults.displayResults();
     }
 }

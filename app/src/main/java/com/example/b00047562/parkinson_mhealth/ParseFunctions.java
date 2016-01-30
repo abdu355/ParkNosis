@@ -28,15 +28,10 @@ import java.util.List;
         ...
   */
 public class ParseFunctions {
-    private String result1; // add more results as necessary
+    public String result1; // add more results as necessary
     private Type type;
 
-
-    /*TODO
-          WARNING : this function is returning null objects
-         attempting to fix it
-    */
-    public String getParseData(ParseUser user , final int listPointer, final String ... params) //fetch from Parse
+    public ArrayList<Long> getParseData(ParseUser user , final int listPointer, final String ... params) //fetch from Parse
     //0: class name -- 1: orderby String  -- 2: column name
     // user: pointer to ParseUser (use ParseUser.getCurrentUser())
     // you may add additional String parameters as necessary
@@ -45,7 +40,17 @@ public class ParseFunctions {
         query.whereEqualTo("createdBy", user);
         query.orderByDescending(params[1]); //typically order by date to get latest data string
         //add additional query paramters here if needed ( make sure to also include the params[index] for it ) ...
-        query.findInBackground(new FindCallback<ParseObject>() {
+        try {
+            List<ParseObject> results = query.find();
+            result1 = results.get(listPointer).getString(params[2]);
+            type = new TypeToken<ArrayList<Long>>() {}.getType();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return new Gson().fromJson(result1,type);
+        //return result1;
+         /*query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> results, ParseException e) {
                 if (e == null) {
 
@@ -59,10 +64,7 @@ public class ParseFunctions {
 
             }
 
-        });
-        //return new Gson().fromJson(result1,type);
-        return result1;
-
+        });*/
 
     }
     public void pushParseData(ParseUser user, String ... params) //upload to Parse single row
