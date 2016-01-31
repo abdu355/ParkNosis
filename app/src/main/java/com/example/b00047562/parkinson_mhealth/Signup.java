@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -27,7 +29,10 @@ public class Signup extends ActionBarActivity {
     protected EditText passwordEditText;
     protected EditText emailEditText;
     protected EditText dobEditText;
+    protected RadioGroup gender, domhand;
+    protected RadioButton male,female,lh,rh;
     protected Button signUpButton;
+    private String genderselection,domhandselection;
 
 
     @Override
@@ -47,27 +52,64 @@ public class Signup extends ActionBarActivity {
         emailEditText = (EditText)findViewById(R.id.et_email);
         signUpButton = (Button)findViewById(R.id.btn_sign);
         dobEditText = (EditText)findViewById(R.id.et_dob);
+        gender = (RadioGroup)findViewById(R.id.gender);
+        domhand=(RadioGroup)findViewById(R.id.domhand);
+        male = (RadioButton)findViewById(R.id.radioButton_male);
+        female = (RadioButton)findViewById(R.id.radioButton_female);
+        rh=(RadioButton)findViewById(R.id.radioButton_rh);
+        lh= (RadioButton)findViewById(R.id.radioButton_lh);
+        genderselection="Male";
+        domhandselection="Right Handed";
 
+
+        gender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // find which radio button is selected
+                if(checkedId == R.id.radioButton_male) {
+                    genderselection = male.getText().toString();
+                }
+                else{
+                    genderselection = female.getText().toString();
+                }
+            }
+
+        });
+        domhand.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener(){
+
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if(checkedId==R.id.radioButton_rh)
+                {
+                    domhandselection=rh.getText().toString();
+                }
+                else{
+                    domhandselection=lh.getText().toString();
+                }
+            }
+        });
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String username = usernameEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
                 String email = emailEditText.getText().toString();
+                String dob = dobEditText.getText().toString();
+
 
                 username = username.trim();
                 password = password.trim();
                 email = email.trim();
 
-                if (username.isEmpty() || password.isEmpty() || email.isEmpty()) {
+                if (username.isEmpty() || password.isEmpty() || email.isEmpty() || dob.isEmpty()) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(Signup.this);
                     builder.setMessage(R.string.signup_error_message)
                             .setTitle(R.string.signup_error_title)
                             .setPositiveButton(android.R.string.ok, null);
                     AlertDialog dialog = builder.create();
                     dialog.show();
-                }
-                else {
+                } else {
                     //setProgressBarIndeterminateVisibility(true);
 
                     ParseUser newUser = new ParseUser();//create new user data
@@ -75,6 +117,8 @@ public class Signup extends ActionBarActivity {
                     newUser.setPassword(password);
                     newUser.setEmail(email);
                     newUser.put("DOB", dobEditText.getText().toString());
+                    newUser.put("Gender", genderselection);
+                    newUser.put("DomHand" ,domhandselection);
 
                     //newUser.pinInBackground();
                     newUser.signUpInBackground(new SignUpCallback() {
@@ -88,8 +132,7 @@ public class Signup extends ActionBarActivity {
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
-                            }
-                            else {
+                            } else {
                                 try {
                                     AlertDialog.Builder builder = new AlertDialog.Builder(Signup.this);
                                     builder.setMessage(e.getMessage())

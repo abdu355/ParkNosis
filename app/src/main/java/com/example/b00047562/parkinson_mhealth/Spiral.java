@@ -20,6 +20,7 @@ import android.widget.Toast;
 public class Spiral extends AppCompatActivity implements  View.OnClickListener {
 
     public static Button redrawopen;
+
     private DrawView myview;
     public static TextView alert;
 

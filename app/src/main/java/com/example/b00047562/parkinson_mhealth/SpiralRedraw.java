@@ -10,6 +10,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.google.gson.Gson;
+import com.parse.ParseUser;
+
 import org.achartengine.ChartFactory;
 import org.achartengine.chart.PointStyle;
 import org.achartengine.model.XYMultipleSeriesDataset;
@@ -23,7 +26,8 @@ public class SpiralRedraw extends AppCompatActivity implements View.OnClickListe
 
     private LinearLayout SpiralGraph;
     private View sChart;
-    private Button BtnShowSpiral;
+    private Button BtnShowSpiral,upload;
+    private ParseFunctions customParse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +39,11 @@ public class SpiralRedraw extends AppCompatActivity implements View.OnClickListe
 
         SpiralGraph = (LinearLayout) findViewById(R.id.spirallinearlayout);
         BtnShowSpiral= (Button)findViewById(R.id.btn_drawspiral);
+        upload=(Button)findViewById(R.id.btn_upload);
 
         BtnShowSpiral.setOnClickListener(this);
+        upload.setOnClickListener(this);
+        customParse = new ParseFunctions();
 
     }
 
@@ -45,6 +52,10 @@ public class SpiralRedraw extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.btn_drawspiral:
                 openChart(DrawView.spiralData);
+                break;
+            case R.id.btn_upload:
+                String json = new Gson().toJson(DrawView.spiralData);
+                customParse.pushParseData(ParseUser.getCurrentUser(),"SpiralData","ArrayList",json,"","");
                 break;
         }
     }

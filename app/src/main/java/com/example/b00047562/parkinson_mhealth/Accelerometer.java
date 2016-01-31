@@ -223,7 +223,7 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
                 /*TODO
                 instead of using all these lines of code above use this line below:
                  */
-                customParse.pushParseData(ParseUser.getCurrentUser(),"AccelData","ArrayList",json); //user pointer
+                customParse.pushParseData(ParseUser.getCurrentUser(),"AccelData","ArrayList",json,"",""); //user pointer
                 openChart();
                 break;
             case R.id.analysis_btn:
