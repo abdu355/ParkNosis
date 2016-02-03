@@ -21,5 +21,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" exported="" name="achartengine-1.0.0.achartengine-1.0.0" level="project" />
   </component>
 </module>

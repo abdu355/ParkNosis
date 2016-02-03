@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="fill_parent"
+    android:layout_height="fill_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/activity_main" tools:context=".MainActivity">
+    tools:showIn="@layout/activity_main" tools:context=".MainActivity"
+    android:background="@drawable/rsz_1abswall1"
+    android:clickable="false">
 
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/acc_btn"
         android:id="@+id/acc_btn"
-        android:layout_centerHorizontal="true" />
+        android:layout_toEndOf="@+id/imageView"
+        android:background="@drawable/btnstyleround"
+        android:allowUndo="false"
+        android:layout_marginTop="10dp" />
 
     <Button
         android:layout_width="fill_parent"
@@ -22,7 +27,10 @@
         android:text="@string/spiral_btn"
         android:id="@+id/spiral_btn"
         android:layout_below="@+id/acc_btn"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignStart="@+id/acc_btn"
+        android:background="@drawable/btnstyleround2"
+        android:allowUndo="false"
+        android:layout_marginTop="10dp" />
 
     <Button
         android:layout_width="fill_parent"
@@ -30,7 +38,10 @@
         android:text="@string/taptest_btn"
         android:id="@+id/btn_tap_main"
         android:layout_below="@+id/spiral_btn"
-        android:layout_centerHorizontal="true" />
+        android:layout_toEndOf="@+id/imageView"
+        android:background="@drawable/btnstyleround3"
+        android:allowUndo="false"
+        android:layout_marginTop="10dp" />
 
     <Button
         android:layout_width="fill_parent"
@@ -39,7 +50,9 @@
         android:id="@+id/btn_usrinfo_main"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="62dp" />
+        android:layout_marginBottom="62dp"
+        android:background="@drawable/btnstyleround4"
+        android:layout_marginTop="10dp" />
 
     <Button
         android:layout_width="fill_parent"
@@ -47,6 +60,35 @@
         android:text="@string/results_btn"
         android:id="@+id/btn_resultsmain"
         android:layout_above="@+id/btn_usrinfo_main"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/btnstyleround4"
+        android:layout_marginTop="10dp" />
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/imageView"
+        android:src="@drawable/handtremor"
+        android:scaleType="fitXY"
+        android:layout_above="@+id/spiral_btn"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/imageView2"
+        android:src="@drawable/spiralicon3"
+        android:scaleType="fitXY"
+        android:layout_above="@+id/btn_tap_main"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/imageView3"
+        android:src="@drawable/tapping5"
+        android:scaleType="fitXY"
+        android:layout_alignBottom="@+id/btn_tap_main"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

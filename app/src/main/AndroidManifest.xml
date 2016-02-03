@@ -20,6 +20,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,14 +30,17 @@
         <activity
             android:name=".Accelerometer"
             android:label="@string/title_activity_accelerometer"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Spiral"
             android:label="@string/title_activity_spiral"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SpiralRedraw"
             android:label="@string/title_activity_spiral_redraw"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Login"
@@ -45,6 +49,7 @@
         <activity
             android:name=".Signup"
             android:label="@string/title_activity_signup"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -53,18 +58,22 @@
         <activity
             android:name=".UserInfo"
             android:label="@string/title_activity_user_info"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SimpleTapping"
             android:label="@string/title_activity_tap_ui"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AlternateTapping"
             android:label="@string/title_activity_alternate_tapping"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ResultsAnalysis"
             android:label="@string/title_activity_results_analysis"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <service android:name=".ListenerServiceFromWear">
             <intent-filter>
