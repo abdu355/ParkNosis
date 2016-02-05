@@ -2,9 +2,6 @@ package com.example.b00047562.parkinson_mhealth;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.speech.SpeechRecognizer;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -16,7 +13,7 @@ import com.parse.ParseUser;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button acc_btn,spiral_btn,usrinfo_btn,tap_btn,results;
+    private Button quest_btn,acc_btn,spiral_btn,usrinfo_btn,tap_btn,results;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,12 +21,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        quest_btn=(Button)findViewById(R.id.quest_btn);
         acc_btn=(Button)findViewById(R.id.acc_btn);
         spiral_btn=(Button)findViewById(R.id.spiral_btn);
         usrinfo_btn=(Button)findViewById(R.id.btn_usrinfo_main);
         tap_btn=(Button)findViewById(R.id.btn_tap_main);
         results=(Button)findViewById(R.id.btn_resultsmain); // display results activity button
 
+        quest_btn.setOnClickListener(this);
         acc_btn.setOnClickListener(this);
         spiral_btn.setOnClickListener(this);
         usrinfo_btn.setOnClickListener(this);
@@ -78,6 +77,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch(v.getId())
         {
 
+            case R.id.quest_btn:
+                this.startActivity(  new Intent(this,Questionnaire.class));
+                break;
             case R.id.acc_btn:
                 this.startActivity(  new Intent(this,Accelerometer.class));
                 break;

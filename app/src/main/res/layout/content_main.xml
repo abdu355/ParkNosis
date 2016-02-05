@@ -19,7 +19,7 @@
         android:layout_toEndOf="@+id/imageView"
         android:background="@drawable/btnstyleround"
         android:allowUndo="false"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="60dp" />
 
     <Button
         android:layout_width="fill_parent"
@@ -42,6 +42,17 @@
         android:background="@drawable/btnstyleround3"
         android:allowUndo="false"
         android:layout_marginTop="10dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_quest"
+        android:id="@+id/quest_btn"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/imageView"
+        android:background="@drawable/btnstyleround5"
+        android:layout_marginTop="3dp" />
 
     <Button
         android:layout_width="fill_parent"
@@ -71,7 +82,8 @@
         android:src="@drawable/handtremor"
         android:scaleType="fitXY"
         android:layout_above="@+id/spiral_btn"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="50dp" />
 
     <ImageView
         android:layout_width="50dp"
@@ -90,5 +102,15 @@
         android:scaleType="fitXY"
         android:layout_alignBottom="@+id/btn_tap_main"
         android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/imageView4"
+        android:src="@drawable/questicon"
+        android:scaleType="fitXY"
+        android:layout_alignTop="@+id/quest_btn"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="-2dp" />
 
 </RelativeLayout>
