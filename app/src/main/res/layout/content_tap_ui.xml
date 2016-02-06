@@ -10,7 +10,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.b00047562.parkinson_mhealth.TapUI"
-    tools:showIn="@layout/activity_tap_ui">
+    tools:showIn="@layout/activity_tap_ui"
+    android:background="@color/background_material_dark">
 
     <Button
         android:layout_width="200dp"
@@ -29,7 +30,8 @@
         android:text="Time between taps will be calculated"
         android:id="@+id/textView"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textColor="#ffffff" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -79,5 +81,16 @@
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="60dp"
-        android:gravity="center_vertical|center_horizontal" />
+        android:gravity="center_vertical|center_horizontal"
+        android:textColor="#ffffff" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Total Taps:10"
+        android:id="@+id/textView23"
+        android:layout_below="@+id/btn_tap"
+        android:layout_centerHorizontal="true"
+        android:textColor="#ffffff" />
 </RelativeLayout>

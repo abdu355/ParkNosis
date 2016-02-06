@@ -114,7 +114,7 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
 
         t.start();
 
-        customParse = new ParseFunctions(); //initialized
+        customParse = new ParseFunctions(getApplicationContext()); //initialized
     }
 
     @Override
@@ -172,9 +172,9 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
                     lasty = ay;
                     lastz = az;
                 }
-                String x = String.format("%2f", ax);
-                String y = String.format("%2f", ay);
-                String z = String.format("%2f", az);
+                String x = String.format("%.1f", ax);
+                String y = String.format("%.1f", ay);
+                String z = String.format("%.1f", az);
                 //change display values
                 txtXValue.setText(x);
                 txtYValue.setText(y);

@@ -43,7 +43,7 @@ public class SpiralRedraw extends AppCompatActivity implements View.OnClickListe
 
         BtnShowSpiral.setOnClickListener(this);
         upload.setOnClickListener(this);
-        customParse = new ParseFunctions();
+        customParse = new ParseFunctions(getApplicationContext());
 
     }
 

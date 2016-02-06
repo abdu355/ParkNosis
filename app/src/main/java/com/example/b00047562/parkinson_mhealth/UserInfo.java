@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,7 +22,7 @@ import java.text.ParseException;
 
 public class UserInfo extends AppCompatActivity {
 
-    private TextView name,email,gender,dob;
+    private TextView name,email,gender,dob,domhand;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +34,7 @@ public class UserInfo extends AppCompatActivity {
         email=(TextView)findViewById(R.id.tv_emailusrinfo);
         dob=(TextView)findViewById(R.id.tv_dobusrinfo);
         gender=(TextView)findViewById(R.id.tv_genusrinfo);
+        domhand=(TextView)findViewById(R.id.tv_domhand);
 
         ParseUser currentUser = ParseUser.getCurrentUser();
 
@@ -43,9 +45,9 @@ public class UserInfo extends AppCompatActivity {
                 email.setText(currentUser.getEmail());
                 dob.setText(currentUser.getString("DOB"));
                 gender.setText(currentUser.getString("Gender"));
+                domhand.setText(currentUser.getString("DomHand"));
             } catch (ParcelFormatException e) {
-                e.printStackTrace();
-
+                Log.d("ParseError", e.getMessage());
             }
         } else {
 

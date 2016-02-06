@@ -12,13 +12,14 @@ import java.util.ArrayList;
 public class TappingTestFunctions {
 
     private ParseFunctions customParse;
+    private SimpleTapping tap;
     //shared vars
     private String hand;
     //private String array;
     private long delay;
 
     //alternate tapping vars
-    private long timegiven = 5000;
+    private long timegiven = 20*1000;
     private ArrayList<Long> leftfingerarr;
     private ArrayList<Long> rightfingerarr;
     private long delayleftfinger;
@@ -26,9 +27,11 @@ public class TappingTestFunctions {
 
 
     public ArrayList fetchData() {
-        customParse = new ParseFunctions();
+        tap = new SimpleTapping();
+        customParse = new ParseFunctions(tap.getApplication());
         rightfingerarr = new ArrayList<>();
         rightfingerarr =  customParse.getParseData(ParseUser.getCurrentUser(),0,"TappingData","createdAt","ArrayList");
+        //0: right finger , 1:left finger, 2:simple tapping results
 
         Log.d("TappingTest",rightfingerarr.toString());
 

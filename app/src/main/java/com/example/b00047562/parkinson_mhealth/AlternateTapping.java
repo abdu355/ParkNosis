@@ -58,12 +58,12 @@ public class AlternateTapping extends AppCompatActivity implements View.OnClickL
         btn1.setOnClickListener(this);
         btn2.setOnClickListener(this);
         start.setOnClickListener(this);
-        customParse= new ParseFunctions();
+        customParse= new ParseFunctions(getApplicationContext());
 
 
     }
     private void startTimer() {
-        countDownTimer = new CountDownTimer(5*1000, 500) {
+        countDownTimer = new CountDownTimer(20*1000, 500) {
 
             @Override
             public void onTick(long leftTimeInMilliseconds) {

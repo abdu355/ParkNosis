@@ -10,7 +10,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.b00047562.parkinson_mhealth.Questionnaire"
-    tools:showIn="@layout/activity_questionnaire">
+    tools:showIn="@layout/activity_questionnaire"
+    android:background="@android:drawable/alert_light_frame">
 
     <ScrollView
         android:layout_width="fill_parent"

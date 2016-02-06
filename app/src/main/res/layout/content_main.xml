@@ -19,7 +19,8 @@
         android:layout_toEndOf="@+id/imageView"
         android:background="@drawable/btnstyleround"
         android:allowUndo="false"
-        android:layout_marginTop="60dp" />
+        android:layout_marginTop="60dp"
+        android:layout_marginRight="60dp" />
 
     <Button
         android:layout_width="fill_parent"
@@ -30,7 +31,8 @@
         android:layout_alignStart="@+id/acc_btn"
         android:background="@drawable/btnstyleround2"
         android:allowUndo="false"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="60dp" />
 
     <Button
         android:layout_width="fill_parent"
@@ -41,10 +43,11 @@
         android:layout_toEndOf="@+id/imageView"
         android:background="@drawable/btnstyleround3"
         android:allowUndo="false"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="60dp" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/btn_quest"
         android:id="@+id/quest_btn"
@@ -52,7 +55,8 @@
         android:layout_alignParentEnd="true"
         android:layout_toEndOf="@+id/imageView"
         android:background="@drawable/btnstyleround5"
-        android:layout_marginTop="3dp" />
+        android:layout_marginTop="3dp"
+        android:layout_marginRight="60dp" />
 
     <Button
         android:layout_width="fill_parent"
@@ -73,7 +77,8 @@
         android:layout_above="@+id/btn_usrinfo_main"
         android:layout_centerHorizontal="true"
         android:background="@drawable/btnstyleround4"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:enabled="false" />
 
     <ImageView
         android:layout_width="50dp"
@@ -112,5 +117,37 @@
         android:layout_alignTop="@+id/quest_btn"
         android:layout_alignParentStart="true"
         android:layout_marginTop="-2dp" />
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/iv_test1stat"
+        android:scaleType="fitXY"
+        android:layout_alignTop="@+id/quest_btn"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/iv_test2stat"
+        android:scaleType="fitXY"
+        android:layout_alignTop="@+id/imageView"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/iv_test3stat"
+        android:scaleType="fitXY"
+        android:layout_alignBottom="@+id/spiral_btn"
+        android:layout_alignStart="@+id/iv_test2stat" />
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/iv_test4stat"
+        android:scaleType="fitXY"
+        android:layout_alignTop="@+id/btn_tap_main"
+        android:layout_alignStart="@+id/iv_test3stat" />
 
 </RelativeLayout>

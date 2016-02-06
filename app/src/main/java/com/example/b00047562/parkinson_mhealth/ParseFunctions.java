@@ -1,5 +1,6 @@
 package com.example.b00047562.parkinson_mhealth;
 
+import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -30,6 +31,11 @@ import java.util.List;
 public class ParseFunctions {
     public String result1; // add more results as necessary
     private Type type;
+    private Context context;
+    public ParseFunctions(Context c)
+    {
+        context=c;
+    }
 
     public ArrayList<Long> getParseData(ParseUser user , final int listPointer, final String ... params) //fetch from Parse
     //0: class name -- 1: orderby String  -- 2: column name
@@ -72,20 +78,27 @@ public class ParseFunctions {
     // user: pointer to ParseUser (use ParseUser.getCurrentUser())
     //you may add additional String parameters as necessary
     {
+        try {
 
-        ParseObject ob = new ParseObject(params[0]);
-        ob.put(params[1],params[2]);
-        ob.put("username", user.getUsername());
-        ob.put("createdBy", user);
-        ob.put("numoftaps",params[3]); //if not using taps just put "" [empty String]
-        ob.put("hand",params[4]);
-        //add additional query paramters here if needed ( make sure to also include the params[index] for it ) ...
-        ob.saveInBackground();
+            ParseObject ob = new ParseObject(params[0]);
+            ob.put(params[1],params[2]);
+            ob.put("username", user.getUsername());
+            ob.put("createdBy", user);
+            ob.put("numoftaps",params[3]); //if not using taps just put "" [empty String]
+            ob.put("hand",params[4]);
+            //add additional query paramters here if needed ( make sure to also include the params[index] for it ) ...
+            ob.saveInBackground();
+            Toast.makeText(context, "Data uploaded to Parse",Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Log.d("ParseError", e.getMessage());
+            Toast.makeText(context, "Data upload fail",Toast.LENGTH_SHORT).show();
+        }
 
     }
 
     public void pushParseList(ParseUser user, int numofitems, String ... params) //upload to Parse multiple rows - used for tapping test currently
     {
+
         List<ParseObject> objectlist = new ArrayList<ParseObject>();
         ParseObject ob = new ParseObject(params[0]);
         int i=0;
@@ -99,8 +112,10 @@ public class ParseFunctions {
                 ob.put("position",params[numofitems+(i+2)]); //get remaining parameters
                 ob.put("numoftaps",params[numofitems+(i+4)]);
                 objectlist.add(i++, ob);
+                Toast.makeText(context, "Data uploaded to Parse",Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
                 Log.d("ParseError",e.getMessage());
+                Toast.makeText(context, "Data upload fail",Toast.LENGTH_SHORT).show();
             }
         }
         ob.saveAllInBackground(objectlist);

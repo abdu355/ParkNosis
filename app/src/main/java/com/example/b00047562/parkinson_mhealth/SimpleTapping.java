@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.parse.ParseUser;
@@ -50,7 +51,7 @@ public class SimpleTapping extends AppCompatActivity implements View.OnClickList
 
 
         delaylist = new ArrayList<>();
-        customParse= new ParseFunctions();
+        customParse= new ParseFunctions(getApplicationContext());
     }
 
     @Override
@@ -95,6 +96,7 @@ public class SimpleTapping extends AppCompatActivity implements View.OnClickList
                     next.setEnabled(true);
                     String json = new Gson().toJson(delaylist);
                     customParse.pushParseData(ParseUser.getCurrentUser(),"TappingData","ArrayList",json,Integer.toString(tapcounter),RL);
+
 
                 }
                 break;
