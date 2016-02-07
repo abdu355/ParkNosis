@@ -56,6 +56,7 @@
     <string name="title_activity_questionnaire">Questionnaire</string>
     <string name="quest1_title">Question X</string>
     <string name="tv_domhandinfo" />
+    <string name="about_label">About</string>
 
 
 </resources>

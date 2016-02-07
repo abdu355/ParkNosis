@@ -1,6 +1,7 @@
 package com.example.b00047562.parkinson_mhealth;
 
 import android.app.Application;
+import android.content.Intent;
 
 import com.parse.Parse;
 import com.parse.ParseObject;
@@ -23,5 +24,6 @@ public class ParseApp extends Application {
         // ParseObject testObject = new ParseObject("TestObject");
         // testObject.put("object1","Spiral");
         // testObject.saveInBackground();
+        startService(new Intent(getApplicationContext(),ListenerServiceFromWear.class));
     }
 }

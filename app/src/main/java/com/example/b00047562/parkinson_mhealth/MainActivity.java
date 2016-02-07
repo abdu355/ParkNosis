@@ -1,19 +1,26 @@
 package com.example.b00047562.parkinson_mhealth;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.parse.ParseUser;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button quest_btn,acc_btn,spiral_btn,usrinfo_btn,tap_btn,results;
+    private Spanned email_about= Html.fromHtml("<a href=\"hello.sah802@gmail.com\">hello.sah802@gmail.com</a>");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +74,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         {
                 ParseUser.logOut();//update Parse current user
                 loadLoginView();//load login activity
+        }
+        if(id==R.id.action_about)
+        {
+            AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+            alertDialog.setTitle("About");
+            alertDialog.setMessage("American University of Sharjah\nSenior Design Project created By:\nAbdulwahab Sahyoun\nKarim Chehab\nOsama Al Madani\n\nAdvisors:\nFadi Aloul\nAssim Sagahyroon\n\nFor more details contact:\n" + email_about);
+            alertDialog.setIcon(R.mipmap.brain48);
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.show();
+            ((TextView)alertDialog.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
         }
 
         return super.onOptionsItemSelected(item);
