@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-
+//kaka
 public class DrawView extends View {
     //drawing path
     private Path drawPath;
@@ -34,6 +34,7 @@ public class DrawView extends View {
     private TextPaint mTextPaint;
     private float mTextWidth;
     private float mTextHeight;
+
 
     //usable by SpiralRedraw
     public static ArrayList<SpiralData> spiralData;
@@ -51,7 +52,7 @@ public class DrawView extends View {
         drawPaint.setColor(paintColor);
 
         drawPaint.setAntiAlias(true);
-        drawPaint.setStrokeWidth(20);
+        drawPaint.setStrokeWidth(10);
         drawPaint.setStyle(Paint.Style.STROKE);
         drawPaint.setStrokeJoin(Paint.Join.ROUND);
         drawPaint.setStrokeCap(Paint.Cap.ROUND);

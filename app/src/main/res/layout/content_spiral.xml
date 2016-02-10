@@ -50,9 +50,10 @@
             android:layout_weight="1" />
         <ImageView
             android:id="@+id/outside_imageview"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType="center"
+            android:paddingTop="20dp"
             android:src="@drawable/spiral"
             android:contentDescription="@string/spiral2"
             android:layout_marginTop="-400dp"
