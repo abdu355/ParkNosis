@@ -1,6 +1,8 @@
 package com.example.b00047562.parkinson_mhealth;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -25,7 +27,7 @@ import java.util.List;
 public class AlternateTapping extends AppCompatActivity implements View.OnClickListener {
 
     private long previousClickTime,previousClickTime2;
-    private Button btn1,btn2,start;
+    private Button btn1,btn2,start,next;
     private int tapcounter1,tapcounter2;
     private CountDownTimer countDownTimer;
     private ParseFunctions customParse;
@@ -49,6 +51,7 @@ public class AlternateTapping extends AppCompatActivity implements View.OnClickL
 
         btn1=(Button)findViewById(R.id.alttap_btn1);
         btn2=(Button)findViewById(R.id.alttap_btn2);
+        next=(Button)findViewById(R.id.btn_next2);
         start=(Button)findViewById(R.id.start_btn);
         barTimer=(ProgressBar)findViewById(R.id.progressBar_alttap);
         time1=(TextView)findViewById(R.id.tv_time1);
@@ -58,8 +61,10 @@ public class AlternateTapping extends AppCompatActivity implements View.OnClickL
         btn1.setOnClickListener(this);
         btn2.setOnClickListener(this);
         start.setOnClickListener(this);
+        next.setOnClickListener(this);
         customParse= new ParseFunctions(getApplicationContext());
 
+        barTimer.getProgressDrawable().setColorFilter(Color.parseColor("#FF4081"), PorterDuff.Mode.SRC_IN);
 
     }
     private void startTimer() {
@@ -77,7 +82,7 @@ public class AlternateTapping extends AppCompatActivity implements View.OnClickL
                 btn1.setEnabled(false);
                 btn2.setEnabled(false);
                 //next test enable btn (add here)
-
+                next.setEnabled(true);
                 //display avg times
                 time1.setText("Avg: "+String.format("%.1f", average(delaylist1))+" ms");
                 time2.setText("Avg: "+String.format("%.1f", average(delaylist2))+" ms");
@@ -102,6 +107,7 @@ public class AlternateTapping extends AppCompatActivity implements View.OnClickL
 
         btn1.setEnabled(false);
         btn2.setEnabled(false);
+        next.setEnabled(false);
     }
 
     @Override
@@ -154,6 +160,9 @@ public class AlternateTapping extends AppCompatActivity implements View.OnClickL
                     //btn2.setBackgroundColor(Color.parseColor("#FFDCEDC8"));
                 }
                 previousClickTime2 = temp2;
+                break;
+            case R.id.btn_next2:
+                startActivity(new Intent(getApplicationContext(),InvolMovement.class));
                 break;
         }
 

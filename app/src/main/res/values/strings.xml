@@ -57,6 +57,7 @@
     <string name="quest1_title">Question X</string>
     <string name="tv_domhandinfo" />
     <string name="about_label">About</string>
+    <string name="title_activity_invol_movement">InvolMovement</string>
 
 
 </resources>
