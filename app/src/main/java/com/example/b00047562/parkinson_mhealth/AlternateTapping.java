@@ -64,7 +64,7 @@ public class AlternateTapping extends AppCompatActivity implements View.OnClickL
         next.setOnClickListener(this);
         customParse= new ParseFunctions(getApplicationContext());
 
-        barTimer.getProgressDrawable().setColorFilter(Color.parseColor("#FF4081"), PorterDuff.Mode.SRC_IN);
+        //barTimer.getProgressDrawable().setColorFilter(Color.parseColor("#FF4081"), PorterDuff.Mode.SRC_IN);
 
     }
     private void startTimer() {

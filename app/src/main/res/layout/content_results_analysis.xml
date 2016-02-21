@@ -46,7 +46,8 @@
                     android:id="@+id/textView11"
                     android:layout_weight="1"
                     android:textStyle="bold"
-                    android:gravity="center_horizontal" />
+                    android:gravity="center_horizontal"
+                    android:layout_marginRight="20dp" />
             </LinearLayout>
         </TableRow>
 
@@ -77,7 +78,8 @@
                     android:id="@+id/textView5"
                     android:layout_weight="1"
                     android:layout_gravity="center"
-                    android:gravity="right" />
+                    android:gravity="right"
+                    android:layout_marginRight="35dp" />
             </LinearLayout>
         </TableRow>
 
@@ -108,7 +110,8 @@
                     android:id="@+id/textView7"
                     android:layout_weight="1"
                     android:layout_gravity="center"
-                    android:gravity="right" />
+                    android:gravity="right"
+                    android:layout_marginRight="35dp" />
             </LinearLayout>
         </TableRow>
 
@@ -139,7 +142,8 @@
                     android:id="@+id/textView9"
                     android:layout_weight="1"
                     android:layout_gravity="center"
-                    android:gravity="right" />
+                    android:gravity="right"
+                    android:layout_marginRight="35dp" />
             </LinearLayout>
 
         </TableRow>
@@ -168,9 +172,9 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="UPW scale result"
                     android:id="@+id/textView14"
-                    android:layout_weight="1"
-                    android:layout_gravity="center"
-                    android:gravity="right" />
+                    android:layout_weight="0.56"
+                    android:gravity="right"
+                    android:layout_marginRight="35dp" />
 
             </LinearLayout>
         </TableRow>
@@ -189,7 +193,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Extra Info"
-                    android:id="@+id/textView12"
+                    android:id="@+id/tv_question_extra"
                     android:gravity="center_vertical|center_horizontal"
                     android:layout_weight="1"
                     android:layout_gravity="center" />

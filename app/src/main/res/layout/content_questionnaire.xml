@@ -51,26 +51,33 @@
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="New RadioButton"
-                            android:id="@+id/radioButton" />
+                            android:text="@string/radio_ans1"
+                            android:id="@+id/radioButton"
+                            android:checked="false" />
 
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="New RadioButton"
+                            android:text="@string/radio_ans2"
                             android:id="@+id/radioButton2" />
 
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="New RadioButton"
+                            android:text="@string/radio_ans3"
                             android:id="@+id/radioButton3" />
 
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="New RadioButton"
+                            android:text="@string/radio_ans4"
                             android:id="@+id/radioButton4" />
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/radio_ans5"
+                            android:id="@+id/radioButton29" />
                     </RadioGroup>
                 </TableRow>
 
@@ -82,7 +89,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/quest1_title"
+                        android:text="@string/quest2_title"
                         android:id="@+id/textView16" />
                 </TableRow>
 
@@ -99,26 +106,33 @@
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="New RadioButton"
-                            android:id="@+id/radioButton5" />
+                            android:text="@string/radio_ans1"
+                            android:id="@+id/radioButton77"
+                            android:checked="false" />
 
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="New RadioButton"
-                            android:id="@+id/radioButton6" />
+                            android:text="@string/radio_ans2"
+                            android:id="@+id/radioButton78" />
 
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="New RadioButton"
-                            android:id="@+id/radioButton7" />
+                            android:text="@string/radio_ans3"
+                            android:id="@+id/radioButton79" />
 
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="New RadioButton"
-                            android:id="@+id/radioButton8" />
+                            android:text="@string/radio_ans4"
+                            android:id="@+id/radioButton80" />
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/radio_ans5"
+                            android:id="@+id/radioButton81" />
                     </RadioGroup>
                 </TableRow>
 
@@ -130,7 +144,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/quest1_title"
+                        android:text="@string/quest3_title"
                         android:id="@+id/textView17" />
                 </TableRow>
 
@@ -147,26 +161,33 @@
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="New RadioButton"
-                            android:id="@+id/radioButton9" />
+                            android:text="@string/radio_ans1"
+                            android:id="@+id/radioButton44"
+                            android:checked="false" />
 
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="New RadioButton"
-                            android:id="@+id/radioButton10" />
+                            android:text="@string/radio_ans2"
+                            android:id="@+id/radioButton45" />
 
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="New RadioButton"
-                            android:id="@+id/radioButton11" />
+                            android:text="@string/radio_ans3"
+                            android:id="@+id/radioButton46" />
 
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="New RadioButton"
-                            android:id="@+id/radioButton12" />
+                            android:text="@string/radio_ans4"
+                            android:id="@+id/radioButton47" />
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/radio_ans5"
+                            android:id="@+id/radioButton48" />
                     </RadioGroup>
                 </TableRow>
 
@@ -178,7 +199,226 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/quest1_title"
+                        android:text="@string/quest3a_title"
+                        android:id="@+id/textView221" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:id="@+id/g3a">
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/radio_ans1"
+                            android:id="@+id/radioButton441"
+                            android:checked="false" />
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/radio_ans2"
+                            android:id="@+id/radioButton451" />
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/radio_ans3"
+                            android:id="@+id/radioButton461" />
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/radio_ans4"
+                            android:id="@+id/radioButton471" />
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/radio_ans5"
+                            android:id="@+id/radioButton481" />
+                    </RadioGroup>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/quest3b_title"
+                        android:id="@+id/textView171" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:id="@+id/g3b">
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/radio_ans1"
+                            android:id="@+id/radioButton442"
+                            android:checked="false" />
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/radio_ans2"
+                            android:id="@+id/radioButton452" />
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/radio_ans3"
+                            android:id="@+id/radioButton462" />
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/radio_ans4"
+                            android:id="@+id/radioButton472" />
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/radio_ans5"
+                            android:id="@+id/radioButton482" />
+                    </RadioGroup>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/quest3c_title"
+                        android:id="@+id/textView173" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:id="@+id/g3c">
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/radio_ans1"
+                            android:id="@+id/radioButton443"
+                            android:checked="false" />
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/radio_ans2"
+                            android:id="@+id/radioButton453" />
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/radio_ans3"
+                            android:id="@+id/radioButton463" />
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/radio_ans4"
+                            android:id="@+id/radioButton473" />
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/radio_ans5"
+                            android:id="@+id/radioButton483" />
+                    </RadioGroup>
+                </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/quest3d_title"
+                        android:id="@+id/textView174" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:id="@+id/g3d">
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/radio_ans1"
+                            android:id="@+id/radioButton444"
+                            android:checked="false" />
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/radio_ans2"
+                            android:id="@+id/radioButton454" />
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/radio_ans3"
+                            android:id="@+id/radioButton464" />
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/radio_ans4"
+                            android:id="@+id/radioButton474" />
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/radio_ans5"
+                            android:id="@+id/radioButton484" />
+                    </RadioGroup>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/quest4_title"
                         android:id="@+id/textView18" />
                 </TableRow>
 
@@ -195,26 +435,33 @@
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="New RadioButton"
-                            android:id="@+id/radioButton13" />
+                            android:text="@string/radio_ans1"
+                            android:id="@+id/radioButton111"
+                            android:checked="false" />
 
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="New RadioButton"
-                            android:id="@+id/radioButton14" />
+                            android:text="@string/radio_ans2"
+                            android:id="@+id/radioButton112" />
 
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="New RadioButton"
-                            android:id="@+id/radioButton15" />
+                            android:text="@string/radio_ans3"
+                            android:id="@+id/radioButton113" />
 
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="New RadioButton"
-                            android:id="@+id/radioButton16" />
+                            android:text="@string/radio_ans4"
+                            android:id="@+id/radioButton114" />
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/radio_ans5"
+                            android:id="@+id/radioButton115" />
                     </RadioGroup>
                 </TableRow>
 
@@ -226,7 +473,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/quest1_title"
+                        android:text="@string/quest5a_title"
                         android:id="@+id/textView19" />
                 </TableRow>
 
@@ -243,26 +490,33 @@
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="New RadioButton"
-                            android:id="@+id/radioButton17" />
+                            android:text="@string/radio_ans1"
+                            android:id="@+id/radioButton17"
+                            android:checked="false" />
 
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="New RadioButton"
+                            android:text="@string/radio_ans2"
                             android:id="@+id/radioButton18" />
 
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="New RadioButton"
+                            android:text="@string/radio_ans3"
                             android:id="@+id/radioButton19" />
 
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="New RadioButton"
+                            android:text="@string/radio_ans4"
                             android:id="@+id/radioButton20" />
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/radio_ans5"
+                            android:id="@+id/radioButton21" />
                     </RadioGroup>
                 </TableRow>
 
@@ -274,7 +528,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/quest1_title"
+                        android:text="@string/quest6a_title"
                         android:id="@+id/textView20" />
                 </TableRow>
 
@@ -291,26 +545,33 @@
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="New RadioButton"
-                            android:id="@+id/radioButton21" />
+                            android:text="@string/radio_ans1"
+                            android:id="@+id/radioButton6"
+                            android:checked="false" />
 
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="New RadioButton"
-                            android:id="@+id/radioButton22" />
+                            android:text="@string/radio_ans2"
+                            android:id="@+id/radioButton7" />
 
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="New RadioButton"
-                            android:id="@+id/radioButton23" />
+                            android:text="@string/radio_ans3"
+                            android:id="@+id/radioButton8" />
 
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="New RadioButton"
-                            android:id="@+id/radioButton24" />
+                            android:text="@string/radio_ans4"
+                            android:id="@+id/radioButton9" />
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/radio_ans5"
+                            android:id="@+id/radioButton10" />
                     </RadioGroup>
                 </TableRow>
 
@@ -322,7 +583,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/quest1_title"
+                        android:text="@string/quest7a_title"
                         android:id="@+id/textView21" />
                 </TableRow>
 
@@ -339,26 +600,33 @@
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="New RadioButton"
-                            android:id="@+id/radioButton25" />
+                            android:text="@string/radio_ans1"
+                            android:id="@+id/radioButton11"
+                            android:checked="false" />
 
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="New RadioButton"
-                            android:id="@+id/radioButton26" />
+                            android:text="@string/radio_ans2"
+                            android:id="@+id/radioButton12" />
 
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="New RadioButton"
-                            android:id="@+id/radioButton27" />
+                            android:text="@string/radio_ans3"
+                            android:id="@+id/radioButton13" />
 
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="New RadioButton"
-                            android:id="@+id/radioButton28" />
+                            android:text="@string/radio_ans4"
+                            android:id="@+id/radioButton14" />
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/radio_ans5"
+                            android:id="@+id/radioButton15" />
                     </RadioGroup>
                 </TableRow>
 

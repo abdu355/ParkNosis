@@ -40,7 +40,7 @@ public class InvolMovement extends AppCompatActivity {
         rightview=(TextView)findViewById(R.id.right_indic);
         customParse= new ParseFunctions(getApplicationContext());
 
-        barTimer.getProgressDrawable().setColorFilter(Color.parseColor("#FF4081"), PorterDuff.Mode.SRC_IN);
+        //barTimer.getProgressDrawable().setColorFilter(Color.parseColor("#FF4081"), PorterDuff.Mode.SRC_IN);
     }
 
 

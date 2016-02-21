@@ -10,17 +10,23 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioGroup;
 
+import com.google.gson.Gson;
+import com.parse.ParseUser;
+
 import java.util.ArrayList;
 
 public class Questionnaire extends AppCompatActivity implements View.OnClickListener {
 
-
+    /*TODO
+          this section is incomplete , but the data is correctly transferred to results page
+           */
     //private RadioGroup g1,g2,g3,g4;
-    private int numofquestions=7; //define number of questions
+    private int numofquestions=11; //define number of questions
     int radioButtonID ;
     View radioButton ;
     Button submit;
     int idx;
+    private ParseFunctions customParse;
     private ArrayList<RadioGroup> groupid;
     private ArrayList<Integer> ansarr;
 
@@ -31,11 +37,18 @@ public class Questionnaire extends AppCompatActivity implements View.OnClickList
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         groupid=new ArrayList<>();
+        customParse = new ParseFunctions(getApplicationContext());
 
-
+        /*TODO
+        more to be added
+         */
         groupid.add((RadioGroup)findViewById(R.id.g1));//index 0
         groupid.add((RadioGroup)findViewById(R.id.g2));
         groupid.add((RadioGroup)findViewById(R.id.g3));
+        groupid.add((RadioGroup)findViewById(R.id.g3a));
+        groupid.add((RadioGroup)findViewById(R.id.g3b));
+        groupid.add((RadioGroup)findViewById(R.id.g3c));
+        groupid.add((RadioGroup)findViewById(R.id.g3d));
         groupid.add((RadioGroup)findViewById(R.id.g4));
         groupid.add((RadioGroup)findViewById(R.id.g5));
         groupid.add((RadioGroup)findViewById(R.id.g6));
@@ -60,6 +73,8 @@ public class Questionnaire extends AppCompatActivity implements View.OnClickList
         }
 
         //upload to parse here ...
+        String json = new Gson().toJson(ansarr);
+        customParse.pushParseData(ParseUser.getCurrentUser(),"Questionnaire","Answers",json,"",""); //user pointer
 
         //go to next test...
     }

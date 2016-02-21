@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         {
             AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
             alertDialog.setTitle("About");
-            alertDialog.setMessage("American University of Sharjah\nSenior Design Project created By:\nAbdulwahab Sahyoun\nKarim Chehab\nOsama Al Madani\n\nAdvisors:\nFadi Aloul\nAssim Sagahyroon\n\nFor more details contact:\n" + email_about);
+            alertDialog.setMessage("Parkinson's Disease research & development application.\n\nAmerican University of Sharjah\n\nSenior Design Project created By:\nAbdulwahab Sahyoun\nKarim Chehab\nOsama Al Madani\n\nAdvisors:\nFadi Aloul\nAssim Sagahyroon\n\nFor more details contact:\n" + email_about);
             alertDialog.setIcon(R.mipmap.brain48);
             alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                     new DialogInterface.OnClickListener() {

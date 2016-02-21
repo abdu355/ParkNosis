@@ -54,10 +54,53 @@
     <string name="hello_square">Hello Square World!</string>
     <string name="btn_quest">Questionnaire</string>
     <string name="title_activity_questionnaire">Questionnaire</string>
-    <string name="quest1_title">Question X</string>
     <string name="tv_domhandinfo" />
     <string name="about_label">About</string>
     <string name="title_activity_invol_movement">InvolMovement</string>
+
+
+    <string name="quest1_title">Speech</string>
+    <string name="quest2_title">Facial Expression</string>
+
+    <string name="quest3_title">Rigidity(Neck)</string>
+    <string name="quest3a_title">Rigidity(RUE)</string>
+    <string name="quest3b_title">Rigidity(LUE)</string>
+    <string name="quest3c_title">Rigidity(RLE)</string>
+    <string name="quest3d_title">Rigidity(LLE)</string>
+
+    <string name="quest4_title">Tremor at rest(Face)</string>
+    <string name="quest4a_title">Tremor at rest(RUE)</string>
+    <string name="quest4b_title">Tremor at rest(LUE)</string>
+    <string name="quest4c_title">Tremor at rest(RLE)</string>
+    <string name="quest4d_title">Tremor at rest(LLE)</string>
+
+    <string name="quest5a_title">Finger Tapping(Left)</string>
+    <string name="quest5b_title">Finger Tapping(Right)</string>
+
+    <string name="quest6a_title">Hand movements(Left)</string>
+    <string name="quest6b_title">Hand movements(Right)</string>
+
+    <string name="quest7a_title">Pronation-Supination of Hands(Left)</string>
+    <string name="quest7b_title">Pronation-Supination of Hands(right)</string>
+
+    <string name="quest8a_title">Leg Agility(Left)</string>
+    <string name="quest8b_title">Leg Agility(Right)</string>
+
+    <string name="quest9_title">Arising from chair</string>
+    <string name="quest10_title">Gait</string>
+    <string name="quest11_title">Postural stability</string>
+    <string name="quest12_title">Posture</string>
+    <string name="quest13_title">Body Bradykinesia</string>
+
+    <string name="quest14a_title">Postural or Kinetic Tremor of Hands(RUE)</string>
+    <string name="quest14b_title">Postural or Kinetic Tremor of Hands(LUE)</string>
+
+
+    <string name="radio_ans1">Normal</string>
+    <string name="radio_ans2">Slight</string>
+    <string name="radio_ans3">Mild</string>
+    <string name="radio_ans4">Moderate</string>
+    <string name="radio_ans5">Severe</string>
 
 
 </resources>

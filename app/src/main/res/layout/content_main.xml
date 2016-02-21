@@ -78,7 +78,7 @@
         android:layout_centerHorizontal="true"
         android:background="@drawable/btnstyleround4"
         android:layout_marginTop="10dp"
-        android:enabled="false" />
+        android:enabled="true" />
 
     <ImageView
         android:layout_width="50dp"
