@@ -3,11 +3,8 @@ package com.example.b00047562.parkinson_mhealth;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.TextView;
 
 import com.parse.ParseUser;
@@ -22,6 +19,7 @@ public class ResultsAnalysis extends AppCompatActivity {
 
     ProgressDialog mProgressDialog;
     private TappingTestFunctions tapresults;
+    private AccelAnalysis accelresult;
     ParseFunctions customParse;
     Double qscore; //questionnaire score - not overall score
     TextView extras;
@@ -37,6 +35,7 @@ public class ResultsAnalysis extends AppCompatActivity {
 
         customParse = new ParseFunctions(getApplicationContext());
         tapresults= new TappingTestFunctions();
+        accelresult= new AccelAnalysis();//
 
         extras = (TextView)findViewById(R.id.tv_question_extra);
 
@@ -69,6 +68,7 @@ public class ResultsAnalysis extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
             processTappingData();
             processQuestionnaire();
+            processAccelData();//accel data (karim)
             return null;
         }
 
@@ -85,6 +85,10 @@ public class ResultsAnalysis extends AppCompatActivity {
             // Vibrator vibe = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
             // vibe.vibrate(50); // 50 is time in ms
         }
+    }
+    private void processAccelData()
+    {
+        accelresult.getAccelData();
     }
 
      private void processTappingData()

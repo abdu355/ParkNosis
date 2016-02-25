@@ -6,7 +6,6 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -119,6 +118,43 @@ public class ParseFunctions {
             }
         }
         ob.saveAllInBackground(objectlist);
+
+    }
+
+    public ArrayList<AccelData> getParseDataAccel(ParseUser user , final int listPointer, final String ... params) //fetch from Parse
+    //0: class name -- 1: orderby String  -- 2: column name
+    // user: pointer to ParseUser (use ParseUser.getCurrentUser())
+    // you may add additional String parameters as necessary
+    {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery(params[0]);
+        query.whereEqualTo("createdBy", user);
+        query.orderByDescending(params[1]); //typically order by date to get latest data string
+        //add additional query paramters here if needed ( make sure to also include the params[index] for it ) ...
+        try {
+            List<ParseObject> results = query.find();
+            result1 = results.get(listPointer).getString(params[2]);
+            type = new TypeToken<ArrayList<AccelData>>() {}.getType();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return new Gson().fromJson(result1,type);
+        //return result1;
+         /*query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> results, ParseException e) {
+                if (e == null) {
+
+                     result1 = results.get(listPointer).getString(params[2]); // column name goes here ( e.g: "ArrayList") ; listPointer = 0 means get latest row
+                     type = new TypeToken<List<String[]>>() {}.getType();
+                     //Log.d("ParseResult",result1.toString());
+
+                } else {
+                    Log.d("ParseError", e.getMessage());
+                }
+
+            }
+
+        });*/
 
     }
 
