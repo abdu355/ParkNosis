@@ -14,53 +14,6 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/acc_btn"
-        android:id="@+id/acc_btn"
-        android:layout_toEndOf="@+id/imageView"
-        android:background="@drawable/btnstyleround"
-        android:allowUndo="false"
-        android:layout_marginTop="60dp"
-        android:layout_marginRight="60dp" />
-
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/spiral_btn"
-        android:id="@+id/spiral_btn"
-        android:layout_below="@+id/acc_btn"
-        android:layout_alignStart="@+id/acc_btn"
-        android:background="@drawable/btnstyleround2"
-        android:allowUndo="false"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="60dp" />
-
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/taptest_btn"
-        android:id="@+id/btn_tap_main"
-        android:layout_below="@+id/spiral_btn"
-        android:layout_toEndOf="@+id/imageView"
-        android:background="@drawable/btnstyleround3"
-        android:allowUndo="false"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="60dp" />
-
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/btn_quest"
-        android:id="@+id/quest_btn"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/imageView"
-        android:background="@drawable/btnstyleround5"
-        android:layout_marginTop="3dp"
-        android:layout_marginRight="60dp" />
-
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
         android:text="User Info"
         android:id="@+id/btn_usrinfo_main"
         android:layout_alignParentBottom="true"
@@ -80,74 +33,115 @@
         android:layout_marginTop="10dp"
         android:enabled="true" />
 
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:id="@+id/imageView"
-        android:src="@drawable/handtremor"
-        android:scaleType="fitXY"
-        android:layout_above="@+id/spiral_btn"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="50dp" />
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:id="@+id/imageView2"
-        android:src="@drawable/spiralicon3"
-        android:scaleType="fitXY"
-        android:layout_above="@+id/btn_tap_main"
-        android:layout_alignParentStart="true" />
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingBottom="5dp">
 
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:id="@+id/imageView3"
-        android:src="@drawable/tapping5"
-        android:scaleType="fitXY"
-        android:layout_alignBottom="@+id/btn_tap_main"
-        android:layout_alignParentStart="true" />
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/imageView4"
+                android:src="@drawable/questicon"
+                android:scaleType="fitXY"
+                android:layout_alignTop="@+id/quest_btn"
+                android:layout_alignParentStart="true" />
 
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:id="@+id/imageView4"
-        android:src="@drawable/questicon"
-        android:scaleType="fitXY"
-        android:layout_alignTop="@+id/quest_btn"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="-2dp" />
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_quest"
+                android:id="@+id/quest_btn"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_toEndOf="@+id/imageView"
+                android:background="@drawable/btnstyleround5"
+                android:layout_weight="4"
+                android:textSize="16sp" />
+        </TableRow>
 
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:id="@+id/iv_test1stat"
-        android:scaleType="fitXY"
-        android:layout_alignTop="@+id/quest_btn"
-        android:layout_alignParentEnd="true" />
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp">
 
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:id="@+id/iv_test2stat"
-        android:scaleType="fitXY"
-        android:layout_alignTop="@+id/imageView"
-        android:layout_alignParentEnd="true" />
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/imageView"
+                android:src="@drawable/handtremor"
+                android:scaleType="fitXY"
+                android:layout_above="@+id/spiral_btn"
+                android:layout_alignParentStart="true" />
 
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:id="@+id/iv_test3stat"
-        android:scaleType="fitXY"
-        android:layout_alignBottom="@+id/spiral_btn"
-        android:layout_alignStart="@+id/iv_test2stat" />
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/acc_btn"
+                android:id="@+id/acc_btn"
+                android:layout_toEndOf="@+id/imageView"
+                android:background="@drawable/btnstyleround"
+                android:allowUndo="false"
+                android:layout_weight="1"
+                android:textSize="16sp" />
+        </TableRow>
 
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:id="@+id/iv_test4stat"
-        android:scaleType="fitXY"
-        android:layout_alignTop="@+id/btn_tap_main"
-        android:layout_alignStart="@+id/iv_test3stat" />
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingBottom="5dp">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/imageView2"
+                android:src="@drawable/spiralicon3"
+                android:scaleType="fitXY"
+                android:layout_above="@+id/btn_tap_main"
+                android:layout_alignParentStart="true" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/spiral_btn"
+                android:id="@+id/spiral_btn"
+                android:layout_below="@+id/acc_btn"
+                android:layout_alignStart="@+id/acc_btn"
+                android:background="@drawable/btnstyleround2"
+                android:allowUndo="false"
+                android:layout_weight="4"
+                android:textSize="16sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/imageView3"
+                android:src="@drawable/tapping5"
+                android:scaleType="fitXY"
+                android:layout_alignBottom="@+id/btn_tap_main"
+                android:layout_alignParentStart="true" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/taptest_btn"
+                android:id="@+id/btn_tap_main"
+                android:layout_below="@+id/spiral_btn"
+                android:layout_toEndOf="@+id/imageView"
+                android:background="@drawable/btnstyleround3"
+                android:allowUndo="false"
+                android:layout_weight="4"
+                android:textSize="16sp" />
+        </TableRow>
+    </TableLayout>
 
 </RelativeLayout>
