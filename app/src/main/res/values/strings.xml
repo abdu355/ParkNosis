@@ -101,6 +101,7 @@
     <string name="radio_ans3">Mild</string>
     <string name="radio_ans4">Moderate</string>
     <string name="radio_ans5">Severe</string>
+    <string name="ClearSpiralDrawing">clear drawing</string>
 
 
 </resources>
