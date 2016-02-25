@@ -14,6 +14,7 @@ import android.graphics.Path;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
@@ -22,6 +23,8 @@ import java.util.ArrayList;
 
 public class CanvasSpiral extends View {
 
+    private static final String TAG = "Showing size";
+    String TAG2="Listing x&y";
     private Path drawPath;
     //drawing and canvas paint
     private Paint drawPaint, canvasPaint;
@@ -39,7 +42,7 @@ public class CanvasSpiral extends View {
     int maxX,maxY;
 
 
-    //usable by SpiralRedraw
+    //User inputed spiral
     public static ArrayList<SpiralData> spiralData;
 
     public CanvasSpiral(Context context, AttributeSet attrs) {
@@ -111,7 +114,7 @@ public class CanvasSpiral extends View {
 
         float angle,x ,y ;
         float []pointsArray = new float[2160];
-        float []Moyes = new float[168];
+        float []OriginalSpiralPoints = new float[168];
 
         int j=0;
         for (int i=0; i< 1080; i++,j=j+2) {
@@ -127,17 +130,18 @@ public class CanvasSpiral extends View {
         int k=0;
         for (int m=0;m<2160;m++,k=k+2)
         {
-            Moyes[k]=pointsArray[m];
-            Moyes[k+1]=pointsArray[m+1];
+            OriginalSpiralPoints[k]=pointsArray[m];
+            OriginalSpiralPoints[k+1]=pointsArray[m+1];
             m+=25;
 
         }
         for (int i=0;i<166;i=i+2)
         {
-            canvas.drawLine(Moyes[i],Moyes[i+1],Moyes[i+2],Moyes[i+3],mPaint);
+            canvas.drawLine(OriginalSpiralPoints[i], OriginalSpiralPoints[i + 1], OriginalSpiralPoints[i + 2], OriginalSpiralPoints[i + 3], mPaint);
+           // Log.d(TAG2, "onDraw: "+(i/2)+ " x&y: " + OriginalSpiralPoints[i] + " " + OriginalSpiralPoints[i + 1]);
         }
 
-    //    canvas.drawPoints(Moyes,mPaint2);
+    //    canvas.drawPoints(OriginalSpiralPoints,mPaint2);
 
         canvas.drawBitmap(canvasBitmap, 0, 0, canvasPaint);
         canvas.drawPath(drawPath, drawPaint);
@@ -170,16 +174,20 @@ public class CanvasSpiral extends View {
 //                Spiral.alert.setText("KEEP TOUCHING!");
                 drawPath.reset();
                 Spiral.redrawOpen.setEnabled(true); // to prevent crashing or redrawing when no data is available - this will updated soon
+                Log.d(TAG, "onTouchEvent: " + spiralData.size());
                 break;
             default:
                 return false;
         }
         invalidate();
+
         return true;
     }
     public void cleardisp()
     {
+        spiralData.clear();
         drawCanvas.drawColor(0, PorterDuff.Mode.CLEAR);
+
         invalidate();
     }
 }

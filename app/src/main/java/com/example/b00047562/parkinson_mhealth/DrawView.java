@@ -14,7 +14,7 @@ import android.view.View;
 
 import java.util.ArrayList;
 
-//kaka
+//Not Used, Kept For Reference
 public class DrawView extends View {
     //drawing path
     private Path drawPath;

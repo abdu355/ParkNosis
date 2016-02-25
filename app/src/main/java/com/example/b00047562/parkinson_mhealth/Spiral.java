@@ -42,6 +42,14 @@ public class Spiral extends AppCompatActivity implements  View.OnClickListener {
             case R.id.btn_redraw:
                 this.startActivity(new Intent(this, SpiralRedraw.class));
                 break;
+
+            /**     TODO LIST
+             * ***************
+             *      ADD A BUTTON FOR SUBMITTING SPIRAL DRAWING
+             *  THAT INITIALIZES A SEPARATE THREAD, WHICH WORKS IN THE BACKGROUND
+             *  FOR PROCESSING DATA AND GIVING BACK THE RESULT
+             */
+
         }
     }
 }
