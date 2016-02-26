@@ -33,9 +33,9 @@ public class TappingTestFunctions {
         leftfingerarr = new ArrayList<>();
         simpletaps= new ArrayList<>();
 
-        rightfingerarr =  customParse.getParseData(ParseUser.getCurrentUser(),0,"TappingData","createdAt","ArrayList");
-        leftfingerarr = customParse.getParseData(ParseUser.getCurrentUser(), 1, "TappingData", "createdAt", "ArrayList");
-        simpletaps = customParse.getParseData(ParseUser.getCurrentUser(), 2, "TappingData", "createdAt", "ArrayList");
+        rightfingerarr =  customParse.getParseData(ParseUser.getCurrentUser(),2,"TappingData","createdAt","ArrayList");
+        leftfingerarr = customParse.getParseData(ParseUser.getCurrentUser(), 3, "TappingData", "createdAt", "ArrayList");
+        simpletaps = customParse.getParseData(ParseUser.getCurrentUser(), 4, "TappingData", "createdAt", "ArrayList");
         //0: right finger , 1:left finger, 2:simple tapping results
 
 
