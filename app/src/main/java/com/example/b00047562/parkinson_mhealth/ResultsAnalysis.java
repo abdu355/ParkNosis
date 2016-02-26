@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.parse.ParseUser;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 /*TODO
@@ -22,7 +24,11 @@ public class ResultsAnalysis extends AppCompatActivity {
     private AccelAnalysis accelresult;
     ParseFunctions customParse;
     Double qscore; //questionnaire score - not overall score
-    TextView extras;
+    TextView extras,advice,extra1;
+
+    //questionnaire score thresholds  59+/108 = severe -   33-58/108 moderate - 32 and below/108 mild
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +43,9 @@ public class ResultsAnalysis extends AppCompatActivity {
         tapresults= new TappingTestFunctions();
         accelresult= new AccelAnalysis();//
 
-        extras = (TextView)findViewById(R.id.tv_question_extra);
+        extras = (TextView)findViewById(R.id.tv_question_extra); //questionnaire score here
+        extra1=(TextView)findViewById(R.id.tv_extra1);
+        advice= (TextView)findViewById(R.id.advice_tv_analysis); //detail advice and score details
 
     }
 
@@ -78,6 +86,7 @@ public class ResultsAnalysis extends AppCompatActivity {
             mProgressDialog.dismiss();
             tapresults.displayResults();
             extras.setText("Questionnaire Score: "+qscore);
+            displayscoreAdvice();   // calls all display functions
 
             //call next AsyncTask
             //--place functions for other Tests ex: HandTremorAsyncTask or SpiralDataAsyncTask
@@ -109,5 +118,27 @@ public class ResultsAnalysis extends AppCompatActivity {
             sum += arr.get(i);
         }
         return sum;
+    }
+
+    private void displayscoreAdvice()
+    {
+        if(qscore <20)//normal
+        {
+            advice.setText("Your Questionnaire score shows almost no symptoms\n Nothing to worry about for now");
+        }
+       else if(qscore<=32) //mild
+     {
+            advice.setText("Your Questionnaire score shows mild symptoms\nRepeat the tests every month to track your symptoms");
+     }
+        else if(qscore>=33 && qscore<=58) //moderate
+     {
+            advice.setText("Your Questionnaire score shows moderate symptoms\nconsider visiting your docotor ");
+     }
+        else if(qscore>=59)//severe
+     {
+            advice.setText("Your Questionnaire score shows severe symptoms\nconsider visiting your docotor ");
+     }
+
+        extra1.setText("Keep in mind that Questionnaire scores may not reflect all symptoms.\nConsider scores for other tests aswell.");
     }
 }
