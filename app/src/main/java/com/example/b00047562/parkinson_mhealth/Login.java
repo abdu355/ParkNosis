@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -66,8 +67,7 @@ public class Login extends ActionBarActivity {
                             .setPositiveButton(android.R.string.ok, null);
                     AlertDialog dialog = builder.create();
                     dialog.show();
-                }
-                else {
+                } else {
                     setProgressBarIndeterminateVisibility(true);//enable
                     ParseQuery<ParseUser> query = ParseUser.getQuery();
                     query.whereEqualTo("email", email);
@@ -85,8 +85,7 @@ public class Login extends ActionBarActivity {
                                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                             startActivity(intent);
-                                        }
-                                        else {
+                                        } else {
                                             // Fail
                                             AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
                                             builder.setMessage(e.getMessage())
@@ -109,7 +108,14 @@ public class Login extends ActionBarActivity {
                 }
             }
         });
+
     }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        return (keyCode == KeyEvent.KEYCODE_BACK ? true : super.onKeyDown(keyCode, event));
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

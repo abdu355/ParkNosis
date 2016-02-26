@@ -43,10 +43,12 @@
             android:label="@string/title_activity_spiral_redraw"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".Login"
             android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".Signup"
             android:label="@string/title_activity_signup"

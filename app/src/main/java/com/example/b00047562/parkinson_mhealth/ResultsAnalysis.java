@@ -26,9 +26,6 @@ public class ResultsAnalysis extends AppCompatActivity {
     Double qscore; //questionnaire score - not overall score
     TextView extras,advice,extra1;
 
-    //questionnaire score thresholds  59+/108 = severe -   33-58/108 moderate - 32 and below/108 mild
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +82,7 @@ public class ResultsAnalysis extends AppCompatActivity {
 
             mProgressDialog.dismiss();
             tapresults.displayResults();
-            extras.setText("Questionnaire Score: "+qscore);
+            extras.setText("Questionnaire Score: " + qscore);
             displayscoreAdvice();   // calls all display functions
 
             //call next AsyncTask
@@ -120,6 +117,7 @@ public class ResultsAnalysis extends AppCompatActivity {
         return sum;
     }
 
+    //questionnaire score thresholds  59+/108 = severe -   33-58/108 moderate - 32 and below/108 mild
     private void displayscoreAdvice()
     {
         if(qscore <20)//normal

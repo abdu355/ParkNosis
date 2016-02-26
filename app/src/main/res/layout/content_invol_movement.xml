@@ -80,12 +80,14 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Next Test >>"
-        android:id="@+id/btn_next3"
+        android:text="Done"
+        android:id="@+id/btn_finish_involtap"
         android:layout_marginBottom="45dp"
         android:enabled="false"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:onClick="finishTest"
+        android:layout_toEndOf="@+id/textView2" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -94,7 +96,7 @@
         android:text="&lt;&lt;Back"
         android:id="@+id/btn_back2"
         android:enabled="false"
-        android:layout_alignTop="@+id/btn_next3"
+        android:layout_alignTop="@+id/btn_finish_involtap"
         android:layout_alignParentStart="true" />
 
     <Button
@@ -114,7 +116,7 @@
         android:indeterminate="false"
         android:max="100"
         android:progress="100"
-        android:layout_above="@+id/btn_next3"
+        android:layout_above="@+id/btn_finish_involtap"
         android:layout_alignParentEnd="true" />
 
     <TextView

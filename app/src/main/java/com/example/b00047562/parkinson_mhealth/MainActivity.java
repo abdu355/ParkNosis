@@ -46,9 +46,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (currentUser == null) {
             loadLoginView();
         }
+
     }
     public void loadLoginView() {
         Intent intent = new Intent(this, Login.class); //go to login activity
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 
