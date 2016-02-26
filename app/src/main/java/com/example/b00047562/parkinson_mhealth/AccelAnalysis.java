@@ -11,7 +11,10 @@ import java.util.ArrayList;
  */
 public class AccelAnalysis {
 
-
+/*
+TODO
+create regular methods NOT Async
+ */
     private Accelerometer Accel;
     private ArrayList<AccelData> AD;
     private ParseFunctions customParse;
