@@ -7,18 +7,20 @@
     tools:deviceIds="wear_round">
 
     <TextView
-        android:id="@+id/text"
+        android:id="@+id/tvCountDownTimer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/hello_round" />
+        android:text="@string/hello_round"
+        android:layout_marginBottom="91dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Accel"
         android:id="@+id/acl_btn"
-        android:layout_below="@+id/text"
+        android:layout_above="@+id/tvCountDownTimer"
         android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

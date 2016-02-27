@@ -17,8 +17,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.wearable.DataMap;
 import com.google.gson.Gson;
+import com.mariux.teleport.lib.TeleportClient;
 import com.parse.ParseUser;
 
 import org.achartengine.ChartFactory;
@@ -29,6 +32,8 @@ import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
 import java.util.ArrayList;
+
+import almadani.com.shared.AccelData;
 
 
 public class Accelerometer extends AppCompatActivity implements SensorEventListener, View.OnClickListener {
@@ -44,6 +49,7 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
     private LinearLayout SensorGraph;
     private ArrayList<AccelData> sensorData;
     private View mChart;
+    private TeleportClient mTeleportClient;
     private Button BtnShowGraph, BtnReadAccel, BtnShowAnalysis;
     private ParseFunctions customParse; //for custom parse functions from ParseFunctions class
     //private int i=0;
@@ -69,6 +75,9 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
         txtYValue = (TextView) findViewById(R.id.txtYValue);
         txtZValue = (TextView) findViewById(R.id.txtZValue);
         tv_shakeAlert = (TextView) findViewById(R.id.tv_shake);
+
+
+        mTeleportClient.setOnSyncDataItemTask(new ShowToastOnSyncDataItemTask());
 
 
         SensorGraph = (LinearLayout) findViewById(R.id.Layout_Graph_Container);
@@ -137,6 +146,22 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public class ShowToastOnSyncDataItemTask extends TeleportClient.OnSyncDataItemTask {
+
+        @Override
+        protected void onPostExecute(DataMap dataMap) {
+
+            //let`s get the String from the DataMap, using its identifier key
+            String string = dataMap.getString("x");
+            String str = dataMap.getString("y");
+            String sg = dataMap.getString("z");
+
+            //let`s create a pretty Toast with our string!
+            Toast.makeText(getApplicationContext(),string+str+sg, Toast.LENGTH_SHORT).show();
+
+        }
     }
 
     @Override

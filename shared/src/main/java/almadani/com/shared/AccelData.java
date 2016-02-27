@@ -1,4 +1,4 @@
-package com.example.b00047562.parkinson_mhealth;
+package almadani.com.shared;
 
 /**
  * Created by Kareem on 12/3/2015.

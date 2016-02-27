@@ -6,6 +6,8 @@ import com.parse.ParseUser;
 
 import java.util.ArrayList;
 
+import almadani.com.shared.AccelData;
+
 /**
  * Created by Kareem on 2/25/2016.
  */
