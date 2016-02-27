@@ -94,6 +94,7 @@ public class Questionnaire extends AppCompatActivity implements View.OnClickList
 
         //go to main
         finish();
+        MainActivity.q = true;//test finished
     }
 
     @Override

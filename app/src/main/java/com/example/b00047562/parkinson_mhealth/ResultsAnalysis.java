@@ -1,14 +1,22 @@
 package com.example.b00047562.parkinson_mhealth;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.parse.ParseUser;
 
+import org.achartengine.ChartFactory;
+import org.achartengine.chart.BarChart;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
@@ -19,17 +27,24 @@ call data processing functions from this class and use AsyncTasks
 
 public class ResultsAnalysis extends AppCompatActivity {
 
+
     ProgressDialog mProgressDialog;
+    private boolean clicked=false;
     private TappingTestFunctions tapresults;
     private AccelAnalysis accelresult;
     ParseFunctions customParse;
     Double qscore; //questionnaire score - not overall score
     TextView extras,advice,extra1;
 
+    private FrameLayout primarygraph,secondarygraph;
+
+    TableRow ad1,ad2,ad3,graphs;
+    Button showhide;
+    private View mChart1,mChart2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results_analysis);
@@ -38,20 +53,33 @@ public class ResultsAnalysis extends AppCompatActivity {
 
         customParse = new ParseFunctions(getApplicationContext());
         tapresults= new TappingTestFunctions();
-        accelresult= new AccelAnalysis();//
+        accelresult= new AccelAnalysis();
+
+        ad1=(TableRow)findViewById(R.id.tbrow_ad1);
+        ad2=(TableRow)findViewById(R.id.tbrow_ad2);
+        ad3=(TableRow)findViewById(R.id.tbrow_ad3);
+        graphs=(TableRow)findViewById(R.id.tbrow_graphs);
+
+        showhide=(Button)findViewById(R.id.btn_showadvice);
 
         extras = (TextView)findViewById(R.id.tv_question_extra); //questionnaire score here
         extra1=(TextView)findViewById(R.id.tv_extra1);
         advice= (TextView)findViewById(R.id.advice_tv_analysis); //detail advice and score details
 
-    }
 
+        //test draw a bar chart
+        primarygraph=(FrameLayout)findViewById(R.id.content_primary);
+        secondarygraph=(FrameLayout)findViewById(R.id.content_secondary);
+
+
+    }
 
     @Override
     protected void onResume() {
         super.onResume();
         new processTappingDataTask().execute(); //Tapping data task
     }
+
 
     private class processTappingDataTask extends AsyncTask<Void, Void, Void> {
         @Override
@@ -84,6 +112,15 @@ public class ResultsAnalysis extends AppCompatActivity {
             tapresults.displayResults();
             extras.setText("Questionnaire Score: " + qscore);
             displayscoreAdvice();   // calls all display functions
+
+            //display graphs for tapping results
+            mChart1 = ChartFactory.getBarChartView(getBaseContext(), tapresults.getDataSet1(),
+                    tapresults.getRenderer1(), BarChart.Type.STACKED);
+            mChart2 =ChartFactory.getBarChartView(getBaseContext(), tapresults.getDataSet2(),
+                    tapresults.getRenderer2(), BarChart.Type.STACKED);
+            // Adding the Line Chart to the FrameLayout
+            primarygraph.addView(mChart1);
+            secondarygraph.addView(mChart2);
 
             //call next AsyncTask
             //--place functions for other Tests ex: HandTremorAsyncTask or SpiralDataAsyncTask
@@ -138,5 +175,32 @@ public class ResultsAnalysis extends AppCompatActivity {
      }
 
         extra1.setText("Keep in mind that Questionnaire scores may not reflect all symptoms.\nConsider scores for other tests aswell.");
+    }
+
+    private void viewgraphs()
+    {
+
+
+    }
+
+    public void displayadvicebtn(View v) //btn trigger
+    {
+        if(clicked==false) {
+            graphs.setVisibility(View.GONE);
+            ad1.setVisibility(View.VISIBLE);
+            ad2.setVisibility(View.VISIBLE);
+            ad3.setVisibility(View.VISIBLE);
+            clicked=true;
+            showhide.setText("Show Graphs");
+        }
+        else
+        {
+            graphs.setVisibility(View.VISIBLE);
+            ad1.setVisibility(View.GONE);
+            ad2.setVisibility(View.GONE);
+            ad3.setVisibility(View.GONE);
+            clicked=false;
+            showhide.setText("Show Advice");
+        }
     }
 }

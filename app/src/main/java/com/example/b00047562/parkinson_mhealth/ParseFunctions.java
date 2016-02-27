@@ -22,14 +22,7 @@ import java.util.Objects;
  * Created by Abdu Sah on 1/28/2016.
  */
 
-  /*TODO
-        Test all functions make sure they fetch properly
-        if any issues exist add them to the list here:
-        1-
-        2-
-        3-
-        ...
-  */
+
 public class ParseFunctions {
     public String result1; // add more results as necessary
     public ArrayList<String> resarr;

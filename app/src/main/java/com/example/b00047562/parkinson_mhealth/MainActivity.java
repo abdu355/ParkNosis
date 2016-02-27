@@ -1,26 +1,38 @@
 package com.example.b00047562.parkinson_mhealth;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button quest_btn,acc_btn,spiral_btn,usrinfo_btn,tap_btn,results;
     private Spanned email_about= Html.fromHtml("<a href=\"hello.sah802@gmail.com\">hello.sah802@gmail.com</a>");
+
+    public static boolean q,h,sp,t;  //completion indicator for each test
+    //private boolean doneall;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tap_btn.setOnClickListener(this);
         results.setOnClickListener(this);
 
+
         ParseUser currentUser = ParseUser.getCurrentUser();//check if user logged in
         if (currentUser == null) {
             loadLoginView();
@@ -52,6 +65,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent = new Intent(this, Login.class); //go to login activity
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if(q && sp && t && h) //done all tests
+        {
+            results.setEnabled(true);
+            ParseObject ob = new ParseObject("Status");
+            ob.put("doneall",true);
+            ob.put("createdBy",ParseUser.getCurrentUser());
+            ob.saveEventually();
+        }
+        else
+        {
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("Status");
+            query.whereEqualTo("createdBy", ParseUser.getCurrentUser());
+            try {
+                ParseObject res = query.getFirst();
+                results.setEnabled(res.getBoolean("doneall"));
+            } catch (ParseException e) {
+                results.setEnabled(false);
+               Log.d("ParseMain", e.getMessage());
+            }
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        //SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        //SharedPreferences.Editor editor = preferences.edit();
+        //editor.putBoolean("doneall",doneall);
+       //editor.apply();
+        super.onPause();
     }
 
     @Override
