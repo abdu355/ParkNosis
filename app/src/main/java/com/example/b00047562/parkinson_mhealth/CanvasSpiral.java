@@ -42,6 +42,10 @@ public class CanvasSpiral extends View {
     int maxX,maxY;
 
 
+    public static ArrayList<SpiralData> getSpiralData() {
+        return spiralData;
+    }
+
     //User inputed spiral
     public static ArrayList<SpiralData> spiralData;
 

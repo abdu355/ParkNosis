@@ -27,7 +27,7 @@ public class SpiralRedraw extends AppCompatActivity implements View.OnClickListe
 
     private LinearLayout SpiralGraph;
     private View sChart;
-    private Button BtnShowSpiral,upload;
+    private Button BtnShowSpiral;
     private ParseFunctions customParse;
 
     @Override
@@ -39,10 +39,10 @@ public class SpiralRedraw extends AppCompatActivity implements View.OnClickListe
 
         SpiralGraph = (LinearLayout) findViewById(R.id.spirallinearlayout);
         BtnShowSpiral= (Button)findViewById(R.id.btn_drawspiral);
-        upload=(Button)findViewById(R.id.btn_upload);
+
 
         BtnShowSpiral.setOnClickListener(this);
-        upload.setOnClickListener(this);
+
         customParse = new ParseFunctions(getApplicationContext());
 
     }
@@ -52,12 +52,6 @@ public class SpiralRedraw extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.btn_drawspiral:
                 openChart(DrawView.spiralData);
-                break;
-            case R.id.btn_upload:
-                String json = new Gson().toJson(DrawView.spiralData);
-                customParse.pushParseData(ParseUser.getCurrentUser(),"SpiralData","ArrayList",json,"","");
-                MainActivity.sp=true; //test finished
-                startActivity(new Intent(getApplicationContext(),MainActivity.class));
                 break;
         }
     }

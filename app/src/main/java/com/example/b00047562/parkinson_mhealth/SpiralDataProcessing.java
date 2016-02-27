@@ -14,18 +14,25 @@ public class SpiralDataProcessing {
 
     //User inputed spiral
     public static ArrayList<SpiralData> spiralData;
-    float []spiralInputedData=new float[170];
+    float [] velocity=new float[2500];
+    float [] acceleration=new float[2500];
     //Original Spiral Points
-    float []OriginalSpiralPoints = new float[168];
 
-    SpiralDataProcessing(ArrayList<SpiralData> InputedData,float []OriginalPoints){
 
-        spiralData=InputedData;
-        OriginalSpiralPoints=OriginalPoints;
-        for (int i=0,j=0;j<170;i++,j+=2)
+    SpiralDataProcessing(ArrayList<SpiralData> InputedData){
+
+
+
+        for (int i=1;i<InputedData.size();i++)
         {
-            spiralInputedData[j]=spiralData.get(i).getX();
-            spiralInputedData[j+1]=spiralData.get(i).getY();
+            try{
+        velocity[i]= (float) Math.sqrt(((float) Math.pow((double) (InputedData.get(i).getX() - InputedData.get(i-1).getX()), 2) +
+                Math.pow((double) (InputedData.get(i).getX() - InputedData.get(i-1).getX()), 2)));}
+            catch (Exception e){}
+        }
+        for (int i=1;i<velocity.length;i++)
+        {
+            acceleration[i]=velocity[i]-velocity[i-1];
         }
     }
 

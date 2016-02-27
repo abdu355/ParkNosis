@@ -25,14 +25,6 @@
         android:text="@string/btn_drawspiral"
         android:id="@+id/btn_drawspiral"
         android:layout_below="@+id/spirallinearlayout"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignEnd="@+id/spirallinearlayout" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Upload"
-        android:id="@+id/btn_upload"
-        android:layout_alignBottom="@+id/btn_drawspiral"
-        android:layout_toRightOf="@+id/btn_drawspiral"
-        android:layout_toEndOf="@+id/btn_drawspiral" />
 </RelativeLayout>

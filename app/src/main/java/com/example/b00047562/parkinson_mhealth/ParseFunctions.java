@@ -161,5 +161,23 @@ public class ParseFunctions {
         return resarr;
     }
 
+    public ArrayList<SpiralData> getParseDataSpiral(ParseUser user , final int listPointer, final String ... params) //fetch from Parse
+    //0: class name -- 1: orderby String  -- 2: column name
+    // user: pointer to ParseUser (use ParseUser.getCurrentUser())
+    // you may add additional String parameters as necessary
+    {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery(params[0]);
+        query.whereEqualTo("createdBy", user);
+        query.orderByDescending(params[1]); //typically order by date to get latest data string
+        //add additional query paramters here if needed ( make sure to also include the params[index] for it ) ...
+        try {
+            List<ParseObject> results = query.find();
+            result1 = results.get(listPointer).getString(params[2]);
+            type = new TypeToken<ArrayList<SpiralData>>() {}.getType();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
+        return new Gson().fromJson(result1,type);
+    }
 }

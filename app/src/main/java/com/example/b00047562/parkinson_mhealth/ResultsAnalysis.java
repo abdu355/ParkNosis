@@ -31,7 +31,11 @@ public class ResultsAnalysis extends AppCompatActivity {
     ProgressDialog mProgressDialog;
     private boolean clicked=false;
     private TappingTestFunctions tapresults;
+    private SpiralDataProcessing spiralDataProcessing;
     private AccelAnalysis accelresult;
+    SpiralData sd;
+    public static ArrayList<SpiralData> spiralData;
+
     ParseFunctions customParse;
     Double qscore; //questionnaire score - not overall score
     TextView extras,advice,extra1;
@@ -67,6 +71,7 @@ public class ResultsAnalysis extends AppCompatActivity {
         advice= (TextView)findViewById(R.id.advice_tv_analysis); //detail advice and score details
 
 
+
         //test draw a bar chart
         primarygraph=(FrameLayout)findViewById(R.id.content_primary);
         secondarygraph=(FrameLayout)findViewById(R.id.content_secondary);
@@ -80,6 +85,37 @@ public class ResultsAnalysis extends AppCompatActivity {
         new processTappingDataTask().execute(); //Tapping data task
     }
 
+//    private class processSpiralDataTask extends AsyncTask<Void,Void,Void>
+//    {
+//        @Override
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+//            // Create a progressdialog
+//            mProgressDialog = new ProgressDialog(ResultsAnalysis.this);
+//            // Set progressdialog title
+//            mProgressDialog.setTitle("Fetching Results");
+//            // Set progressdialog message
+//            mProgressDialog.setMessage("Hang on...");
+//            mProgressDialog.setIcon(R.drawable.process);
+//            mProgressDialog.setIndeterminate(false);
+//            // Show progressdialog
+//            mProgressDialog.show();
+//        }
+//        @Override
+//        protected Void doInBackground(Void... params) {
+//
+//
+//
+//            return null;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Void result) {
+//
+//
+//        }
+//
+//    }
 
     private class processTappingDataTask extends AsyncTask<Void, Void, Void> {
         @Override
@@ -102,6 +138,7 @@ public class ResultsAnalysis extends AppCompatActivity {
             processTappingData();
             processQuestionnaire();
             processAccelData();//accel data (karim)
+            processSpiralData();
             return null;
         }
 
@@ -129,6 +166,13 @@ public class ResultsAnalysis extends AppCompatActivity {
             // vibe.vibrate(50); // 50 is time in ms
         }
     }
+
+    private void processSpiralData() {
+        sd.getSpiralData();
+    spiralData=sd.getAS();
+        spiralDataProcessing= new SpiralDataProcessing(spiralData);
+    }
+
     private void processAccelData()
     {
         accelresult.getAccelData();

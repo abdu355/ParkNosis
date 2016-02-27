@@ -8,13 +8,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.parse.ParseUser;
+
 public class Spiral extends AppCompatActivity implements  View.OnClickListener {
 
-    public static Button redrawOpen,btnClr;
-
-
+    public static Button redrawOpen,btnClr,btnSubmit;
     private CanvasSpiral customCanvas;
     public static TextView alert;
+    private ParseFunctions customParse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,8 @@ public class Spiral extends AppCompatActivity implements  View.OnClickListener {
         customCanvas=(CanvasSpiral)findViewById(R.id.spiral_canvas);
         redrawOpen =(Button)findViewById(R.id.btn_redraw);
         btnClr= (Button) findViewById(R.id.btn_clear);
+        customParse = new ParseFunctions(getApplicationContext());
+        btnSubmit= (Button) findViewById(R.id.btnSubmit);
 
         btnClr.setOnClickListener(this);
         redrawOpen.setOnClickListener(this);
@@ -42,13 +46,15 @@ public class Spiral extends AppCompatActivity implements  View.OnClickListener {
             case R.id.btn_redraw:
                 this.startActivity(new Intent(this, SpiralRedraw.class));
                 break;
+            case R.id.btnSubmit:
 
-            /**     TODO LIST
-             * ***************
-             *      ADD A BUTTON FOR SUBMITTING SPIRAL DRAWING
-             *  THAT INITIALIZES A SEPARATE THREAD, WHICH WORKS IN THE BACKGROUND
-             *  FOR PROCESSING DATA AND GIVING BACK THE RESULT
-             */
+            case R.id.btn_upload:
+                String json = new Gson().toJson(DrawView.spiralData);
+                customParse.pushParseData(ParseUser.getCurrentUser(),"SpiralData","ArrayList",json,"","");
+                MainActivity.sp=true; //test finished
+                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                break;
+
 
         }
     }
