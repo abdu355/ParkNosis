@@ -239,17 +239,10 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
                 SensorGraph.removeAllViews(); //reset graph
                 //push accel data to Parse
                 String json = new Gson().toJson(sensorData);
-                /*ParseObject acc = new ParseObject("AccelData");
-                acc.put("ArrayList",json);
-                acc.put("username", ParseUser.getCurrentUser().getUsername());
-                acc.put("createdBy",ParseUser.getCurrentUser());
-                acc.saveInBackground();*/
 
-                /*TODO
-                instead of using all these lines of code above use this line below:
-                 */
                 customParse.pushParseData(ParseUser.getCurrentUser(),"AccelData","ArrayList",json,"",""); //user pointer
                 openChart();
+                MainActivity.h=true; //test finished
                 break;
             case R.id.analysis_btn:
                 /*TODO

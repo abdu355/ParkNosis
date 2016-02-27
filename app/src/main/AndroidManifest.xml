@@ -16,7 +16,8 @@
         android:icon="@mipmap/brain48"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme.NoActionBar">
+        android:theme="@style/AppTheme.NoActionBar"
+        android:largeHeap="true">
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -43,10 +44,12 @@
             android:label="@string/title_activity_spiral_redraw"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".Login"
             android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".Signup"
             android:label="@string/title_activity_signup"

@@ -5,6 +5,11 @@ package com.example.b00047562.parkinson_mhealth;
 /**
  * Created by Os on 1/30/2016.
  */
+
+/*
+TODO
+create regular methods NOT Async
+ */
 public class SpiralDataProcessing {
 
     //User inputed spiral

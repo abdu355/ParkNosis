@@ -8,8 +8,9 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_main" tools:context=".MainActivity"
-    android:background="@drawable/rsz_1abswall1"
-    android:clickable="false">
+    android:background="#fce4ec"
+    android:clickable="false"
+    android:visibility="visible">
 
     <Button
         android:layout_width="fill_parent"
@@ -20,7 +21,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="62dp"
         android:background="@drawable/btnstyleround4"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:visibility="visible" />
 
     <Button
         android:layout_width="fill_parent"
@@ -31,16 +33,19 @@
         android:layout_centerHorizontal="true"
         android:background="@drawable/btnstyleround4"
         android:layout_marginTop="10dp"
-        android:enabled="true" />
+        android:enabled="false"
+        android:visibility="visible" />
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:visibility="visible">
 
         <TableRow
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:paddingBottom="5dp">
+            android:paddingBottom="5dp"
+            android:visibility="visible">
 
             <ImageView
                 android:layout_width="50dp"
@@ -49,7 +54,8 @@
                 android:src="@drawable/questicon"
                 android:scaleType="fitXY"
                 android:layout_alignTop="@+id/quest_btn"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:visibility="visible" />
 
             <Button
                 android:layout_width="fill_parent"
@@ -59,15 +65,17 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_toEndOf="@+id/imageView"
-                android:background="@drawable/btnstyleround5"
+                android:background="#e8f5e9"
                 android:layout_weight="4"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:visibility="visible" />
         </TableRow>
 
         <TableRow
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="5dp">
+            android:paddingBottom="5dp"
+            android:visibility="visible">
 
             <ImageView
                 android:layout_width="50dp"
@@ -76,7 +84,8 @@
                 android:src="@drawable/handtremor"
                 android:scaleType="fitXY"
                 android:layout_above="@+id/spiral_btn"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:visibility="visible" />
 
             <Button
                 android:layout_width="fill_parent"
@@ -84,16 +93,18 @@
                 android:text="@string/acc_btn"
                 android:id="@+id/acc_btn"
                 android:layout_toEndOf="@+id/imageView"
-                android:background="@drawable/btnstyleround"
+                android:background="#b2ebf2"
                 android:allowUndo="false"
                 android:layout_weight="1"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:visibility="visible" />
         </TableRow>
 
         <TableRow
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:paddingBottom="5dp">
+            android:paddingBottom="5dp"
+            android:visibility="visible">
 
             <ImageView
                 android:layout_width="50dp"
@@ -102,7 +113,8 @@
                 android:src="@drawable/spiralicon3"
                 android:scaleType="fitXY"
                 android:layout_above="@+id/btn_tap_main"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:visibility="visible" />
 
             <Button
                 android:layout_width="fill_parent"
@@ -111,15 +123,17 @@
                 android:id="@+id/spiral_btn"
                 android:layout_below="@+id/acc_btn"
                 android:layout_alignStart="@+id/acc_btn"
-                android:background="@drawable/btnstyleround2"
+                android:background="#ffccbc"
                 android:allowUndo="false"
                 android:layout_weight="4"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:visibility="visible" />
         </TableRow>
 
         <TableRow
             android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:visibility="visible">
 
             <ImageView
                 android:layout_width="50dp"
@@ -128,7 +142,8 @@
                 android:src="@drawable/tapping5"
                 android:scaleType="fitXY"
                 android:layout_alignBottom="@+id/btn_tap_main"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:visibility="visible" />
 
             <Button
                 android:layout_width="fill_parent"
@@ -137,10 +152,11 @@
                 android:id="@+id/btn_tap_main"
                 android:layout_below="@+id/spiral_btn"
                 android:layout_toEndOf="@+id/imageView"
-                android:background="@drawable/btnstyleround3"
+                android:background="#fff9c4"
                 android:allowUndo="false"
                 android:layout_weight="4"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:visibility="visible" />
         </TableRow>
     </TableLayout>
 

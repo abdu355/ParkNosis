@@ -1,5 +1,6 @@
 package com.example.b00047562.parkinson_mhealth;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -19,7 +20,7 @@ public class InvolMovement extends AppCompatActivity {
 
     private ProgressBar barTimer;
     private CountDownTimer countDownTimer;
-    private Button btn1,btn2,start;
+    private Button btn1,btn2,start,done;
     private TextView leftview,rightview;
     private int tapcount_left,tapcount_right;
     private ParseFunctions customParse;
@@ -35,6 +36,7 @@ public class InvolMovement extends AppCompatActivity {
 
         btn1 =(Button)findViewById(R.id.lfinger_invol);
         btn2=(Button)findViewById(R.id.rfinger_invol);
+        done=(Button)findViewById(R.id.btn_finish_involtap);
         start=(Button)findViewById(R.id.btn_start_invol);
         leftview=(TextView)findViewById(R.id.left_indic);
         rightview=(TextView)findViewById(R.id.right_indic);
@@ -87,6 +89,7 @@ public class InvolMovement extends AppCompatActivity {
                 barTimer.setProgress(0);
                 btn1.setEnabled(false);
                 btn2.setEnabled(false);
+                done.setEnabled(true);
                 //next test enable btn (add here)
 
                 //display avg times
@@ -94,6 +97,8 @@ public class InvolMovement extends AppCompatActivity {
                 rightview.setText("Taps: "+ tapcount_right);
 
                 customParse.pushParseList(ParseUser.getCurrentUser(), 2, "TappingData", "ArrayList", "Involuntary", "Involuntary", "Left", "Right", Integer.toString(tapcount_left), Integer.toString(tapcount_right));
+
+                MainActivity.t=true; //test finished
 
             }
         }.start();
@@ -109,4 +114,8 @@ public class InvolMovement extends AppCompatActivity {
         btn2.setEnabled(false);
     }
 
+    public void finishTest(View v)
+    {
+        startActivity(new Intent(getApplicationContext(),MainActivity.class));
+    }
 }

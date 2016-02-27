@@ -11,9 +11,12 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import almadani.com.shared.AccelData;
 
@@ -21,16 +24,10 @@ import almadani.com.shared.AccelData;
  * Created by Abdu Sah on 1/28/2016.
  */
 
-  /*TODO
-        Test all functions make sure they fetch properly
-        if any issues exist add them to the list here:
-        1-
-        2-
-        3-
-        ...
-  */
+
 public class ParseFunctions {
     public String result1; // add more results as necessary
+    public ArrayList<String> resarr;
     private Type type;
     private Context context;
     public ParseFunctions(Context c)
@@ -56,23 +53,6 @@ public class ParseFunctions {
         }
 
         return new Gson().fromJson(result1,type);
-        //return result1;
-         /*query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> results, ParseException e) {
-                if (e == null) {
-
-                     result1 = results.get(listPointer).getString(params[2]); // column name goes here ( e.g: "ArrayList") ; listPointer = 0 means get latest row
-                     type = new TypeToken<List<String[]>>() {}.getType();
-                     //Log.d("ParseResult",result1.toString());
-
-                } else {
-                    Log.d("ParseError", e.getMessage());
-                }
-
-            }
-
-        });*/
-
     }
     public void pushParseData(ParseUser user, String ... params) //upload to Parse single row
     //0: class name -- 1: column name -- 2: json String
@@ -141,23 +121,45 @@ public class ParseFunctions {
         }
 
         return new Gson().fromJson(result1,type);
-        //return result1;
-         /*query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> results, ParseException e) {
-                if (e == null) {
-
-                     result1 = results.get(listPointer).getString(params[2]); // column name goes here ( e.g: "ArrayList") ; listPointer = 0 means get latest row
-                     type = new TypeToken<List<String[]>>() {}.getType();
-                     //Log.d("ParseResult",result1.toString());
-
-                } else {
-                    Log.d("ParseError", e.getMessage());
-                }
-
-            }
-
-        });*/
-
     }
+
+    public String getParseSingleColData(ParseUser user , final int listPointer, final String ... params)
+    {
+        String hand="";
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery(params[0]);
+        query.whereEqualTo("createdBy", user);
+        query.orderByDescending(params[1]); //typically order by date to get latest data string
+        //add additional query paramters here if needed ( make sure to also include the params[index] for it ) ...
+        try {
+            List<ParseObject> results = query.find();
+            hand = results.get(listPointer).getString(params[2]);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return hand;
+    }
+    public ArrayList<String> getParseDataTappingCount(ParseUser user ,  final String ... params)
+    {
+        resarr = new ArrayList<>();
+        ParseQuery<ParseObject> query = ParseQuery.getQuery(params[0]);
+        query.whereEqualTo("createdBy", user);
+        query.orderByDescending(params[1]); //typically order by date to get latest data string
+        query.setLimit(5);
+        //add additional query paramters here if needed ( make sure to also include the params[index] for it ) ...
+        try {
+            List<ParseObject> results = query.find();
+           for(int i=0;i<5;i++)
+           {
+               resarr.add(i, results.get(i).getString(params[2]));
+           }
+           // type = new TypeToken<Integer>(){}.getType();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return resarr;
+    }
+
 
 }

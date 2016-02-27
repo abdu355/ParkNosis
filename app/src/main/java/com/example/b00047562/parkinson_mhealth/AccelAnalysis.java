@@ -13,7 +13,10 @@ import almadani.com.shared.AccelData;
  */
 public class AccelAnalysis {
 
-
+/*
+TODO
+create regular methods NOT Async
+ */
     private Accelerometer Accel;
     private ArrayList<AccelData> AD;
     private ParseFunctions customParse;

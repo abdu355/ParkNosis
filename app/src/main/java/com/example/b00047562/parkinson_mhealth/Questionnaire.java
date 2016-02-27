@@ -21,7 +21,7 @@ public class Questionnaire extends AppCompatActivity implements View.OnClickList
           this section is incomplete , but the data is correctly transferred to results page
            */
     //private RadioGroup g1,g2,g3,g4;
-    private int numofquestions=11; //define number of questions
+    private int numofquestions=27; //define number of questions
     int radioButtonID ;
     View radioButton ;
     Button submit;
@@ -50,9 +50,25 @@ public class Questionnaire extends AppCompatActivity implements View.OnClickList
         groupid.add((RadioGroup)findViewById(R.id.g3c));
         groupid.add((RadioGroup)findViewById(R.id.g3d));
         groupid.add((RadioGroup)findViewById(R.id.g4));
+        groupid.add((RadioGroup)findViewById(R.id.g4a));
+        groupid.add((RadioGroup)findViewById(R.id.g4b));
+        groupid.add((RadioGroup)findViewById(R.id.g4c));
+        groupid.add((RadioGroup)findViewById(R.id.g4d));
         groupid.add((RadioGroup)findViewById(R.id.g5));
+        groupid.add((RadioGroup)findViewById(R.id.g5b));
         groupid.add((RadioGroup)findViewById(R.id.g6));
-        groupid.add((RadioGroup)findViewById(R.id.g7));//index 6
+        groupid.add((RadioGroup)findViewById(R.id.g6b));
+        groupid.add((RadioGroup)findViewById(R.id.g7));
+        groupid.add((RadioGroup)findViewById(R.id.g7b));
+        groupid.add((RadioGroup)findViewById(R.id.g8a));
+        groupid.add((RadioGroup)findViewById(R.id.g8b));
+        groupid.add((RadioGroup)findViewById(R.id.g9));
+        groupid.add((RadioGroup)findViewById(R.id.g10));
+        groupid.add((RadioGroup)findViewById(R.id.g11));
+        groupid.add((RadioGroup)findViewById(R.id.g12));
+        groupid.add((RadioGroup)findViewById(R.id.g13));
+        groupid.add((RadioGroup)findViewById(R.id.g14a));
+        groupid.add((RadioGroup)findViewById(R.id.g14b));//index 26
 
         submit=(Button)findViewById(R.id.btn_submitquest);
 
@@ -76,7 +92,9 @@ public class Questionnaire extends AppCompatActivity implements View.OnClickList
         String json = new Gson().toJson(ansarr);
         customParse.pushParseData(ParseUser.getCurrentUser(),"Questionnaire","Answers",json,"",""); //user pointer
 
-        //go to next test...
+        //go to main
+        finish();
+        MainActivity.q = true;//test finished
     }
 
     @Override

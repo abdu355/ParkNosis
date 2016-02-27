@@ -1,5 +1,6 @@
 package com.example.b00047562.parkinson_mhealth;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -36,7 +37,6 @@ public class SpiralRedraw extends AppCompatActivity implements View.OnClickListe
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
         SpiralGraph = (LinearLayout) findViewById(R.id.spirallinearlayout);
         BtnShowSpiral= (Button)findViewById(R.id.btn_drawspiral);
         upload=(Button)findViewById(R.id.btn_upload);
@@ -56,6 +56,8 @@ public class SpiralRedraw extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_upload:
                 String json = new Gson().toJson(DrawView.spiralData);
                 customParse.pushParseData(ParseUser.getCurrentUser(),"SpiralData","ArrayList",json,"","");
+                MainActivity.sp=true; //test finished
+                startActivity(new Intent(getApplicationContext(),MainActivity.class));
                 break;
         }
     }
