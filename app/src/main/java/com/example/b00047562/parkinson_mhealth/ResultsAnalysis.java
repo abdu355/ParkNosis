@@ -138,7 +138,7 @@ public class ResultsAnalysis extends AppCompatActivity {
             processTappingData();
             processQuestionnaire();
             processAccelData();//accel data (karim)
-            processSpiralData();
+           // processSpiralData();
             return null;
         }
 
