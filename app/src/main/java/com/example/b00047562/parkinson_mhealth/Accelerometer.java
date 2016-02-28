@@ -40,6 +40,7 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
 
     private TextView txtXValue, txtYValue, txtZValue, tv_shakeAlert;
     private SensorManager MySensorManager;
+    private AccelAnalysis A;
     private Sensor MyAclmeter;
     private float ax, ay, az, lastx, lasty, lastz;
     private long lastUpdate;
@@ -248,6 +249,7 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
                 /*TODO
                 Intent and go to new activity
                 */
+                A = new AccelAnalysis();
                 break;
         }
     }
