@@ -16,12 +16,16 @@
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="left">
+        android:gravity="left"
+        android:animateLayoutChanges="true"
+        android:layout_marginTop="60dp">
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="left">
+            android:gravity="left"
+            android:visibility="gone"
+            android:id="@+id/tbrow_title">
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -60,7 +64,9 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="left">
+            android:gravity="left"
+            android:visibility="gone"
+            android:id="@+id/tbrow_hand">
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -94,7 +100,9 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="left">
+            android:gravity="left"
+            android:visibility="gone"
+            android:id="@+id/tbrow_spiral">
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -129,7 +137,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="left"
-            android:visibility="gone">
+            android:visibility="gone"
+            android:id="@+id/tbrow_tap">
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -152,7 +161,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="result 3"
-                    android:id="@+id/textView9"
+                    android:id="@+id/tapscore_tv"
                     android:layout_weight="1"
                     android:layout_gravity="center"
                     android:gravity="right"
@@ -165,7 +174,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="left"
-            android:visibility="gone">
+            android:visibility="gone"
+            android:id="@+id/tbrow_ov">
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -297,7 +307,7 @@
                 android:layout_height="match_parent">
 
                 <Button
-                    android:layout_width="319dp"
+                    android:layout_width="340dp"
                     android:layout_height="wrap_content"
                     android:text="Show Advice"
                     android:id="@+id/btn_showadvice"
@@ -321,19 +331,31 @@
                     android:id="@+id/content_secondary"
                     android:layout_width="match_parent"
                     android:layout_height="260dp"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:layout_marginRight="10dp">
                 </FrameLayout>
 
                 <FrameLayout
                     android:id="@+id/content_primary"
                     android:layout_width="match_parent"
                     android:layout_height="260dp"
-                    android:layout_weight="1" >
+                    android:layout_weight="1"
+                    android:layout_marginRight="10dp">
                 </FrameLayout>
 
             </LinearLayout>
         </TableRow>
 
     </TableLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Graphs for Comparison"
+        android:id="@+id/tv_title"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="visible" />
 
 </RelativeLayout>

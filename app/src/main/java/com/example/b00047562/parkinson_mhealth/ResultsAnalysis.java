@@ -35,13 +35,16 @@ public class ResultsAnalysis extends AppCompatActivity {
 
     ParseFunctions customParse;
     Double qscore; //questionnaire score - not overall score
-    TextView extras,advice,extra1;
+    TextView extras,advice,extra1,title_tv,tapscore_tv;
 
     private FrameLayout primarygraph,secondarygraph;
 
-    TableRow ad1,ad2,ad3,graphs;
+    TableRow ad1,ad2,ad3,tapres,spiralres,handres,graphs,title;
     Button showhide;
     private View mChart1,mChart2;
+
+    private int tapscore,handscore,spiralscore; //use these for final scale
+
 
 
     @Override
@@ -64,13 +67,18 @@ public class ResultsAnalysis extends AppCompatActivity {
         ad2=(TableRow)findViewById(R.id.tbrow_ad2);
         ad3=(TableRow)findViewById(R.id.tbrow_ad3);
         graphs=(TableRow)findViewById(R.id.tbrow_graphs);
+        tapres= (TableRow)findViewById(R.id.tbrow_tap);
+        spiralres=(TableRow)findViewById(R.id.tbrow_spiral);
+        handres=(TableRow)findViewById(R.id.tbrow_hand);
+        title=(TableRow)findViewById(R.id.tbrow_title);
 
         showhide=(Button)findViewById(R.id.btn_showadvice);
 
         extras = (TextView)findViewById(R.id.tv_question_extra); //questionnaire score here
         extra1=(TextView)findViewById(R.id.tv_extra1);
         advice= (TextView)findViewById(R.id.advice_tv_analysis); //detail advice and score details
-
+        title_tv=(TextView)findViewById(R.id.tv_title);
+        tapscore_tv=(TextView)findViewById(R.id.tapscore_tv);
 
 
         //test draw a bar chart
@@ -83,7 +91,7 @@ public class ResultsAnalysis extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        new processTappingDataTask().execute(); //Tapping data task
+        new processDataTask().execute(); //Tapping data task
     }
 
 //    private class processSpiralDataTask extends AsyncTask<Void,Void,Void>
@@ -118,7 +126,7 @@ public class ResultsAnalysis extends AppCompatActivity {
 //
 //    }
 
-    private class processTappingDataTask extends AsyncTask<Void, Void, Void> {
+    private class processDataTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -138,7 +146,7 @@ public class ResultsAnalysis extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
             processTappingData();
             processQuestionnaire();
-            processAccelData();//accel data (karim)
+            //processAccelData();//accel data (karim)
            // processSpiralData();
             return null;
         }
@@ -147,18 +155,13 @@ public class ResultsAnalysis extends AppCompatActivity {
         protected void onPostExecute(Void result) {
 
             mProgressDialog.dismiss();
-            tapresults.displayResults();
+            //tapresults.displayResults();
             extras.setText("Questionnaire Score: " + qscore);
+            tapscore_tv.setText(tapscore+"");
             displayscoreAdvice();   // calls all display functions
 
-            //display graphs for tapping results
-            mChart1 = ChartFactory.getBarChartView(getBaseContext(), tapresults.getDataSet1(),
-                    tapresults.getRenderer1(), BarChart.Type.STACKED);
-            mChart2 =ChartFactory.getBarChartView(getBaseContext(), tapresults.getDataSet2(),
-                    tapresults.getRenderer2(), BarChart.Type.STACKED);
-            // Adding the Line Chart to the FrameLayout
-            primarygraph.addView(mChart1);
-            secondarygraph.addView(mChart2);
+            //display graphs for  results
+            viewgraphs();
 
             //call next AsyncTask
             //--place functions for other Tests ex: HandTremorAsyncTask or SpiralDataAsyncTask
@@ -181,8 +184,10 @@ public class ResultsAnalysis extends AppCompatActivity {
 
      private void processTappingData()
     {
-        tapresults.runAlgorithm(tapresults.fetchData());   //run algo on arraylist retreived from parse
-        //tapresults.displayResults();
+        //tapresults.runAlgorithm(tapresults.fetchData());   //run algo on arraylist retreived from parse
+        tapresults.fetchData();
+        //run tempalgo here
+        tapscore=tapresults.runTempAlgorithm();
     }
     private void processQuestionnaire()//questionairre data fetch result
     {
@@ -225,16 +230,28 @@ public class ResultsAnalysis extends AppCompatActivity {
     private void viewgraphs()
     {
 
-
+        mChart1 = ChartFactory.getLineChartView(getBaseContext(), tapresults.getDataSet1(),
+                tapresults.getRenderer1());
+        mChart2 =ChartFactory.getBarChartView(getBaseContext(), tapresults.getDataSet2(),
+                tapresults.getRenderer2(), BarChart.Type.STACKED);
+        // Adding the Line Chart to the FrameLayout
+        primarygraph.addView(mChart1);
+        secondarygraph.addView(mChart2);
     }
 
     public void displayadvicebtn(View v) //btn trigger
     {
         if(clicked==false) {
+
             graphs.setVisibility(View.GONE);
             ad1.setVisibility(View.VISIBLE);
             ad2.setVisibility(View.VISIBLE);
             ad3.setVisibility(View.VISIBLE);
+            tapres.setVisibility(View.VISIBLE);
+            spiralres.setVisibility(View.VISIBLE);
+            handres.setVisibility(View.VISIBLE);
+            title.setVisibility(View.VISIBLE);
+            title_tv.setVisibility(View.GONE);
             clicked=true;
             showhide.setText("Show Graphs");
         }
@@ -244,6 +261,11 @@ public class ResultsAnalysis extends AppCompatActivity {
             ad1.setVisibility(View.GONE);
             ad2.setVisibility(View.GONE);
             ad3.setVisibility(View.GONE);
+            tapres.setVisibility(View.GONE);
+            spiralres.setVisibility(View.GONE);
+            handres.setVisibility(View.GONE);
+            title.setVisibility(View.GONE);
+            title_tv.setVisibility(View.VISIBLE);
             clicked=false;
             showhide.setText("Show Advice");
         }

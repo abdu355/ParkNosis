@@ -29,10 +29,11 @@ public class TappingTestFunctions {
 
     //shared vars
     private String hand;
-    private long delay;
-    private long delayleftfinger;
-    private long delayrightfinger;
+    private double avgdelay;
+    private double avgdelayleftfinger;
+    private double avgdelayrightfinger;
     private ArrayList<String> numoftaps;
+
 
     //alternate tapping vars
     private long timegiven = 20*1000;
@@ -41,12 +42,15 @@ public class TappingTestFunctions {
     private ArrayList<Long> simpletaps;
     private ArrayList<Integer> intList;
 
-    public LinearLayout SensorGraph;
-    public View mChart;
+
+    private int indicator , indicator2, indicator3,indicator4;// for tapping scale 0:normal , <=2:hesistant ,  <=4:mild, >4  <=9:moderate , >9:severe
 
 
     public ArrayList fetchData() {
 
+        indicator=0;
+        indicator2=0;
+        indicator3=0;
 
         customParse = new ParseFunctions(tapclass.getApplication());
         intList= new ArrayList<>();
@@ -71,19 +75,79 @@ public class TappingTestFunctions {
         Log.d("TappingTest",hand+"");
         Log.d("TappingTest",intList.toString());
 
+        avgdelay = tapclass.average(simpletaps);
+        avgdelayrightfinger = tapclass.average(rightfingerarr);
+        avgdelayleftfinger=tapclass.average(leftfingerarr);
 
         return new ArrayList();
     }
 
-    public void runAlgorithm(ArrayList arrlist) {
+   // public void runAlgorithm() {}
 
+    public int runTempAlgorithm() {
 
+        //1- check avg delay on simple taps if >200 hesitant else >300 <400 mild  else >400 <500 moderate else >500 severe
+            if(avgdelay<=200)
+            {
+                indicator = 0;
+            } else if(avgdelay>200)
+            {
+                indicator = 1;
+            }else if (avgdelay>300 && avgdelay<=400) {
 
+                indicator =  2;
+            }else if(avgdelay>400 && avgdelay<=500)
+            {
+                indicator =  3;
+
+            }else if(avgdelay>500)
+            {
+                indicator =  4;
+            }
+
+        //2- check number of taps on alternate test >20 normal   <10 taps hesitant  <5 taps moderate to severe
+        if(intList.get(2)<=5 || intList.get(3)<=5)
+        {
+            indicator2 = 4;
+        }else if((intList.get(2)>5 && intList.get(2)<=10) || (intList.get(3)>5 && intList.get(3)<=10))
+        {
+            indicator2 = 2;
+        }else if((intList.get(2)>10 && intList.get(2)<=20)|| (intList.get(3)>10 && intList.get(3)<=20))
+        {
+            indicator2 = 1;
+        }else if (intList.get(2)>20 || intList.get(3)>20)
+        {
+            indicator2 = 0;
+        }
+
+        //3 - check avg delay on alt left and right taps if >200 <300 hesitant/mild  else if >300 <500 moderate  else if >500 severe
+        if((avgdelayrightfinger<=200) || (avgdelayleftfinger<=200))
+        {
+            indicator3 =0;
+        }else if ((avgdelayrightfinger>200 && avgdelayrightfinger<=300) || (avgdelayleftfinger>200 && avgdelayleftfinger<=300))
+        {
+            indicator3=1;
+        }else if ((avgdelayrightfinger>300 && avgdelayrightfinger<=500) || (avgdelayleftfinger>300 && avgdelayleftfinger<=500))
+        {
+            indicator3=2;
+
+        }else if ((avgdelayrightfinger>500) || (avgdelayleftfinger>500))
+        {
+            indicator3=4;
+        }
+
+        if(intList.get(0)>2 || intList.get(1)>2)
+        {
+            indicator4=1;
+        }
+        else if (intList.get(0)>4 || intList.get(1)>4)
+        {
+            indicator4=3;
+        }
+
+        return indicator+indicator2+indicator3+indicator4;
     }
-    public void displayResults() {
-
-
-    }
+    //public void displayResults() {}
 
     public XYMultipleSeriesDataset getDataSet1() {
         // The structure of data
@@ -105,12 +169,17 @@ public class TappingTestFunctions {
         renderer.setYTitle("Delay");
         renderer.setAxesColor(Color.WHITE);
         renderer.setLabelsColor(Color.WHITE);
+        renderer.setAxisTitleTextSize(16);
+        renderer.setChartTitleTextSize(16);
+        renderer.setLabelsTextSize(16);
+        renderer.setLegendTextSize(16);
         // The minimum and maximum number of digital set the X axis
         renderer.setXAxisMin(0.5);
         renderer.setXAxisMax(5.5);
+
         // The minimum and maximum number of digital set the Y axis
         renderer.setYAxisMin(0);
-        renderer.setYAxisMax(500);
+        renderer.setYAxisMax(300);
         renderer.addXTextLabel(1, "1-2");
         renderer.addXTextLabel(2, "2-3");
         renderer.addXTextLabel(3, "3-4");
@@ -130,8 +199,11 @@ public class TappingTestFunctions {
         renderer.setApplyBackgroundColor(true);
         renderer.setBackgroundColor(Color.GRAY);
         // Each column is the color
-        SimpleSeriesRenderer sr = new XYSeriesRenderer();
+        XYSeriesRenderer sr = new XYSeriesRenderer();
         sr.setColor(Color.parseColor("#f06292"));
+        sr.setLineWidth(5f);
+        sr.setChartValuesTextSize(25);
+
         renderer.addSeriesRenderer(sr);
         // Set each post whether to display the numerical
         renderer.getSeriesRendererAt(0).setDisplayChartValues(true);
@@ -156,9 +228,9 @@ public class TappingTestFunctions {
         // The structure of data
         XYMultipleSeriesDataset barDataset = new XYMultipleSeriesDataset();
         CategorySeries barSeries = new CategorySeries("Average Delays ("+hand+" Hand)");
-        barSeries.add(tapclass.average(simpletaps));
-        barSeries.add(tapclass.average(rightfingerarr));
-        barSeries.add(tapclass.average(leftfingerarr));
+        barSeries.add(avgdelay);
+        barSeries.add(avgdelayrightfinger);
+        barSeries.add(avgdelayleftfinger);
         barDataset.addSeries(barSeries.toXYSeries());
         return barDataset;
     }
@@ -171,6 +243,10 @@ public class TappingTestFunctions {
         renderer.setYTitle("Delay");
         renderer.setAxesColor(Color.WHITE);
         renderer.setLabelsColor(Color.WHITE);
+        renderer.setAxisTitleTextSize(16);
+        renderer.setChartTitleTextSize(16);
+        renderer.setLabelsTextSize(16);
+        renderer.setLegendTextSize(16);
         // The minimum and maximum number of digital set the X axis
         renderer.setXAxisMin(0.5);
         renderer.setXAxisMax(5.5);
@@ -193,6 +269,9 @@ public class TappingTestFunctions {
         // Each column is the color
         SimpleSeriesRenderer sr = new XYSeriesRenderer();
         sr.setColor(Color.parseColor("#f06292"));
+
+        sr.setChartValuesTextSize(25);
+
         renderer.addSeriesRenderer(sr);
         // Set each post whether to display the numerical
         renderer.getSeriesRendererAt(0).setDisplayChartValues(true);
@@ -210,6 +289,7 @@ public class TappingTestFunctions {
         renderer.setBarSpacing(0.5f);
         // Set the X, Y axis unit font size
         renderer.setAxisTitleTextSize(20);
+
         return renderer;
     }
 }
