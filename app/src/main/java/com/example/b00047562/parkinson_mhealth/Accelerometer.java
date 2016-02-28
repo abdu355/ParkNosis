@@ -19,7 +19,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.wearable.DataApi;
+import com.google.android.gms.wearable.DataEvent;
+import com.google.android.gms.wearable.DataEventBuffer;
+import com.google.android.gms.wearable.DataItem;
 import com.google.android.gms.wearable.DataMap;
+import com.google.android.gms.wearable.DataMapItem;
+import com.google.android.gms.wearable.Wearable;
 import com.google.gson.Gson;
 import com.mariux.teleport.lib.TeleportClient;
 import com.parse.ParseUser;
@@ -35,22 +43,27 @@ import java.util.ArrayList;
 
 import almadani.com.shared.AccelData;
 
+import static com.google.android.gms.wearable.DataApi.*;
 
-public class Accelerometer extends AppCompatActivity implements SensorEventListener, View.OnClickListener {
 
+public class Accelerometer extends AppCompatActivity implements SensorEventListener, View.OnClickListener,DataListener,
+        GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener  {
+
+    private static final String TAG = "TAG ";
     private TextView txtXValue, txtYValue, txtZValue, tv_shakeAlert;
     private SensorManager MySensorManager;
     private AccelAnalysis A;
     private Sensor MyAclmeter;
+    private AccelData ACDATA;
     private float ax, ay, az, lastx, lasty, lastz;
     private long lastUpdate;
     private static final int SHAKE_THRESHOLD = 1700;
     private static boolean output_upToDate = true;
 
     private LinearLayout SensorGraph;
-    private ArrayList<AccelData> sensorData;
+    private ArrayList<AccelData> sensorData,DataFromWearable;
     private View mChart;
-    private TeleportClient mTeleportClient;
     private Button BtnShowGraph, BtnReadAccel, BtnShowAnalysis;
     private ParseFunctions customParse; //for custom parse functions from ParseFunctions class
     //private int i=0;
@@ -60,7 +73,7 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
 
     /* Adjust this value for your purpose */
     public static final long REFRESH_INTERVAL = 100;      // in milliseconds
-
+    private GoogleApiClient mGoogleApiClient;
     /* This object is used as a lock to avoid data loss in the last refresh */
     private static final Object lock = new Object();
 
@@ -70,6 +83,11 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
         setContentView(R.layout.activity_accelerometer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(Wearable.API)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .build();
 
 
         txtXValue = (TextView) findViewById(R.id.txtXValue);
@@ -77,12 +95,13 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
         txtZValue = (TextView) findViewById(R.id.txtZValue);
         tv_shakeAlert = (TextView) findViewById(R.id.tv_shake);
 
-        mTeleportClient = new TeleportClient(this);
-        mTeleportClient.setOnSyncDataItemTask(new ShowToastOnSyncDataItemTask());
+
+
 
 
         SensorGraph = (LinearLayout) findViewById(R.id.Layout_Graph_Container);
         sensorData = new ArrayList();
+        DataFromWearable= new ArrayList();
 
         BtnReadAccel = (Button) findViewById(R.id.read_btn);
         BtnShowGraph = (Button) findViewById(R.id.show_btn);
@@ -149,21 +168,50 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
         return super.onOptionsItemSelected(item);
     }
 
-    public class ShowToastOnSyncDataItemTask extends TeleportClient.OnSyncDataItemTask {
+    @Override
+    public void onConnected(Bundle bundle) {
+        Wearable.DataApi.addListener(mGoogleApiClient, this);
 
-        @Override
-        protected void onPostExecute(DataMap dataMap) {
+    }
 
-            //let`s get the String from the DataMap, using its identifier key
-            String string = dataMap.getString("x");
-            String str = dataMap.getString("y");
-            String sg = dataMap.getString("z");
+    @Override
+    public void onConnectionSuspended(int i) {
 
-            //let`s create a pretty Toast with our string!
-            Toast.makeText(getApplicationContext(),string+str+sg, Toast.LENGTH_SHORT).show();
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Wearable.DataApi.removeListener(mGoogleApiClient, this);
+        mGoogleApiClient.disconnect();
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    public void onDataChanged(DataEventBuffer dataEventBuffer) {
+
+            for (DataEvent event : dataEventBuffer) {
+                if (event.getType() == DataEvent.TYPE_CHANGED) {
+                    // DataItem changed
+                    DataItem item = event.getDataItem();
+                    if (item.getUri().getPath().compareTo("/Accel") == 0) {
+                        DataMap dataMap = DataMapItem.fromDataItem(item).getDataMap();
+                        ACDATA=new AccelData(dataMap.getLong("Time Stamp")
+                                ,dataMap.getFloat("X value"),dataMap.getFloat("Y value"),dataMap.getFloat("Z value"));
+                        Log.d(TAG, "onDataChanged: "+dataMap.getFloat("X value"));
+                        DataFromWearable.add(ACDATA);
+                    }
+                } else if (event.getType() == DataEvent.TYPE_DELETED) {
+                    // DataItem deleted
+                }
 
         }
+
     }
+
 
     @Override
     public void onSensorChanged(SensorEvent event) {
@@ -215,6 +263,14 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
         //Do something
     }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mGoogleApiClient.connect();
+    }
+
 
     private void updateTextView() {
         tv_shakeAlert.setText("Steady");

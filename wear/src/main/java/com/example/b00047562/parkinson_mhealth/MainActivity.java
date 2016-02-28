@@ -6,6 +6,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -17,12 +18,18 @@ import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.wearable.Asset;
+import com.google.android.gms.wearable.DataApi;
 import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.NodeApi;
+import com.google.android.gms.wearable.PutDataMapRequest;
+import com.google.android.gms.wearable.PutDataRequest;
 import com.google.android.gms.wearable.Wearable;
 import com.mariux.teleport.lib.TeleportClient;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -40,7 +47,7 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
     private static final String HELLO_WORLD_WEAR_PATH = "/hello-world-wear";
     private boolean mResolvingError=false;
 
-    TeleportClient mTeleportClient;
+
 
 
     private static final float SHAKE_THRESHOLD = 1.1f;
@@ -65,7 +72,7 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
 
         mSensorManager = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
         mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        mTeleportClient = new TeleportClient(this);
+
 
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -83,47 +90,35 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
                 accelbtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        tvCountDownTimer.setText("Shit Shat get banged");
+                        tvCountDownTimer.setText("Started");
 
-
-
+                        CountDown dd=new CountDown();
+                        dd.execute();
                         Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             public void run() {
 
-//                                new CountDownTimer(15000, 1000) {
-//
-//                                    public void onTick(long millisUntilFinished) {
-//                                        tvCountDownTimer.setText("seconds remaining: " + millisUntilFinished / 1000);
-//                                    }
-//
-//                                    public void onFinish() {
-//                                        tvCountDownTimer.setText("done!");
-//                                    }
-//                                }.start();
-                        TimerTask task = new TimerTask() {
+                                TimerTask task = new TimerTask() {
 
-                            @Override
-                            public void run() {
+                                    @Override
+                                    public void run() {
 
 
-                                String TAG = " ";
-                                if(SEvent!=null) {
-                                   mTeleportClient.syncLong("timeStamp", System.currentTimeMillis());
+                                        String TAG = " ";
+                                        if(SEvent!=null) {
 
-                                    Log.d(TAG, "run: "+ SEvent.values[0]);
-                                    mTeleportClient.syncString("x", String.valueOf((SEvent.values[0])));
-                                    mTeleportClient.syncString("y", String.valueOf((SEvent.values[1])));
-                                    mTeleportClient.syncString("z", String.valueOf((SEvent.values[2])));
+                                            storeData();
+                                            Log.d(TAG, "run: " + SEvent.values[0]);
 
-                                }
-                            }
-                        };
-                        Timer timer = new Timer(true);  // runs on a separate thread
-                        timer.schedule(task, 0, 500);
+
+                                        }
+                                    }
+                                };
+                                Timer timer = new Timer(true);  // runs on a separate thread
+                                timer.schedule(task, 0, 500);
                             }
                         }, 15000);
-                            }
+                    }
 
 
                 });
@@ -134,6 +129,30 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
 
 
     }
+
+    class CountDown extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... params) {
+
+
+
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void c) {            new CountDownTimer(15000, 1000) {
+            public void onTick(long millisUntilFinished) {
+                tvCountDownTimer.setText("seconds remaining: " + millisUntilFinished / 1000);
+            }
+
+            public void onFinish() {
+                tvCountDownTimer.setText("done!");
+            }            }.start();
+        }
+    }
+
+
     /**
      * Send message to mobile handheld
 
@@ -165,12 +184,9 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
     private void storeData(){
 
         long curTime = System.currentTimeMillis();
-        if ((curTime - lastUpdate) > 100) {
-            long diffTime = (curTime - lastUpdate);
-            lastUpdate = curTime;}
 
         AccelData data= new AccelData(curTime, SEvent.values[0], SEvent.values[1], SEvent.values[2]);
-        sensorData.add(data);
+        synching(data);
     }
 
     @Override
@@ -191,6 +207,18 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
         mSensorManager.unregisterListener(this);
     }
 
+    private void synching(AccelData sensorData)
+    {
+        PutDataMapRequest putDataMapReq = PutDataMapRequest.create("/Accel");
+        putDataMapReq.getDataMap().putLong("Time Stamp",sensorData.getTimestamp());
+        putDataMapReq.getDataMap().putFloat("X value",sensorData.getX());
+        putDataMapReq.getDataMap().putFloat("Y value",sensorData.getY());
+        putDataMapReq.getDataMap().putFloat("Z value",sensorData.getZ());
+        PutDataRequest putDataReq = putDataMapReq.asPutDataRequest();
+        PendingResult<DataApi.DataItemResult> pendingResult = Wearable.DataApi.putDataItem(mGoogleApiClient, putDataReq);
+
+
+    }
 
     @Override
     public void onSensorChanged(SensorEvent event) {
