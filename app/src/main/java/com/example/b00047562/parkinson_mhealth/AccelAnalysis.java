@@ -30,16 +30,22 @@ public class AccelAnalysis {
     private double ArrZ_double[];
     private int ADSize;
     private Complex[] C_Arr;
-    private double PeakFreq;
+    private Complex C_largest_magnitude;
+    private int IndexOfPeakFreq, SizeOfC_Arr, Fs;
+    private double EquivalentFreq;
 
     //Constructor - Initializes all needed variables and calls all necessary functions
-    public AccelAnalysis (){
+    public AccelAnalysis (int fs){
         Accel = new Accelerometer();
         customParse = new ParseFunctions(Accel.getApplication());
         AD = getAccelData();
         ArrZ_double = ConvertToDoubleArr(AD, ADSize);
         FourierTransform();
-        PeakFreq = GetPeakFreq(C_Arr);
+        IndexOfPeakFreq = GetIndexOfPeakFreq(C_Arr);
+        C_largest_magnitude = C_Arr[IndexOfPeakFreq];
+        SizeOfC_Arr = C_Arr.length;
+        Fs = fs;
+        EquivalentFreq = GetEquivalentFrequency(C_largest_magnitude, IndexOfPeakFreq, SizeOfC_Arr);
     }
 
     public ArrayList<AccelData> getAccelData() {
@@ -70,17 +76,32 @@ public class AccelAnalysis {
     }
 
     //Get Peak Frequency of an array of Complex numbers
-    public double GetPeakFreq(Complex C[]){
+    public int GetIndexOfPeakFreq(Complex C[]){
         double largest = C[0].abs();
+        int index = 0;
 
         //Find largest frequency in the sample data
-        for(int i=1; i< C.length; i++)
-        {
-            if(C[i].abs() > largest)
+        for(int i=1; i< C.length; i++) {
+            if (C[i].abs() > largest){
                 largest = C[i].abs();
+                index = i;
+                }
         }
-        return largest;
+        return index;
     }
+
+    //Calculate the equivalent frequency: freq = i_max * Fs / N
+    //Here Fs = sample rate (Hz) and N = no of points in DFT
+    public double GetEquivalentFrequency (Complex C, int i_max, int N) {
+        double freq = i_max;
+        Log.d("I_max", freq + ""); //Testing
+        freq *= Fs;
+        Log.d("FS", Fs + ""); //Testing
+        freq /= N;
+        Log.d("N", N + ""); //Testing
+        return freq;
+    }
+
 
 
 

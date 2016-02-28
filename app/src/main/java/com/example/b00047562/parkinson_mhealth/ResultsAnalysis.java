@@ -1,7 +1,6 @@
 package com.example.b00047562.parkinson_mhealth;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,7 +8,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
@@ -17,7 +15,6 @@ import com.parse.ParseUser;
 
 import org.achartengine.ChartFactory;
 import org.achartengine.chart.BarChart;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -57,7 +54,11 @@ public class ResultsAnalysis extends AppCompatActivity {
 
         customParse = new ParseFunctions(getApplicationContext());
         tapresults= new TappingTestFunctions();
-        accelresult= new AccelAnalysis();
+        /*ToDo
+        Karim: I made AccelAnalysis constructor require an Int parameter in order to pass Fs (sensor sampling rate) from accelerometer class
+        So it broke this...
+         */
+        //accelresult= new AccelAnalysis();
 
         ad1=(TableRow)findViewById(R.id.tbrow_ad1);
         ad2=(TableRow)findViewById(R.id.tbrow_ad2);
