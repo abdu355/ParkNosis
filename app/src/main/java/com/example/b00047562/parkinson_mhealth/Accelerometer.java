@@ -1,6 +1,7 @@
 package com.example.b00047562.parkinson_mhealth;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -40,13 +41,15 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
 
     private TextView txtXValue, txtYValue, txtZValue, tv_shakeAlert;
     private SensorManager MySensorManager;
-    private AccelAnalysis A;
     private Sensor MyAclmeter;
+    private AccelAnalysis A;
     private float ax, ay, az, lastx, lasty, lastz;
     private long lastUpdate;
     private static final int SHAKE_THRESHOLD = 1700;
     private static boolean output_upToDate = true;
+    private int Min_Delay;
 
+    private SharedPreferences prefs;
     private LinearLayout SensorGraph;
     private ArrayList<AccelData> sensorData;
     private View mChart;
@@ -100,7 +103,10 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
         if (MySensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
             MyAclmeter = MySensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
             MySensorManager.registerListener(this, MyAclmeter, SensorManager.SENSOR_DELAY_FASTEST);
+            Min_Delay = MyAclmeter.getMinDelay(); //get accelerometer sampling rate
+
         } else {
+            Min_Delay = 0;
             Log.d("Accelerometer not found", "Accelerometer not found");
         }
         Thread t = new Thread() {//http://stackoverflow.com/questions/14814714/update-textview-every-second
@@ -249,7 +255,8 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
                 /*TODO
                 Intent and go to new activity
                 */
-                A = new AccelAnalysis();
+                if(Min_Delay != 0)
+                    A = new AccelAnalysis(Min_Delay);
                 break;
         }
     }
