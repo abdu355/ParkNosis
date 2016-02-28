@@ -65,7 +65,7 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
 
         mSensorManager = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
         mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-
+        mTeleportClient = new TeleportClient(this);
 
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -86,39 +86,41 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
                         tvCountDownTimer.setText("Shit Shat get banged");
 
 
-                        new CountDownTimer(15000, 1000) {
 
-                            public void onTick(long millisUntilFinished) {
-                                tvCountDownTimer.setText("seconds remaining: " + millisUntilFinished / 1000);
-                            }
-
-                            public void onFinish() {
-                                tvCountDownTimer.setText("done!");
-                            }
-                        }.start();
                         Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             public void run() {
 
-
+//                                new CountDownTimer(15000, 1000) {
+//
+//                                    public void onTick(long millisUntilFinished) {
+//                                        tvCountDownTimer.setText("seconds remaining: " + millisUntilFinished / 1000);
+//                                    }
+//
+//                                    public void onFinish() {
+//                                        tvCountDownTimer.setText("done!");
+//                                    }
+//                                }.start();
                         TimerTask task = new TimerTask() {
 
                             @Override
                             public void run() {
 
-                                String TAG = null;
+
+                                String TAG = " ";
                                 if(SEvent!=null) {
-                                 //   mTeleportClient.syncLong("timeStamp", System.currentTimeMillis());
+                                   mTeleportClient.syncLong("timeStamp", System.currentTimeMillis());
 
                                     Log.d(TAG, "run: "+ SEvent.values[0]);
                                     mTeleportClient.syncString("x", String.valueOf((SEvent.values[0])));
                                     mTeleportClient.syncString("y", String.valueOf((SEvent.values[1])));
                                     mTeleportClient.syncString("z", String.valueOf((SEvent.values[2])));
+
                                 }
                             }
                         };
                         Timer timer = new Timer(true);  // runs on a separate thread
-                        timer.schedule(task, 0, 100);
+                        timer.schedule(task, 0, 500);
                             }
                         }, 15000);
                             }

@@ -3,6 +3,8 @@
     package="com.example.b00047562.parkinson_mhealth">
 
     <uses-feature android:name="android.hardware.type.watch" />
+    <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="true" />
+    <uses-feature android:name="android.hardware.sensor.gyroscope" android:required="true" />
 
     <application
         android:allowBackup="true"

@@ -178,6 +178,7 @@ public class CanvasSpiral extends View {
 //                Spiral.alert.setText("KEEP TOUCHING!");
                 drawPath.reset();
                 Spiral.redrawOpen.setEnabled(true); // to prevent crashing or redrawing when no data is available - this will updated soon
+                Spiral.btnSubmit.setEnabled(true);
                 Log.d(TAG, "onTouchEvent: " + spiralData.size());
                 break;
             default:

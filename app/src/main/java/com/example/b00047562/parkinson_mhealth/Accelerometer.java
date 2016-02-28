@@ -76,8 +76,8 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
         txtZValue = (TextView) findViewById(R.id.txtZValue);
         tv_shakeAlert = (TextView) findViewById(R.id.tv_shake);
 
-
-        //mTeleportClient.setOnSyncDataItemTask(new ShowToastOnSyncDataItemTask());
+        mTeleportClient = new TeleportClient(this);
+        mTeleportClient.setOnSyncDataItemTask(new ShowToastOnSyncDataItemTask());
 
 
         SensorGraph = (LinearLayout) findViewById(R.id.Layout_Graph_Container);

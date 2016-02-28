@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.b00047562.parkinson_mhealth.MainActivity"
-    tools:deviceIds="wear_round">
+    tools:deviceIds="wear_round"
+    android:background="#ffd7d7">
 
     <TextView
         android:id="@+id/tvCountDownTimer"
@@ -13,14 +14,18 @@
         android:text="@string/hello_round"
         android:layout_marginBottom="91dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textColor="#000000"
+        android:paddingTop="5dp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Accel"
+        android:text="@string/Accel_btn"
         android:id="@+id/acl_btn"
         android:layout_above="@+id/tvCountDownTimer"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:background="#ffbfbf"
+        android:textColor="#000000" />
 
 </RelativeLayout>

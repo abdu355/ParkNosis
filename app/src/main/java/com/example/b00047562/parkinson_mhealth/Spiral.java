@@ -33,6 +33,7 @@ public class Spiral extends AppCompatActivity implements  View.OnClickListener {
 
         btnClr.setOnClickListener(this);
         redrawOpen.setOnClickListener(this);
+        btnSubmit.setOnClickListener(this);
     }
 
     @Override
@@ -48,8 +49,7 @@ public class Spiral extends AppCompatActivity implements  View.OnClickListener {
                 break;
             case R.id.btnSubmit:
 
-            case R.id.btn_upload:
-                String json = new Gson().toJson(DrawView.spiralData);
+                String json = new Gson().toJson(CanvasSpiral.spiralData);
                 customParse.pushParseData(ParseUser.getCurrentUser(),"SpiralData","ArrayList",json,"","");
                 MainActivity.sp=true; //test finished
                 startActivity(new Intent(getApplicationContext(),MainActivity.class));
