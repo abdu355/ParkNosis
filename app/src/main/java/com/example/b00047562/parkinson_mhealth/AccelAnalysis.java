@@ -28,14 +28,13 @@ public class AccelAnalysis {
     private float RMS;
 
     private double ArrZ_double[];
-    private int ADSize;
     private Complex[] C_Arr;
     private Complex C_largest_magnitude;
-    private int IndexOfPeakFreq, SizeOfC_Arr, Fs;
-    private double EquivalentFreq;
+    private int IndexOfPeakFreq, SizeOfC_Arr, ADSize;
+    private double EquivalentFreq, Fs;
 
     //Constructor - Initializes all needed variables and calls all necessary functions
-    public AccelAnalysis (int fs){
+    public AccelAnalysis (double fs){
         Accel = new Accelerometer();
         customParse = new ParseFunctions(Accel.getApplication());
         AD = getAccelData();
@@ -46,6 +45,7 @@ public class AccelAnalysis {
         SizeOfC_Arr = C_Arr.length;
         Fs = fs;
         EquivalentFreq = GetEquivalentFrequency(C_largest_magnitude, IndexOfPeakFreq, SizeOfC_Arr);
+        Log.d("EquivalentFreq", EquivalentFreq + ""); //Testing
     }
 
     public ArrayList<AccelData> getAccelData() {
@@ -62,7 +62,7 @@ public class AccelAnalysis {
     public double[] ConvertToDoubleArr( ArrayList<AccelData> AD, int size) {
         double ArrZ_d[] = new double[size];
         for (int i = 0; i<size; i++){
-            ArrZ_d[i] = AD.get(i).getZ();
+            ArrZ_d[i] = AD.get(i).getY();
         }
         Log.d("AccelArray", ArrZ_d[0] + " " + ArrZ_d[1] + " " + ArrZ_d[2]); //Testing
         return ArrZ_d;
@@ -77,24 +77,32 @@ public class AccelAnalysis {
 
     //Get Peak Frequency of an array of Complex numbers
     public int GetIndexOfPeakFreq(Complex C[]){
-        double largest = C[0].abs();
-        int index = 0;
+        int index = 10;
+        double largest = GetMagnitude(C[index]);
+
 
         //Find largest frequency in the sample data
-        for(int i=1; i< C.length; i++) {
-            if (C[i].abs() > largest){
-                largest = C[i].abs();
+        for(int i=index+1; i< ((C.length/2)+1); i++) {
+            Log.d("Magnitude of C[" + i + "]", GetMagnitude(C[i]) + ""); //Testing
+            if (GetMagnitude(C[i]) > largest){
+                largest = GetMagnitude(C[i]);
                 index = i;
                 }
         }
+        Log.d("Largest Value", (GetMagnitude(C[index])) + ""); //Testing
         return index;
+    }
+
+    public double GetMagnitude(Complex C){
+        double mag = Math.sqrt(Math.pow(C.re(), 2) + (Math.pow(C.im(), 2)));
+        return mag;
     }
 
     //Calculate the equivalent frequency: freq = i_max * Fs / N
     //Here Fs = sample rate (Hz) and N = no of points in DFT
     public double GetEquivalentFrequency (Complex C, int i_max, int N) {
         double freq = i_max;
-        Log.d("I_max", freq + ""); //Testing
+        Log.d("I_max", i_max + ""); //Testing
         freq *= Fs;
         Log.d("FS", Fs + ""); //Testing
         freq /= N;
