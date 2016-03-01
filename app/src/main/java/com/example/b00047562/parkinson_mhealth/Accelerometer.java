@@ -18,11 +18,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.wearable.DataApi;
 import com.google.android.gms.wearable.DataEvent;
 import com.google.android.gms.wearable.DataEventBuffer;
 import com.google.android.gms.wearable.DataItem;
@@ -43,7 +41,7 @@ import java.util.ArrayList;
 
 import almadani.com.shared.AccelData;
 
-import static com.google.android.gms.wearable.DataApi.*;
+import static com.google.android.gms.wearable.DataApi.DataListener;
 
 
 public class Accelerometer extends AppCompatActivity implements SensorEventListener, View.OnClickListener,DataListener,
@@ -60,7 +58,7 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
     private long lastUpdate;
     private static final int SHAKE_THRESHOLD = 1700;
     private static boolean output_upToDate = true;
-    private int Min_Delay;
+    private double Min_Delay;
 
     private SharedPreferences prefs;
     private LinearLayout SensorGraph;
@@ -121,10 +119,12 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
         if (MySensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
             MyAclmeter = MySensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
             MySensorManager.registerListener(this, MyAclmeter, SensorManager.SENSOR_DELAY_FASTEST);
-            Min_Delay = MyAclmeter.getMinDelay(); //get accelerometer sampling rate
+
+            //HARDCODE ACCELEROMETER SAMPLE RATE GALAXY S5 = 70 HZ
+            Min_Delay = 10.0; //get accelerometer sampling rate
 
         } else {
-            Min_Delay = 0;
+            Min_Delay = 0.0;
             Log.d("Accelerometer not found", "Accelerometer not found");
         }
         Thread t = new Thread() {//http://stackoverflow.com/questions/14814714/update-textview-every-second
@@ -149,6 +149,52 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
         t.start();
 
         customParse = new ParseFunctions(getApplicationContext()); //initialized
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        try {
+            if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+                // outputUpdater.post(outputUpdaterTask);
+                long curTime = System.currentTimeMillis();
+                if ((curTime - lastUpdate) > 100) {
+                    long diffTime = (curTime - lastUpdate);
+                    lastUpdate = curTime;
+
+                    //Get accelerometer values
+                    ax = event.values[0];
+                    ay = event.values[1];
+                    az = event.values[2];
+
+                    //float speed = Math.abs(ax + ay + az - lastx - lasty - lastz) / diffTime * 10000;
+                    //record accelerometer values and store in arraylist of data
+
+                    AccelData data = new AccelData(curTime, ax, ay, az);
+                    sensorData.add(data);
+
+
+                    /*if (speed > SHAKE_THRESHOLD) {
+                        //Log.d("sensor", "shake detected w/ speed: " + speed);
+                        //Toast.makeText(this, "shake detected w/ speed: " + speed, Toast.LENGTH_SHORT).show();
+                        tv_shakeAlert.setText("Hold Steady !");
+                        tv_shakeAlert.setTextColor(Color.RED);
+                    }*/
+
+                    lastx = ax;
+                    lasty = ay;
+                    lastz = az;
+                }
+//                String x = String.format("%.1f", ax);
+//                String y = String.format("%.1f", ay);
+//                String z = String.format("%.1f", az);
+//                //change display values
+//                txtXValue.setText(x);
+//                txtYValue.setText(y);
+//                txtZValue.setText(z);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -223,52 +269,6 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
 
 
     @Override
-    public void onSensorChanged(SensorEvent event) {
-        try {
-            if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-                // outputUpdater.post(outputUpdaterTask);
-                long curTime = System.currentTimeMillis();
-                if ((curTime - lastUpdate) > 100) {
-                    long diffTime = (curTime - lastUpdate);
-                    lastUpdate = curTime;
-
-                    //Get accelerometer values
-                    ax = event.values[0];
-                    ay = event.values[1];
-                    az = event.values[2];
-                    float speed = Math.abs(ax + ay + az - lastx - lasty - lastz) / diffTime * 10000;
-
-                    //record accelerometer values and store in arraylist of data
-
-                    AccelData data = new AccelData(curTime, ax, ay, az);
-                    sensorData.add(data);
-
-
-                    if (speed > SHAKE_THRESHOLD) {
-                        //Log.d("sensor", "shake detected w/ speed: " + speed);
-                        //Toast.makeText(this, "shake detected w/ speed: " + speed, Toast.LENGTH_SHORT).show();
-                        tv_shakeAlert.setText("Hold Steady !");
-                        tv_shakeAlert.setTextColor(Color.RED);
-                    }
-
-                    lastx = ax;
-                    lasty = ay;
-                    lastz = az;
-                }
-                String x = String.format("%.1f", ax);
-                String y = String.format("%.1f", ay);
-                String z = String.format("%.1f", az);
-                //change display values
-                txtXValue.setText(x);
-                txtYValue.setText(y);
-                txtZValue.setText(z);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
         //Do something
     }
@@ -291,31 +291,37 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            //Starts reading data for a duration of 10 seconds
+            //Stops reading data after 10 seconds
+            //Shows accelerometer data graph
             case R.id.read_btn:
-                sensorData = new ArrayList();
-                BtnReadAccel.setEnabled(false);
-                BtnShowGraph.setEnabled(true);
-                BtnShowAnalysis.setEnabled(false);
+                Handler handler = new Handler();
+                Read_Button();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        Show_Data();
+
+                    }
+                }, 10000);
+
                 break;
+
             case R.id.show_btn:
-                BtnReadAccel.setEnabled(true);
-                BtnShowGraph.setEnabled(false);
-                BtnShowAnalysis.setEnabled(true);
 
-                SensorGraph.removeAllViews(); //reset graph
-                //push accel data to Parse
-                String json = new Gson().toJson(sensorData);
-
-                customParse.pushParseData(ParseUser.getCurrentUser(),"AccelData","ArrayList",json,"",""); //user pointer
-                openChart();
-                MainActivity.h=true; //test finished
                 break;
             case R.id.analysis_btn:
                 /*TODO
                 Intent and go to new activity
                 */
-                if(Min_Delay != 0)
+
+                //Converting accelerometer sampling rate Min_Delay (us) to Fs (Hz)
+                //This is done by converting the sampling rate from microseconds to seconds,
+                //Then by getting the reciprocal of that value
+                if(Min_Delay != 0) {
+                    //double Fs = 1/(Min_Delay/1000000);
+                    //A = new AccelAnalysis(Fs);
                     A = new AccelAnalysis(Min_Delay);
+                }
                 break;
         }
     }
@@ -400,4 +406,24 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
         }
     }
 
+    public void Read_Button () {
+        sensorData = new ArrayList();
+        BtnReadAccel.setEnabled(false);
+        BtnShowGraph.setEnabled(true);
+        BtnShowAnalysis.setEnabled(false);
+    }
+
+    public void Show_Data(){
+        BtnReadAccel.setEnabled(true);
+        BtnShowGraph.setEnabled(false);
+        BtnShowAnalysis.setEnabled(true);
+
+        SensorGraph.removeAllViews(); //reset graph
+        //push accel data to Parse
+        String json = new Gson().toJson(sensorData);
+
+        customParse.pushParseData(ParseUser.getCurrentUser(),"AccelData","ArrayList",json,"",""); //user pointer
+        openChart();
+        MainActivity.h=true; //test finished
+    }
 }

@@ -1,1 +1,1 @@
-include ':achartengine-1.0.0', ':app', ':shared', ':wear'
+include ':wear', ':achartengine-1.0.0', ':app', ':shared'
