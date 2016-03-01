@@ -206,8 +206,12 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
                         DataMap dataMap = DataMapItem.fromDataItem(item).getDataMap();
                         ACDATA=new AccelData(dataMap.getLong("Time Stamp")
                                 ,dataMap.getFloat("X value"),dataMap.getFloat("Y value"),dataMap.getFloat("Z value"));
-                        Log.d(TAG, "onDataChanged: "+dataMap.getFloat("X value"));
+                        Log.d(TAG, "onDataChanged: " + dataMap.getFloat("X value"));
                         DataFromWearable.add(ACDATA);
+                        /*TODO
+                               graph this
+                               and stop continuous reading
+                        */
                     }
                 } else if (event.getType() == DataEvent.TYPE_DELETED) {
                     // DataItem deleted

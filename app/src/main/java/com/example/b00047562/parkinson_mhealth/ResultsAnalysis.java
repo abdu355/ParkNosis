@@ -174,7 +174,7 @@ public class ResultsAnalysis extends AppCompatActivity {
     private void processSpiralData() {
         sd.getSpiralData();
     spiralData=sd.getAS();
-        spiralDataProcessing= new SpiralDataProcessing(spiralData);
+        //spiralDataProcessing= new SpiralDataProcessing(spiralData);
     }
 
     private void processAccelData()

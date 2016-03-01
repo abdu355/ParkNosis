@@ -90,6 +90,8 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
                 accelbtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        if(!mGoogleApiClient.isConnected())
+                            mGoogleApiClient.reconnect();
                         tvCountDownTimer.setText("Started");
 
                         CountDown dd=new CountDown();
@@ -118,6 +120,7 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
                                 timer.schedule(task, 0, 500);
                             }
                         }, 15000);
+                        mGoogleApiClient.disconnect();
                     }
 
 
@@ -153,31 +156,7 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
     }
 
 
-    /**
-     * Send message to mobile handheld
 
-     /*  private void sendMessage(float xReading) {
-
-     if (mNode != null && mGoogleApiClient!=null && mGoogleApiClient.isConnected()) {
-
-     Wearable.MessageApi.sendMessage(mGoogleApiClient, mNode.getId(),String.valueOf(xReading), null).setResultCallback(
-
-     new ResultCallback<MessageApi.SendMessageResult>() {
-    @Override
-    public void onResult(MessageApi.SendMessageResult sendMessageResult) {
-
-    if (!sendMessageResult.getStatus().isSuccess()) {
-    Log.e("TAG", "Failed to send message with status code: "
-    + sendMessageResult.getStatus().getStatusCode());
-    }
-    }
-    }
-     );
-     }else{
-     //Improve your code
-     }
-
-     }*/
 
 
 

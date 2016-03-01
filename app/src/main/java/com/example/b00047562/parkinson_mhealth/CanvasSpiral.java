@@ -1,7 +1,7 @@
 package com.example.b00047562.parkinson_mhealth;
 
 /**
- * Created by OS on 2/22/2016.
+ * Created by Os on 2/22/2016.
  */
 
 import android.app.Activity;
@@ -112,6 +112,7 @@ public class CanvasSpiral extends View {
 
     }
 
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -142,6 +143,7 @@ public class CanvasSpiral extends View {
         for (int i=0;i<166;i=i+2)
         {
             canvas.drawLine(OriginalSpiralPoints[i], OriginalSpiralPoints[i + 1], OriginalSpiralPoints[i + 2], OriginalSpiralPoints[i + 3], mPaint);
+
            // Log.d(TAG2, "onDraw: "+(i/2)+ " x&y: " + OriginalSpiralPoints[i] + " " + OriginalSpiralPoints[i + 1]);
         }
 
