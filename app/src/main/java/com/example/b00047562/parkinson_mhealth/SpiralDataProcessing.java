@@ -25,7 +25,7 @@ public class SpiralDataProcessing {
 
     float [] velocity;
     float [] acceleration1,acceleration2;
-    float DAH;
+    float DAH=0;
     Map<String, Integer> StaticCount = new HashMap<String,Integer>();
     Map<String, Integer> DynamicCount = new HashMap<String,Integer>();
 
@@ -34,15 +34,16 @@ public class SpiralDataProcessing {
     SpiralDataProcessing(ArrayList<SpiralData> StaticInputtedData,ArrayList<SpiralData> DynamicInputtedData){
 
 
-        acceleration1 =new float[StaticInputtedData.size()];
-        acceleration2=new float[StaticInputtedData.size()];
+        acceleration1 = new float[StaticInputtedData.size()];
+        acceleration2 = new float[DynamicInputtedData.size()];
 
         acceleration1=FindAcceleration(StaticInputtedData);
         acceleration2=FindAcceleration(DynamicInputtedData);
+
         StaticCount.putAll(FindDuplicates(acceleration1));
         DynamicCount.putAll(FindDuplicates(acceleration2));
 
-        //Processing(StaticCount, DynamicCount);
+        Processing(StaticCount, DynamicCount);
 
 
 
@@ -75,12 +76,14 @@ public class SpiralDataProcessing {
     private Map<String,Integer> FindDuplicates(float [] acceleration)
     {
         Map<String, Integer> Count = new HashMap<String,Integer>();
-        for(float t: acceleration) {
-            Integer i = Count.get(t);
-            if (i ==  null) {
+        for(float t: acceleration)
+        {
+            Integer i = Count.get(t); //check array
+            if (i ==  null)
+            {
                 i = 0;
             }
-            Count.put(String.valueOf(t), i + 1);
+            Count.put(String.valueOf(t), i + 1);// store (value, occurance count)
 
         }
         return Count;
@@ -104,19 +107,51 @@ public class SpiralDataProcessing {
         return sortedHashMap;
     }
 
-//    public float Processing(Map<String, Integer> StaticCount, Map<String, Integer> DynamicCount){
+    public float Processing(Map<String, Integer> StaticCount, Map<String, Integer> DynamicCount){
 //
-//        Map<String, Integer> Static = sortByValues(StaticCount);
-//        Map<String, Integer> Dynamic =sortByValues(DynamicCount);
+        Map<String, Integer> Static = sortByValues(StaticCount);
+        Map<String, Integer> Dynamic =sortByValues(DynamicCount);
+
+        int a = Math.min(Static.size(), Dynamic.size());
 //
-//        for (Map.Entry<String, Integer> entry : Math.min(Static.size(),Dynamic.size()))
-//        {
-//            String key = entry.getKey();
-//            Integer value = entry.getValue();
-//            // ...
-//        }
-//return DAH;
-//    }
+        for (Map.Entry<String, Integer> Staticentry : Static.entrySet() )
+
+        {
+            String key = Staticentry.getKey();
+            Integer value = Staticentry.getValue();
+         /*
+          new ArrayList staticarr()
+          staticarr.add(value);
+           */
+        }
+        for(Map.Entry<String, Integer> Dynamicentry : Dynamic.entrySet() )
+        {
+            String key = Dynamicentry.getKey();
+            Integer value = Dynamicentry.getValue();
+              /*
+          new ArrayList dynamicarr()
+          dynamicarr.add(value);
+           */
+        }
+        /*TODO
+        - loop only over first 10 keys
+        - calculate difference between integer values (using arraylists or other)
+
+        for(int i =0 ; i<10;i++)
+        {
+            new ArrayList DAHarr()
+            DAHarr.add(pow(staticarr.get(i) - dynamicarr.get(i)),2))
+
+        }
+
+        for(int i=0;i<10;i++)
+        {
+        DAH+=DAHarr.get(i);
+        }
+         */
+
+        return DAH;
+    }
 
 
 }

@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Parkinson_mHealth.iml" filepath="$PROJECT_DIR$/Parkinson_mHealth.iml" />
       <module fileurl="file://$PROJECT_DIR$/Parkinson_mHealth_v2.0.iml" filepath="$PROJECT_DIR$/Parkinson_mHealth_v2.0.iml" />
       <module fileurl="file://$PROJECT_DIR$/achartengine-1.0.0/achartengine-1.0.0.iml" filepath="$PROJECT_DIR$/achartengine-1.0.0/achartengine-1.0.0.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />

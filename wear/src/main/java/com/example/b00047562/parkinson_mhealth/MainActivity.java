@@ -22,6 +22,7 @@ import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.wearable.Asset;
 import com.google.android.gms.wearable.DataApi;
+import com.google.android.gms.wearable.MessageApi;
 import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.NodeApi;
 import com.google.android.gms.wearable.PutDataMapRequest;
@@ -60,9 +61,11 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
     private SensorEvent SEvent;
     private Sensor mSensor;
     private int mSensorType;
-    private long lastUpdate;
+    private int lastUpdate=0;
+    private int Max=30;
     private long mShakeTime = 0;
     private long mRotationTime = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,11 +90,12 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
             public void onLayoutInflated(WatchViewStub stub) {
                 tvCountDownTimer = (TextView) stub.findViewById(R.id.tvCountDownTimer);
                 accelbtn=(Button)stub.findViewById(R.id.acl_btn);
+
                 accelbtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if(!mGoogleApiClient.isConnected())
-                            mGoogleApiClient.reconnect();
+                        sendMessage();
+                        mGoogleApiClient.reconnect();
                         tvCountDownTimer.setText("Started");
 
                         CountDown dd=new CountDown();
@@ -107,7 +111,7 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
 
 
                                         String TAG = " ";
-                                        if(SEvent!=null) {
+                                        if (SEvent != null) {
 
                                             storeData();
                                             Log.d(TAG, "run: " + SEvent.values[0]);
@@ -118,9 +122,12 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
                                 };
                                 Timer timer = new Timer(true);  // runs on a separate thread
                                 timer.schedule(task, 0, 500);
+                                mGoogleApiClient.disconnect();
                             }
+
+
                         }, 15000);
-                        mGoogleApiClient.disconnect();
+
                     }
 
 
@@ -188,14 +195,16 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
 
     private void synching(AccelData sensorData)
     {
+        if(lastUpdate>=Max){
         PutDataMapRequest putDataMapReq = PutDataMapRequest.create("/Accel");
         putDataMapReq.getDataMap().putLong("Time Stamp",sensorData.getTimestamp());
         putDataMapReq.getDataMap().putFloat("X value",sensorData.getX());
         putDataMapReq.getDataMap().putFloat("Y value",sensorData.getY());
-        putDataMapReq.getDataMap().putFloat("Z value",sensorData.getZ());
+        putDataMapReq.getDataMap().putFloat("Z value", sensorData.getZ());
         PutDataRequest putDataReq = putDataMapReq.asPutDataRequest();
         PendingResult<DataApi.DataItemResult> pendingResult = Wearable.DataApi.putDataItem(mGoogleApiClient, putDataReq);
-
+        lastUpdate++;
+        }
 
     }
 
@@ -276,6 +285,28 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
             else {
                 //       mView.setBackgroundColor(Color.BLACK);
             }
+        }
+    }
+
+    private void sendMessage() {
+
+        if (mNode != null && mGoogleApiClient!=null && mGoogleApiClient.isConnected()) {
+            Wearable.MessageApi.sendMessage(
+                    mGoogleApiClient, mNode.getId(), HELLO_WORLD_WEAR_PATH, null).setResultCallback(
+
+                    new ResultCallback<MessageApi.SendMessageResult>() {
+                        @Override
+                        public void onResult(MessageApi.SendMessageResult sendMessageResult) {
+
+                            if (!sendMessageResult.getStatus().isSuccess()) {
+                                Log.e("TAG", "Failed to send message with status code: "
+                                        + sendMessageResult.getStatus().getStatusCode());
+                            }
+                        }
+                    }
+            );
+        }else{
+            //Improve your code
         }
     }
 

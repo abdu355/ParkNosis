@@ -1,6 +1,7 @@
 package com.example.b00047562.parkinson_mhealth;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.hardware.Sensor;
@@ -57,12 +58,16 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
     private float ax, ay, az, lastx, lasty, lastz;
     private long lastUpdate;
     private static final int SHAKE_THRESHOLD = 1700;
+    private static final int FROMAPP=0;
+    public static final int FROMWEAR=1;
     private static boolean output_upToDate = true;
     private double Min_Delay;
+    private Intent intent;
+    private int l=0;
 
     private SharedPreferences prefs;
     private LinearLayout SensorGraph;
-    private ArrayList<AccelData> sensorData,DataFromWearable;
+    private ArrayList<AccelData> DataFromPhone,DataFromWearable;
     private View mChart;
     private Button BtnShowGraph, BtnReadAccel, BtnShowAnalysis;
     private ParseFunctions customParse; //for custom parse functions from ParseFunctions class
@@ -95,12 +100,12 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
         txtZValue = (TextView) findViewById(R.id.txtZValue);
         tv_shakeAlert = (TextView) findViewById(R.id.tv_shake);
 
-
+        intent=new Intent();
 
 
 
         SensorGraph = (LinearLayout) findViewById(R.id.Layout_Graph_Container);
-        sensorData = new ArrayList();
+        DataFromPhone = new ArrayList();
         DataFromWearable= new ArrayList();
 
         BtnReadAccel = (Button) findViewById(R.id.read_btn);
@@ -170,7 +175,7 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
                     //record accelerometer values and store in arraylist of data
 
                     AccelData data = new AccelData(curTime, ax, ay, az);
-                    sensorData.add(data);
+                    DataFromPhone.add(data);
 
 
                     /*if (speed > SHAKE_THRESHOLD) {
@@ -254,6 +259,7 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
                                 ,dataMap.getFloat("X value"),dataMap.getFloat("Y value"),dataMap.getFloat("Z value"));
                         Log.d(TAG, "onDataChanged: " + dataMap.getFloat("X value"));
                         DataFromWearable.add(ACDATA);
+
                         /*TODO
                                graph this
                                and stop continuous reading
@@ -261,9 +267,11 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
                     }
                 } else if (event.getType() == DataEvent.TYPE_DELETED) {
                     // DataItem deleted
+
                 }
 
         }
+
 
     }
 
@@ -278,6 +286,14 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
     protected void onResume() {
         super.onResume();
         mGoogleApiClient.connect();
+//        intent= getIntent();
+//        l=intent.getIntExtra("Read Data",0);
+//        if(l==1)
+//        {
+//            DataFromWearable.clear();
+//            ReadForAWhile(FROMWEAR);
+//        }
+
     }
 
 
@@ -288,6 +304,8 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
 
 
 
+
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -295,14 +313,8 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
             //Stops reading data after 10 seconds
             //Shows accelerometer data graph
             case R.id.read_btn:
-                Handler handler = new Handler();
-                Read_Button();
-                handler.postDelayed(new Runnable() {
-                    public void run() {
-                        Show_Data();
 
-                    }
-                }, 10000);
+                ReadForAWhile(FROMAPP);
 
                 break;
 
@@ -326,7 +338,7 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
         }
     }
 
-    private void openChart() {
+    private void openChart(ArrayList<AccelData> sensorData) {
         if (sensorData != null || sensorData.size() > 0) {
             long t = 0;
             XYMultipleSeriesDataset dataset = null;
@@ -407,7 +419,7 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
     }
 
     public void Read_Button () {
-        sensorData = new ArrayList();
+        DataFromPhone = new ArrayList();
         BtnReadAccel.setEnabled(false);
         BtnShowGraph.setEnabled(true);
         BtnShowAnalysis.setEnabled(false);
@@ -420,10 +432,40 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
 
         SensorGraph.removeAllViews(); //reset graph
         //push accel data to Parse
-        String json = new Gson().toJson(sensorData);
+        String json = new Gson().toJson(DataFromPhone);
+
+        customParse.pushParseData(ParseUser.getCurrentUser(), "AccelData", "ArrayList", json, "", ""); //user pointer
+        openChart(DataFromPhone);
+        MainActivity.h=true; //test finished
+    }
+    public void Show_WearData(){
+        BtnReadAccel.setEnabled(true);
+        BtnShowGraph.setEnabled(false);
+        BtnShowAnalysis.setEnabled(true);
+
+        SensorGraph.removeAllViews(); //reset graph
+        //push accel data to Parse
+        String json = new Gson().toJson(DataFromWearable);
 
         customParse.pushParseData(ParseUser.getCurrentUser(),"AccelData","ArrayList",json,"",""); //user pointer
-        openChart();
+        openChart(DataFromWearable);
         MainActivity.h=true; //test finished
+    }
+    public void ReadForAWhile(final int WhichSensor){
+
+        Handler handler = new Handler();
+        Read_Button();
+        handler.postDelayed(new Runnable() {
+            public void run()
+            {
+                if (WhichSensor == 0)
+                    Show_Data();
+                else if (WhichSensor == 1)
+                {
+                    BtnReadAccel.setEnabled(false);
+                    Show_WearData();
+                }
+            }
+        }, 16000);
     }
 }
