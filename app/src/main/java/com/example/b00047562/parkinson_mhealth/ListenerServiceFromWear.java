@@ -20,7 +20,7 @@ Accelerometer c;
         if (messageEvent.getPath().equals(HELLO_WORLD_WEAR_PATH)) {
 
             Intent startIntent = new Intent(this, Accelerometer.class);
-            c=new Accelerometer();
+            //c=new Accelerometer();
            // c.ReadForAWhile(Accelerometer.FROMWEAR);
             startIntent.putExtra("Read Data",1);
             startIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

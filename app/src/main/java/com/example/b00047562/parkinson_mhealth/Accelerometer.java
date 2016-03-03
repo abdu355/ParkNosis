@@ -265,12 +265,19 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
                                and stop continuous reading
                         */
                     }
-                } else if (event.getType() == DataEvent.TYPE_DELETED) {
+               else if (item.getUri().getPath().compareTo("/Done") == 0)
+                {
+                    DataMap dataMap = DataMapItem.fromDataItem(item).getDataMap();
+                    Log.d(TAG, "onDataChanged: " + dataMap.getString("Done"));
+                }
+            }
+        else if (event.getType() == DataEvent.TYPE_DELETED) {
                     // DataItem deleted
 
                 }
 
         }
+       // mGoogleApiClient.disconnect(); mGoogleApiClient.connect();
 
 
     }
@@ -286,13 +293,13 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
     protected void onResume() {
         super.onResume();
         mGoogleApiClient.connect();
-//        intent= getIntent();
-//        l=intent.getIntExtra("Read Data",0);
-//        if(l==1)
-//        {
-//            DataFromWearable.clear();
-//            ReadForAWhile(FROMWEAR);
-//        }
+        intent= getIntent();
+        l=intent.getIntExtra("Read Data",0);
+        if(l==1)
+        {
+           // DataFromWearable.clear();
+            ReadForAWhile(FROMWEAR);
+        }
 
     }
 
@@ -460,12 +467,12 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
             {
                 if (WhichSensor == 0)
                     Show_Data();
-                else if (WhichSensor == 1)
-                {
+                else if (WhichSensor == 1) {
                     BtnReadAccel.setEnabled(false);
+                    //BtnReadAccel.setText("Read From WATCH");
                     Show_WearData();
                 }
             }
-        }, 16000);
+        }, 18000);
     }
 }

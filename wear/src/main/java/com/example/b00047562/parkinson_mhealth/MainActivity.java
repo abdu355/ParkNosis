@@ -20,7 +20,6 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.wearable.Asset;
 import com.google.android.gms.wearable.DataApi;
 import com.google.android.gms.wearable.MessageApi;
 import com.google.android.gms.wearable.Node;
@@ -28,19 +27,22 @@ import com.google.android.gms.wearable.NodeApi;
 import com.google.android.gms.wearable.PutDataMapRequest;
 import com.google.android.gms.wearable.PutDataRequest;
 import com.google.android.gms.wearable.Wearable;
-import com.mariux.teleport.lib.TeleportClient;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import almadani.com.shared.AccelData;
 
+/*
+TODO
+Make read data initiate from phone and watch as listener
+ */
 
 //WATCH ACTIVITY !
 public class MainActivity extends Activity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,SensorEventListener  {
 
+    private static final String TAG = "gg";
     private TextView tvCountDownTimer;
     private Button accelbtn;
     Node mNode; // the connected device to send the message to
@@ -163,16 +165,12 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
     }
 
 
-
-
-
-
     private void storeData(){
 
         long curTime = System.currentTimeMillis();
 
         AccelData data= new AccelData(curTime, SEvent.values[0], SEvent.values[1], SEvent.values[2]);
-        synching(data);
+        syncing(data);
     }
 
     @Override
@@ -193,9 +191,10 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
         mSensorManager.unregisterListener(this);
     }
 
-    private void synching(AccelData sensorData)
+    private void syncing(AccelData sensorData)
     {
-        if(lastUpdate>=Max){
+        if(lastUpdate<=Max){
+            Log.d(TAG, "syncing: Bitch Being Called !! ");
         PutDataMapRequest putDataMapReq = PutDataMapRequest.create("/Accel");
         putDataMapReq.getDataMap().putLong("Time Stamp",sensorData.getTimestamp());
         putDataMapReq.getDataMap().putFloat("X value",sensorData.getX());
@@ -204,6 +203,12 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
         PutDataRequest putDataReq = putDataMapReq.asPutDataRequest();
         PendingResult<DataApi.DataItemResult> pendingResult = Wearable.DataApi.putDataItem(mGoogleApiClient, putDataReq);
         lastUpdate++;
+            Log.d(TAG, "syncing: Bitch Being Called Again !! ");
+        }
+        else {
+            PutDataMapRequest putDataMapReq = PutDataMapRequest.create("/Done");
+            putDataMapReq.getDataMap().putString("Done", "Done");
+
         }
 
     }
