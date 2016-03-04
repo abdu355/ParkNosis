@@ -36,7 +36,7 @@ import almadani.com.shared.AccelData;
 
 /*
 TODO
-Make read data initiate from phone and watch as listener
+Make read data initiate from phone and watch as listener (for later)
  */
 
 //WATCH ACTIVITY !
@@ -195,14 +195,32 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
     {
         if(lastUpdate<=Max){
             Log.d(TAG, "syncing: Bitch Being Called !! ");
-        PutDataMapRequest putDataMapReq = PutDataMapRequest.create("/Accel");
-        putDataMapReq.getDataMap().putLong("Time Stamp",sensorData.getTimestamp());
-        putDataMapReq.getDataMap().putFloat("X value",sensorData.getX());
-        putDataMapReq.getDataMap().putFloat("Y value",sensorData.getY());
-        putDataMapReq.getDataMap().putFloat("Z value", sensorData.getZ());
-        PutDataRequest putDataReq = putDataMapReq.asPutDataRequest();
-        PendingResult<DataApi.DataItemResult> pendingResult = Wearable.DataApi.putDataItem(mGoogleApiClient, putDataReq);
-        lastUpdate++;
+            PutDataMapRequest putDataMapReq = PutDataMapRequest.create("/Accel");
+            putDataMapReq.getDataMap().putLong("Time Stamp",sensorData.getTimestamp());
+            putDataMapReq.getDataMap().putFloat("X value",sensorData.getX());
+            putDataMapReq.getDataMap().putFloat("Y value",sensorData.getY());
+            putDataMapReq.getDataMap().putFloat("Z value", sensorData.getZ());
+            PutDataRequest putDataReq = putDataMapReq.asPutDataRequest();
+
+            PendingResult<DataApi.DataItemResult> pendingResult = Wearable.DataApi.putDataItem(mGoogleApiClient, putDataReq);
+            /*
+            TODO
+             Wearable.DataApi.deleteDataItems(mGoogleApiClient, putDataReq.getUri());
+             as suggested here: http://stackoverflow.com/questions/25141046/wearablelistenerservice-ondatachanged-is-not-called
+
+             "It is a replication trick that do 3 things :
+
+               1. wake up pair
+
+               2. send data
+
+               3. execute OnDataChange on both with good data
+
+               4. delete data (execute OnDataChange on both with no data) (so prepare to work even after the data was deleted)
+
+                My problem was that data was queued and paused on watch until first touch - now it is real time bidirectional"
+             */
+            lastUpdate++;
             Log.d(TAG, "syncing: Bitch Being Called Again !! ");
         }
         else {
