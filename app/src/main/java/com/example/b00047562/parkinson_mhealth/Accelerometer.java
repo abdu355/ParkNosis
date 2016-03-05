@@ -100,8 +100,7 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
         txtZValue = (TextView) findViewById(R.id.txtZValue);
         tv_shakeAlert = (TextView) findViewById(R.id.tv_shake);
 
-        intent=new Intent();
-
+        //intent=new Intent();
 
 
         SensorGraph = (LinearLayout) findViewById(R.id.Layout_Graph_Container);
@@ -293,24 +292,41 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
     protected void onResume() {
         super.onResume();
         mGoogleApiClient.connect();
+        //processExtraData();
+    }
+    /*TODO
+    instead of connecting inside onResume
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mGoogleApiClient.connect();
+    }
+     */
+    @Override
+    protected void onNewIntent(Intent intent) { //this will look for new intent even if activity is already open
+        super.onNewIntent(intent);
+        setIntent(intent); //get new intent, else old intent will be used
+        /*TODO
+            use processExtraData() here instead of onResume()
+         */
+    }
+    private void processExtraData(){
+        //use the data received here
         intent= getIntent();
         l=intent.getIntExtra("Read Data",0);
         if(l==1)
         {
-           // DataFromWearable.clear();
+            // DataFromWearable.clear();
             ReadForAWhile(FROMWEAR);
         }
+    }//ref: http://www.helloandroid.com/tutorials/communicating-between-running-activities
 
-    }
 
 
     private void updateTextView() {
         tv_shakeAlert.setText("Steady");
         tv_shakeAlert.setTextColor(Color.GREEN);
     }
-
-
-
 
 
     @Override
