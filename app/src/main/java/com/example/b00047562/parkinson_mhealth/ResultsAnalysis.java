@@ -31,7 +31,8 @@ public class ResultsAnalysis extends AppCompatActivity {
     private SpiralDataProcessing spiralDataProcessing;
     private AccelAnalysis accelresult;
     SpiralData sd;
-    public static ArrayList<SpiralData> spiralData;
+    public static ArrayList<SpiralData> StaticSpiralData;
+    public static ArrayList<SpiralData> DynamicSpiralData;
 
     ParseFunctions customParse;
     Double qscore; //questionnaire score - not overall score
@@ -173,8 +174,8 @@ public class ResultsAnalysis extends AppCompatActivity {
 
     private void processSpiralData() {
         sd.getSpiralData();
-    spiralData=sd.getAS();
-        //spiralDataProcessing= new SpiralDataProcessing(spiralData);
+    StaticSpiralData =sd.getAS();
+        //spiralDataProcessing= new SpiralDataProcessing(StaticSpiralData,DynamicSpiralData);
     }
 
     private void processAccelData()
