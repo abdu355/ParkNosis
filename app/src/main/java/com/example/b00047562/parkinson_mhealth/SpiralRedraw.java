@@ -51,7 +51,7 @@ public class SpiralRedraw extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_drawspiral:
-                openChart(DrawView.spiralData);
+                openChart(CanvasSpiral.spiralData);
                 break;
         }
     }

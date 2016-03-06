@@ -45,9 +45,8 @@ import almadani.com.shared.AccelData;
 import static com.google.android.gms.wearable.DataApi.DataListener;
 
 
-public class Accelerometer extends AppCompatActivity implements SensorEventListener, View.OnClickListener,DataListener,
-        GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener  {
+public class Accelerometer extends AppCompatActivity implements SensorEventListener, View.OnClickListener
+  {
 
     private static final String TAG = "TAG ";
     private TextView txtXValue, txtYValue, txtZValue, tv_shakeAlert;
@@ -88,11 +87,11 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
         setContentView(R.layout.activity_accelerometer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addApi(Wearable.API)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .build();
+//        mGoogleApiClient = new GoogleApiClient.Builder(this)
+//                .addApi(Wearable.API)
+//                .addConnectionCallbacks(this)
+//                .addOnConnectionFailedListener(this)
+//                .build();
 
 
         txtXValue = (TextView) findViewById(R.id.txtXValue);
@@ -223,63 +222,24 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onConnected(Bundle bundle) {
-        Wearable.DataApi.addListener(mGoogleApiClient, this);
+//    @Override
+//    public void onConnected(Bundle bundle) {
+//        Wearable.DataApi.addListener(mGoogleApiClient, this);
+//
+//    }
 
-    }
 
-    @Override
-    public void onConnectionSuspended(int i) {
 
-    }
+
     @Override
     protected void onPause() {
         super.onPause();
-        Wearable.DataApi.removeListener(mGoogleApiClient, this);
-        mGoogleApiClient.disconnect();
+//        Wearable.DataApi.removeListener(mGoogleApiClient, this);
+//        mGoogleApiClient.disconnect();
     }
 
-    @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
-
-    }
-
-    @Override
-    public void onDataChanged(DataEventBuffer dataEventBuffer) {
-
-            for (DataEvent event : dataEventBuffer) {
-                if (event.getType() == DataEvent.TYPE_CHANGED) {
-                    // DataItem changed
-                    DataItem item = event.getDataItem();
-                    if (item.getUri().getPath().compareTo("/Accel") == 0) {
-                        DataMap dataMap = DataMapItem.fromDataItem(item).getDataMap();
-                        ACDATA=new AccelData(dataMap.getLong("Time Stamp")
-                                ,dataMap.getFloat("X value"),dataMap.getFloat("Y value"),dataMap.getFloat("Z value"));
-                        Log.d(TAG, "onDataChanged: " + dataMap.getFloat("X value"));
-                        DataFromWearable.add(ACDATA);
-
-                        /*TODO
-                               graph this
-                               and stop continuous reading
-                        */
-                    }
-               else if (item.getUri().getPath().compareTo("/Done") == 0)
-                {
-                    DataMap dataMap = DataMapItem.fromDataItem(item).getDataMap();
-                    Log.d(TAG, "onDataChanged: " + dataMap.getString("Done"));
-                }
-            }
-        else if (event.getType() == DataEvent.TYPE_DELETED) {
-                    // DataItem deleted
-
-                }
-
-        }
-       // mGoogleApiClient.disconnect(); mGoogleApiClient.connect();
 
 
-    }
 
 
     @Override
@@ -292,7 +252,8 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
     protected void onResume() {
         super.onResume();
         //mGoogleApiClient.connect();
-        //processExtraData();
+
+        processExtraData();
     }
     /*TODO
     instead of connecting inside onResume
@@ -300,7 +261,7 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
     @Override
     protected void onStart() {
         super.onStart();
-        mGoogleApiClient.connect();
+//        mGoogleApiClient.connect();
     }
     @Override
     protected void onNewIntent(Intent intent) { //this will look for new intent even if activity is already open
@@ -314,7 +275,12 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
     private void processExtraData(){
         //use the data received here
         intent= getIntent();
-        l=intent.getIntExtra("Read Data",0);
+        ListenerServiceFromWear listner=new ListenerServiceFromWear();
+
+        l=intent.getIntExtra("Read Data", 0);
+        DataFromWearable=listner.getDataFromWearable();
+        Log.d("ff","Intent value:"+ l);
+
         if(l==1)
         {
             // DataFromWearable.clear();
@@ -363,7 +329,7 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
     }
 
     private void openChart(ArrayList<AccelData> sensorData) {
-        if (sensorData != null || sensorData.size() > 0) {
+        if (sensorData != null && sensorData.size() > 0) {
             long t = 0;
             XYMultipleSeriesDataset dataset = null;
             XYSeries xSeries = null;
@@ -490,6 +456,6 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
                     Show_WearData();
                 }
             }
-        }, 18000);
+        }, 3000);
     }
 }

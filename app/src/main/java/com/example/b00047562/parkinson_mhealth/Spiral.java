@@ -57,6 +57,7 @@ public class Spiral extends AppCompatActivity implements  View.OnClickListener {
                 customParse.pushParseData(ParseUser.getCurrentUser(), "SpiralData", "ArrayList", json, "", "");
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                 ft.replace(R.id.fragment_container, new DynamicSpiralFragment());
+                ft.commit();
                 break;
 
 
