@@ -9,9 +9,8 @@ import java.util.ArrayList;
 import almadani.com.shared.AccelData;
 import biz.source_code.dsp.math.Complex;
 import biz.source_code.dsp.transform.Dft;
-import flanagan.analysis.Stat;
-import flanagan.math.Fmath;
-import flanagan.math.FourierTransform;
+
+
 
 /**
  * Created by Kareem on 2/25/2016.
@@ -152,16 +151,19 @@ Apply FFT/DFT
 
     private double geVarCoeff() //returns coefficient of variation
     {
-        return Stat.coefficientOfVariation(ArrZ_double);
+        Statistics s = new Statistics((ArrZ_double));
+        return s.getVariance();
 
     }
     private double getSTD()
     {
-        return Stat.standardDeviation(ArrZ_double);
+        Statistics s = new Statistics((ArrZ_double));
+        return s.getStdDev();
     }
     private double getAvg()
     {
-        return Stat.mean(ArrZ_double);
+        Statistics s = new Statistics((ArrZ_double));
+        return s.getMean();
     }
 
 
