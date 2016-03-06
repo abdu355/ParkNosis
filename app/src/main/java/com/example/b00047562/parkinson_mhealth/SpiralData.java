@@ -58,14 +58,14 @@ public class SpiralData {
 
     public ArrayList<SpiralData> getSpiralData() {
         AS= new ArrayList<>();
-        AS = (customParse.getParseDataSpiral(ParseUser.getCurrentUser(), 0, "SpiralData", "createdAt", "ArrayList"));
+        AS = (customParse.getParseDataSpiral(ParseUser.getCurrentUser(), 1, "SpiralData", "createdAt", "ArrayList"));
         ASSize = AS.size();
         Log.d("SpiralTest", AS.toString());
         return AS;
     }
     public ArrayList<SpiralData> getDynamicSpiralData() {
         DAS= new ArrayList<>();
-        DAS = (customParse.getParseDataSpiral(ParseUser.getCurrentUser(), 0, "DynamicSpiralData", "createdAt", "ArrayList"));
+        DAS = (customParse.getParseDataSpiral(ParseUser.getCurrentUser(), 0, "SpiralData", "createdAt", "ArrayList"));
         DASSize = DAS.size();
         Log.d("SpiralTest", DAS.toString());
         return DAS;

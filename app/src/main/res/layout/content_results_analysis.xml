@@ -125,7 +125,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="result 2"
-                    android:id="@+id/textView7"
+                    android:id="@+id/tv_spiralres"
                     android:layout_weight="1"
                     android:layout_gravity="center"
                     android:gravity="right"

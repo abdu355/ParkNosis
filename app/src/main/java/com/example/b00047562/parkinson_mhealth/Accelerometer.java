@@ -291,17 +291,17 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
     @Override
     protected void onResume() {
         super.onResume();
-        mGoogleApiClient.connect();
+        //mGoogleApiClient.connect();
         //processExtraData();
     }
     /*TODO
     instead of connecting inside onResume
+     */
     @Override
     protected void onStart() {
         super.onStart();
         mGoogleApiClient.connect();
     }
-     */
     @Override
     protected void onNewIntent(Intent intent) { //this will look for new intent even if activity is already open
         super.onNewIntent(intent);
@@ -309,6 +309,7 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
         /*TODO
             use processExtraData() here instead of onResume()
          */
+        processExtraData();
     }
     private void processExtraData(){
         //use the data received here

@@ -63,7 +63,7 @@ public class DynamicSpiralFragment extends Fragment implements View.OnClickListe
             case R.id.btnSubmit:
 
                 String json = new Gson().toJson(CanvasSpiral.spiralData);
-                customParse.pushParseData(ParseUser.getCurrentUser(), "DynamicSpiralData", "ArrayList", json, "", "");
+                customParse.pushParseData(ParseUser.getCurrentUser(), "SpiralData", "ArrayList", json, "", "Dynamic");
                 MainActivity.sp=true; //test finished
                 startActivity(new Intent(getActivity().getApplicationContext(), MainActivity.class));
                 break;

@@ -42,7 +42,7 @@ public class ResultsAnalysis extends AppCompatActivity {
 
     ParseFunctions customParse;
     Double qscore; //questionnaire score - not overall score
-    TextView extras,advice,extra1,title_tv,tapscore_tv;
+    TextView extras,advice,extra1,title_tv,tapscore_tv,spiralscore_tv;
 
     private FrameLayout primarygraph,secondarygraph;
 
@@ -86,6 +86,7 @@ public class ResultsAnalysis extends AppCompatActivity {
         advice= (TextView)findViewById(R.id.advice_tv_analysis); //detail advice and score details
         title_tv=(TextView)findViewById(R.id.tv_title);
         tapscore_tv=(TextView)findViewById(R.id.tapscore_tv);
+        spiralscore_tv=(TextView)findViewById(R.id.tv_spiralres);
 
 
         //test draw a bar chart
@@ -165,6 +166,8 @@ public class ResultsAnalysis extends AppCompatActivity {
             //tapresults.displayResults();
             extras.setText("Questionnaire Score: " + qscore);
             tapscore_tv.setText(tapscore+"");
+            spiralscore_tv.setText(""+spiralscore);
+
             displayscoreAdvice();   // calls all display functions
 
             //display graphs for  results
@@ -181,7 +184,7 @@ public class ResultsAnalysis extends AppCompatActivity {
     private void processSpiralData() {
         sd.getSpiralData();
         sd.getDynamicSpiralData();
-    StaticSpiralData =sd.getAS();
+        StaticSpiralData =sd.getAS();
         DynamicSpiralData=sd.getDAS();
         spiralDataProcessing= new SpiralDataProcessing(StaticSpiralData,DynamicSpiralData);
         final float DAH=spiralDataProcessing.getDAH();
@@ -200,7 +203,9 @@ public class ResultsAnalysis extends AppCompatActivity {
 
     private void processAccelData()
     {
-        accelresult.getAccelData();
+
+        //accelresult.getAccelData();
+
     }
 
      private void processTappingData()
