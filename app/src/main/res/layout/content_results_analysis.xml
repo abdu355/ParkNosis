@@ -89,7 +89,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="result 1"
-                    android:id="@+id/textView5"
+                    android:id="@+id/handres_tv"
                     android:layout_weight="1"
                     android:layout_gravity="center"
                     android:gravity="right"

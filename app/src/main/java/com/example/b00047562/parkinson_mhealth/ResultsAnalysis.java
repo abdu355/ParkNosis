@@ -42,7 +42,7 @@ public class ResultsAnalysis extends AppCompatActivity {
 
     ParseFunctions customParse;
     Double qscore; //questionnaire score - not overall score
-    TextView extras,advice,extra1,title_tv,tapscore_tv,spiralscore_tv;
+    TextView extras,advice,extra1,title_tv,tapscore_tv,spiralscore_tv,handsore_tv;
 
     private FrameLayout primarygraph,secondarygraph;
 
@@ -64,6 +64,7 @@ public class ResultsAnalysis extends AppCompatActivity {
 
         customParse = new ParseFunctions(getApplicationContext());
         tapresults= new TappingTestFunctions();
+        accelresult = new AccelAnalysis(10.0);
         /*ToDo
         Karim: I made AccelAnalysis constructor require an Int parameter in order to pass Fs (sensor sampling rate) from accelerometer class
         So it broke this...
@@ -87,6 +88,7 @@ public class ResultsAnalysis extends AppCompatActivity {
         title_tv=(TextView)findViewById(R.id.tv_title);
         tapscore_tv=(TextView)findViewById(R.id.tapscore_tv);
         spiralscore_tv=(TextView)findViewById(R.id.tv_spiralres);
+        handsore_tv=(TextView)findViewById(R.id.handres_tv);
 
 
         //test draw a bar chart
@@ -152,10 +154,10 @@ public class ResultsAnalysis extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            processTappingData();
             processQuestionnaire();
-            //processAccelData();//accel data (karim)
-           processSpiralData();
+            processTappingData();
+            processAccelData();//accel data (karim)
+            //processSpiralData();
             return null;
         }
 
@@ -167,6 +169,7 @@ public class ResultsAnalysis extends AppCompatActivity {
             extras.setText("Questionnaire Score: " + qscore);
             tapscore_tv.setText(tapscore+"");
             spiralscore_tv.setText(""+spiralscore);
+            handsore_tv.setText(""+handscore);
 
             displayscoreAdvice();   // calls all display functions
 
@@ -205,7 +208,7 @@ public class ResultsAnalysis extends AppCompatActivity {
     {
 
         //accelresult.getAccelData();
-
+        handscore = accelresult.PerformAnalysis1();
     }
 
      private void processTappingData()

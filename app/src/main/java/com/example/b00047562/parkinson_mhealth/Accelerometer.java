@@ -456,6 +456,6 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
                     Show_WearData();
                 }
             }
-        }, 3000);
+        }, 10000);
     }
 }

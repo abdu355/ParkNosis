@@ -40,10 +40,6 @@ public class AccelAnalysis {
         Fs = fs;
         Accel = new Accelerometer();
         customParse = new ParseFunctions(Accel.getApplication());
-
-        AD = getAccelData(); //get data from parse
-        ArrZ_double = ConvertToDoubleArr(AD, ADSize); //convert to double array
-
         //PerformAnalysis0();
         PerformAnalysis1();
     }
@@ -146,11 +142,15 @@ public class AccelAnalysis {
     var coeff = 1.2825                      (1.7  times higher)
     */
 
-    public void PerformAnalysis1() {
+    public int PerformAnalysis1() {
+        int resscale =0 ;
+        AD = getAccelData(); //get data from parse
+        ArrZ_double = ConvertToDoubleArr(AD, ADSize); //convert to double array
         double Mean = getMean();
         ArrZ_Normalized = NormalizeArrayZ(ArrZ_double, Mean); //normalize the accelerometer values with respect to the mean
         Log.d("Mean", Mean + ""); //Testing
         if (Mean > 7.2144) {
+            resscale++;
             Log.d("Mean", "Tremor Detected"); //Testing
         }
         else {
@@ -162,6 +162,7 @@ public class AccelAnalysis {
         double VC = getVarCoeff();
         Log.d("Variation Coefficient", VC + ""); //Testing
         if (VC > 0.74725) {
+            resscale++;
             Log.d("VC", "Tremor Detected"); //Testing
         }
         else {
@@ -170,11 +171,13 @@ public class AccelAnalysis {
         double STD = getSTD();
         Log.d("Standard Deviation", STD + ""); //Testing
         if (STD > 0.002108) {
+            resscale++;
             Log.d("STD", "Tremor Detected"); //Testing
         }
         else {
             Log.d("STD", "Normal"); //Testing
         }
+        return  resscale; //if resscale is 3 all variables are indicating tremor
     }
 
     private double getVarCoeff() //returns coefficient of variation
