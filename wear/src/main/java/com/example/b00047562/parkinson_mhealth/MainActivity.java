@@ -126,21 +126,16 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
                                 };
                                 Timer timer = new Timer(true);  // runs on a separate thread
                                 timer.schedule(task, 0, 500);
-                                mGoogleApiClient.disconnect();
+                                //mGoogleApiClient.disconnect();
+                                sendatathread.execute();
+                                sendatathread.cancel(true);
+                                sendMessage();
                             }
 
 
                         }, 15000);
-                        handler.post(new Runnable() {
-
-
-                            @Override
-                            public void run() {
-                                sendatathread.cancel(true);
-                                sendMessage();
-                            }
-                        });
-
+                      //TODO
+                        //CREATE NEW HANDLER AND PUT IN IT SENDDATATHREAD.CANCEL();
                     }
 
 
@@ -219,7 +214,7 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
         datamap.putFloat("Y value", data.getY());
         datamap.putFloat("Z value", data.getZ());
         //sendatathread = new SendToDataLayerThread();
-        sendatathread.execute();
+
 
 //        SendToDataLayerThread sendData= new SendToDataLayerThread("/Accel", datamap);
 //        sendData.start();

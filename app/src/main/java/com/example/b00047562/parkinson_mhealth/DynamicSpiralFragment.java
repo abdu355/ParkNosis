@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import com.parse.ParseUser;
 
 public class DynamicSpiralFragment extends Fragment implements View.OnClickListener
 {
+    private static final String TAG = "DynamicSpiralClearDisp";
     public static Button redrawOpen,btnClr,btnSubmit;
     private CanvasSpiral customCanvas;
     private ParseFunctions customParse;
@@ -44,9 +46,18 @@ public class DynamicSpiralFragment extends Fragment implements View.OnClickListe
         btnClr.setOnClickListener(this);
 
         Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {public void run(){} }, 2000);
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                customCanvas.setVisibility(View.GONE);
+            }
+        }, 2000);
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                customCanvas.setVisibility(View.VISIBLE);
+            }
+        }, 4000);
 
-        customCanvas.setVisibility(View.GONE);
+
     }
 
     @Override
@@ -55,7 +66,10 @@ public class DynamicSpiralFragment extends Fragment implements View.OnClickListe
         {
             case R.id.btn_clear:
                 //Toast.makeText(this,"clear",Toast.LENGTH_SHORT).show();
-                customCanvas.cleardisp();
+                try{
+                customCanvas.cleardisp();}catch(Exception e){
+                    Log.d(TAG, "onClick: clear = null");
+                }
                 break;
 //            case R.id.btn_redraw:
 //                this.startActivity(new Intent(this, SpiralRedraw.class));

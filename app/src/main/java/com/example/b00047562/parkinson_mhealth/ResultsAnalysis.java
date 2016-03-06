@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -157,7 +158,9 @@ public class ResultsAnalysis extends AppCompatActivity {
             processQuestionnaire();
             processTappingData();
             processAccelData();//accel data (karim)
-            //processSpiralData();
+            try{processSpiralData();}catch (Exception e){
+                Log.d("TAG", "doInBackground: Spiral analysis not working "+ e.getMessage());
+            }
             return null;
         }
 
@@ -187,6 +190,8 @@ public class ResultsAnalysis extends AppCompatActivity {
     private void processSpiralData() {
         sd.getSpiralData();
         sd.getDynamicSpiralData();
+        /**TODO
+         * Initialize the following:- */
         StaticSpiralData =sd.getAS();
         DynamicSpiralData=sd.getDAS();
         spiralDataProcessing= new SpiralDataProcessing(StaticSpiralData,DynamicSpiralData);

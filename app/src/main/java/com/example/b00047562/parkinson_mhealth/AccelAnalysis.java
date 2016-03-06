@@ -45,12 +45,16 @@ public class AccelAnalysis {
     }
 
     public ArrayList<AccelData> getAccelData() {
-        AD= new ArrayList<>();
-        AD = customParse.getParseDataAccel(ParseUser.getCurrentUser(), 0, "AccelData", "createdAt", "ArrayList");
-        ADSize = AD.size();
+       try {
+           AD = new ArrayList<>();
+           AD = customParse.getParseDataAccel(ParseUser.getCurrentUser(), 0, "AccelData", "createdAt", "ArrayList");
+           ADSize = AD.size();
 
-        Log.d("AccelTest", AD.toString()); //Testing
-        Log.d("AccelArraySize", ADSize + ""); //Testing
+           Log.d("AccelTest", AD.toString()); //Testing
+           Log.d("AccelArraySize", ADSize + ""); //Testing}
+       }catch (Exception e){
+           Log.d("ACCel analysis", "getAccelData: problem");
+       }
         return AD; //get time series of
     }
 
