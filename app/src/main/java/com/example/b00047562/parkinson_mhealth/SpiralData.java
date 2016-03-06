@@ -19,8 +19,14 @@ public class SpiralData {
     }
 
     private ArrayList<SpiralData> AS;
+
+    public ArrayList<SpiralData> getDAS() {
+        return DAS;
+    }
+
+    private ArrayList<SpiralData> DAS;
     private ParseFunctions customParse;
-    private int ASSize;
+    private int ASSize,DASSize;
 
     public SpiralData(long timestamp, float x, float y) {
         this.timestamp = timestamp;
@@ -54,8 +60,15 @@ public class SpiralData {
         AS= new ArrayList<>();
         AS = (customParse.getParseDataSpiral(ParseUser.getCurrentUser(), 0, "SpiralData", "createdAt", "ArrayList"));
         ASSize = AS.size();
-        Log.d("AccelTest", AS.toString());
+        Log.d("SpiralTest", AS.toString());
         return AS;
+    }
+    public ArrayList<SpiralData> getDynamicSpiralData() {
+        DAS= new ArrayList<>();
+        DAS = (customParse.getParseDataSpiral(ParseUser.getCurrentUser(), 0, "DynamicSpiralData", "createdAt", "ArrayList"));
+        DASSize = DAS.size();
+        Log.d("SpiralTest", DAS.toString());
+        return DAS;
     }
 
 

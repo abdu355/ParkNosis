@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.Switch;
 import android.widget.TableRow;
 import android.widget.TextView;
 
@@ -25,6 +26,8 @@ call data processing functions from this class and use AsyncTasks
 public class ResultsAnalysis extends AppCompatActivity {
 
 
+    private static final int NORMAL=0,SLIGHT=1,MILD=2,MODERATE=3,SEVERE=4; /**FOR SPIRAL, NO CALCULATIONS ASSOCIATED WITH THESE NUMBERS*/
+
     ProgressDialog mProgressDialog;
     private boolean clicked=false;
     private TappingTestFunctions tapresults;
@@ -33,6 +36,9 @@ public class ResultsAnalysis extends AppCompatActivity {
     SpiralData sd;
     public static ArrayList<SpiralData> StaticSpiralData;
     public static ArrayList<SpiralData> DynamicSpiralData;
+
+
+
 
     ParseFunctions customParse;
     Double qscore; //questionnaire score - not overall score
@@ -148,7 +154,7 @@ public class ResultsAnalysis extends AppCompatActivity {
             processTappingData();
             processQuestionnaire();
             //processAccelData();//accel data (karim)
-           // processSpiralData();
+           processSpiralData();
             return null;
         }
 
@@ -174,8 +180,22 @@ public class ResultsAnalysis extends AppCompatActivity {
 
     private void processSpiralData() {
         sd.getSpiralData();
+        sd.getDynamicSpiralData();
     StaticSpiralData =sd.getAS();
-        //spiralDataProcessing= new SpiralDataProcessing(StaticSpiralData,DynamicSpiralData);
+        DynamicSpiralData=sd.getDAS();
+        spiralDataProcessing= new SpiralDataProcessing(StaticSpiralData,DynamicSpiralData);
+        final float DAH=spiralDataProcessing.getDAH();
+
+       if(0.04f >= DAH)
+          spiralscore=NORMAL;
+        else if (0.05f>=DAH&&DAH<0.075)
+           spiralscore=SLIGHT;
+        else if (0.075f>=DAH&&DAH<0.1f)
+           spiralscore=MILD;
+       else if (0.1f>=DAH&&DAH<0.15f)
+           spiralscore=MODERATE;
+        else if (DAH>=0.15f)
+           spiralscore=SEVERE;
     }
 
     private void processAccelData()

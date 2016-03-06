@@ -2,6 +2,8 @@ package com.example.b00047562.parkinson_mhealth;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -36,6 +38,8 @@ public class Spiral extends AppCompatActivity implements  View.OnClickListener {
         btnSubmit.setOnClickListener(this);
     }
 
+
+
     @Override
     public void onClick(View v) {
         switch(v.getId())
@@ -50,9 +54,9 @@ public class Spiral extends AppCompatActivity implements  View.OnClickListener {
             case R.id.btnSubmit:
 
                 String json = new Gson().toJson(CanvasSpiral.spiralData);
-                customParse.pushParseData(ParseUser.getCurrentUser(),"SpiralData","ArrayList",json,"","");
-                MainActivity.sp=true; //test finished
-                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                customParse.pushParseData(ParseUser.getCurrentUser(), "SpiralData", "ArrayList", json, "", "");
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.fragment_container, new DynamicSpiralFragment());
                 break;
 
 

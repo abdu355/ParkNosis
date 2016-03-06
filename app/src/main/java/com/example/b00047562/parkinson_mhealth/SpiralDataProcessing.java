@@ -25,6 +25,11 @@ public class SpiralDataProcessing {
 
     float [] velocity;
     float [] acceleration1,acceleration2;
+
+    public float getDAH() {
+        return DAH;
+    }
+
     float DAH=0;
     Map<String, Integer> StaticCount = new HashMap<String,Integer>();
     Map<String, Integer> DynamicCount = new HashMap<String,Integer>();
@@ -47,8 +52,6 @@ public class SpiralDataProcessing {
 
 
     }
-//TODO/** modularize work &
-
 
     private float[] FindAcceleration(ArrayList<SpiralData> InputedData){
         float [] acceleration;
