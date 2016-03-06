@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+
+
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
@@ -34,6 +36,9 @@
             android:label="@string/title_activity_accelerometer"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+        <intent-filter>
+            <action android:name="com.google.android.gms.wearable.BIND_LISTENER" />
+        </intent-filter>
         <activity
             android:name=".Spiral"
             android:label="@string/title_activity_spiral"
