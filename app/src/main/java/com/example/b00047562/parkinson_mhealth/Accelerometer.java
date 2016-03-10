@@ -29,6 +29,7 @@ import com.google.android.gms.wearable.DataMap;
 import com.google.android.gms.wearable.DataMapItem;
 import com.google.android.gms.wearable.Wearable;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.parse.ParseUser;
 
 import org.achartengine.ChartFactory;
@@ -38,6 +39,7 @@ import org.achartengine.model.XYSeries;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import almadani.com.shared.AccelData;
@@ -46,7 +48,7 @@ import static com.google.android.gms.wearable.DataApi.DataListener;
 
 
 public class Accelerometer extends AppCompatActivity implements SensorEventListener, View.OnClickListener
-  {
+{
 
     private static final String TAG = "TAG ";
     private TextView txtXValue, txtYValue, txtZValue, tv_shakeAlert;
@@ -80,6 +82,7 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
     private GoogleApiClient mGoogleApiClient;
     /* This object is used as a lock to avoid data loss in the last refresh */
     private static final Object lock = new Object();
+    private ListenerServiceFromWear listner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -275,10 +278,12 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
     private void processExtraData(){
         //use the data received here
         intent= getIntent();
-        ListenerServiceFromWear listner=new ListenerServiceFromWear();
+        //listner=new ListenerServiceFromWear();
 
         l=intent.getIntExtra("Read Data", 0);
-        DataFromWearable=listner.getDataFromWearable();
+        Type type = new TypeToken<ArrayList<AccelData>>() {}.getType();
+        DataFromWearable =  new Gson().fromJson(intent.getStringExtra("DataFromWearable"), type);
+        //DataFromWearable=listner.getDataFromWearable();
         Log.d("ff","Intent value:"+ l);
 
         if(l==1)
@@ -434,10 +439,13 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
         BtnShowAnalysis.setEnabled(true);
 
         SensorGraph.removeAllViews(); //reset graph
+        //listner = new ListenerServiceFromWear();
         //push accel data to Parse
-        String json = new Gson().toJson(DataFromWearable);
+        //String json = new Gson().toJson(DataFromWearable);
+        //String json = new Gson().toJson(listner.getDataFromWearable());
+        Log.d("DatainAccelfromListener",DataFromWearable.toString());
 
-        customParse.pushParseData(ParseUser.getCurrentUser(),"AccelData","ArrayList",json,"",""); //user pointer
+        customParse.pushParseData(ParseUser.getCurrentUser(),"AccelData","ArrayList",intent.getStringExtra("DataFromWearable"),"",""); //user pointer
         openChart(DataFromWearable);
         MainActivity.h=true; //test finished
     }
@@ -456,6 +464,6 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
                     Show_WearData();
                 }
             }
-        }, 10000);
+        }, 2000);
     }
 }
