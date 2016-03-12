@@ -96,6 +96,10 @@ public class ResultsAnalysis extends AppCompatActivity {
         primarygraph=(FrameLayout)findViewById(R.id.content_primary);
         secondarygraph=(FrameLayout)findViewById(R.id.content_secondary);
 
+        StaticSpiralData= new ArrayList();
+        DynamicSpiralData= new ArrayList();
+        sd=new SpiralData(0,0,0,this);
+
 
     }
 
@@ -188,14 +192,15 @@ public class ResultsAnalysis extends AppCompatActivity {
     }
 
     private void processSpiralData() {
-        sd.getSpiralData();
-        sd.getDynamicSpiralData();
+        spiralscore=0;
+
         /**TODO
          * Initialize the following:- */
         StaticSpiralData =sd.getAS();
         DynamicSpiralData=sd.getDAS();
         spiralDataProcessing= new SpiralDataProcessing(StaticSpiralData,DynamicSpiralData);
         final float DAH=spiralDataProcessing.getDAH();
+        Log.d("DAH", "processSpiralData: "+DAH);
 
        if(0.04f >= DAH)
           spiralscore=NORMAL;

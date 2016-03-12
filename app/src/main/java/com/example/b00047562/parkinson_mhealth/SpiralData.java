@@ -1,5 +1,6 @@
 package com.example.b00047562.parkinson_mhealth;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.parse.ParseUser;
@@ -15,12 +16,14 @@ public class SpiralData {
     private float y;
 
     public ArrayList<SpiralData> getAS() {
+        getSpiralData();
         return AS;
     }
 
     private ArrayList<SpiralData> AS;
 
     public ArrayList<SpiralData> getDAS() {
+        getDynamicSpiralData();
         return DAS;
     }
 
@@ -29,6 +32,13 @@ public class SpiralData {
     private int ASSize,DASSize;
 
     public SpiralData(long timestamp, float x, float y) {
+
+        this.timestamp = timestamp;
+        this.x = x;
+        this.y = y;
+    }
+    public SpiralData(long timestamp, float x, float y,Context context) {
+        customParse = new ParseFunctions(context);
         this.timestamp = timestamp;
         this.x = x;
         this.y = y;

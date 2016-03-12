@@ -1,5 +1,7 @@
 package com.example.b00047562.parkinson_mhealth;
 
+import android.util.Log;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -68,7 +70,7 @@ public class SpiralDataProcessing {
         /**
          * Decimal Part: Tested & working
          * */
-        DecimalFormat df = new DecimalFormat("#.##");
+        DecimalFormat df = new DecimalFormat("#.#####");
 
         for (int i=1;i<velocity.length;i++)
         {
@@ -164,7 +166,7 @@ public class SpiralDataProcessing {
         {
 
             DAHarr.add((float)Math.pow((double)staticArr.get(i) - (double)dynamicArr.get(i),2.0));
-
+            Log.d("DAH Arr Val", "Processing: "+ DAHarr.get(i));
         }
 
         for(int i=0;i<10;i++)

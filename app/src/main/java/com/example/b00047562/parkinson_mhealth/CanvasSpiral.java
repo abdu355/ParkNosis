@@ -40,7 +40,8 @@ public class CanvasSpiral extends View {
     Context context;
     private Paint mPaint,mPaint2;
     int maxX,maxY;
-
+    float []OriginalSpiralPoints = new float[168];
+    float []pointsArray = new float[2160];
 
     public static ArrayList<SpiralData> getSpiralData() {
         return spiralData;
@@ -113,13 +114,17 @@ public class CanvasSpiral extends View {
     }
 
 
+    public float[] getOriginalSpiralPoints() {
+        return OriginalSpiralPoints;
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
         float angle,x ,y ;
-        float []pointsArray = new float[2160];
-        float []OriginalSpiralPoints = new float[168];
+//        float []pointsArray = new float[2160];
+        //OriginalSpiralPoints = new float[168];
 
         int j=0;
         for (int i=0; i< 1080; i++,j=j+2) {
@@ -135,6 +140,7 @@ public class CanvasSpiral extends View {
         int k=0;
         for (int m=0;m<2160;m++,k=k+2)
         {
+
             OriginalSpiralPoints[k]=pointsArray[m];
             OriginalSpiralPoints[k+1]=pointsArray[m+1];
             m+=25;
