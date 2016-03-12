@@ -1,5 +1,7 @@
 package com.example.b00047562.parkinson_mhealth;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -7,6 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.RadioGroup;
 
@@ -73,6 +78,8 @@ public class Questionnaire extends AppCompatActivity implements View.OnClickList
         submit=(Button)findViewById(R.id.btn_submitquest);
 
         submit.setOnClickListener(this);
+
+        showHelpDialog();
     }
 
     private void submit()
@@ -108,5 +115,22 @@ public class Questionnaire extends AppCompatActivity implements View.OnClickList
                 break;
 
         }
+    }
+    public void showHelpDialog()
+    {
+
+
+        AlertDialog alertDialog = new AlertDialog.Builder(Questionnaire.this).create();
+        alertDialog.setTitle("What to do ?");
+        alertDialog.setCancelable(false);
+        alertDialog.setMessage("Instructor will guide you through the survey\nthe questionnaire will be filled by instructor\n");
+        alertDialog.setIcon(R.drawable.questicon);
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
     }
 }

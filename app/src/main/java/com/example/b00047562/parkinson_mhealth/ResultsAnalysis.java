@@ -178,6 +178,7 @@ public class ResultsAnalysis extends AppCompatActivity {
 
             //display graphs for  results
             viewgraphs();
+            showhide.performClick();
 
             //call next AsyncTask
             //--place functions for other Tests ex: HandTremorAsyncTask or SpiralDataAsyncTask

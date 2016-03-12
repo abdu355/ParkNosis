@@ -20,7 +20,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="62dp"
-        android:background="@drawable/btnstyleround4"
+        android:background="@color/colorPrimary"
         android:layout_marginTop="10dp"
         android:visibility="visible" />
 
@@ -31,7 +31,7 @@
         android:id="@+id/btn_resultsmain"
         android:layout_above="@+id/btn_usrinfo_main"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/btnstyleround4"
+        android:background="@color/colorPrimary"
         android:layout_marginTop="10dp"
         android:enabled="false"
         android:visibility="visible" />

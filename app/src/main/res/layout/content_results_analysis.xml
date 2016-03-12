@@ -311,7 +311,8 @@
                     android:layout_height="wrap_content"
                     android:text="Show Advice"
                     android:id="@+id/btn_showadvice"
-                    android:onClick="displayadvicebtn" />
+                    android:onClick="displayadvicebtn"
+                    android:background="@color/colorPrimary" />
 
             </LinearLayout>
         </TableRow>
