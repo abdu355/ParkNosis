@@ -1,5 +1,7 @@
 package com.example.b00047562.parkinson_mhealth;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -12,6 +14,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -65,7 +70,7 @@ public class AlternateTapping extends AppCompatActivity implements View.OnClickL
         customParse= new ParseFunctions(getApplicationContext());
 
         //barTimer.getProgressDrawable().setColorFilter(Color.parseColor("#FF4081"), PorterDuff.Mode.SRC_IN);
-
+        showHelpDialog();
     }
     private void startTimer() {
         countDownTimer = new CountDownTimer(20*1000, 500) {
@@ -179,5 +184,27 @@ public class AlternateTapping extends AppCompatActivity implements View.OnClickL
             sum += list.get(i);
         // We don't want to perform an integer division, so the cast is mandatory.
         return ((double) sum) / n;
+    }
+    public void showHelpDialog()
+    {
+        WebView view = new WebView(AlternateTapping.this);
+        view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        view.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+
+        AlertDialog alertDialog = new AlertDialog.Builder(AlternateTapping.this).create();
+        alertDialog.setView(view);
+        alertDialog.setTitle("What to do ?");
+        alertDialog.setCancelable(false);
+        alertDialog.setMessage("Tap the squares on screen as fast as possible within 20 seconds\nAlternate between index and middle finger\nInstructor will guide you through\n");
+        alertDialog.setIcon(R.drawable.tapping5);
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
+        view.loadUrl("file:///android_asset/tapping3.png");
+
     }
 }

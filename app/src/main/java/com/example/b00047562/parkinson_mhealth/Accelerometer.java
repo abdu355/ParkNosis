@@ -1,6 +1,8 @@
 package com.example.b00047562.parkinson_mhealth;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -12,11 +14,16 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -29,6 +36,7 @@ import com.google.android.gms.wearable.DataMap;
 import com.google.android.gms.wearable.DataMapItem;
 import com.google.android.gms.wearable.Wearable;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.parse.ParseUser;
 
 import org.achartengine.ChartFactory;
@@ -38,6 +46,7 @@ import org.achartengine.model.XYSeries;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import almadani.com.shared.AccelData;
@@ -46,7 +55,7 @@ import static com.google.android.gms.wearable.DataApi.DataListener;
 
 
 public class Accelerometer extends AppCompatActivity implements SensorEventListener, View.OnClickListener
-  {
+{
 
     private static final String TAG = "TAG ";
     private TextView txtXValue, txtYValue, txtZValue, tv_shakeAlert;
@@ -80,6 +89,7 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
     private GoogleApiClient mGoogleApiClient;
     /* This object is used as a lock to avoid data loss in the last refresh */
     private static final Object lock = new Object();
+    private ListenerServiceFromWear listner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +126,10 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
 
         BtnShowGraph.setEnabled(false);
         BtnShowAnalysis.setEnabled(false);
+
+        //Show help dialog ------------------------------------------------------------------------------------------------------------------------
+        showHelpDialog();
+        //END help dialog ------------------------------------------------------------------------------------------------------------------------
 
         //Get SensorManager and accelerometer
         MySensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -215,9 +229,9 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -275,11 +289,13 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
     private void processExtraData(){
         //use the data received here
         intent= getIntent();
-        ListenerServiceFromWear listner=new ListenerServiceFromWear();
+        //listner=new ListenerServiceFromWear();
 
         l=intent.getIntExtra("Read Data", 0);
-        DataFromWearable=listner.getDataFromWearable();
-        Log.d("ff","Intent value:"+ l);
+        Type type = new TypeToken<ArrayList<AccelData>>() {}.getType();
+        DataFromWearable =  new Gson().fromJson(intent.getStringExtra("DataFromWearable"), type);
+        //DataFromWearable=listner.getDataFromWearable();
+        Log.d("ff", "Intent value:" + l);
 
         if(l==1)
         {
@@ -434,10 +450,13 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
         BtnShowAnalysis.setEnabled(true);
 
         SensorGraph.removeAllViews(); //reset graph
+        //listner = new ListenerServiceFromWear();
         //push accel data to Parse
-        String json = new Gson().toJson(DataFromWearable);
+        //String json = new Gson().toJson(DataFromWearable);
+        //String json = new Gson().toJson(listner.getDataFromWearable());
+        Log.d("DatainAccelfromListener",DataFromWearable.toString());
 
-        customParse.pushParseData(ParseUser.getCurrentUser(),"AccelData","ArrayList",json,"",""); //user pointer
+        customParse.pushParseData(ParseUser.getCurrentUser(),"AccelData","ArrayList",intent.getStringExtra("DataFromWearable"),"",""); //user pointer
         openChart(DataFromWearable);
         MainActivity.h=true; //test finished
     }
@@ -456,6 +475,30 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
                     Show_WearData();
                 }
             }
-        }, 10000);
+        }, 2000);
+    }
+
+
+    public void showHelpDialog()
+    {
+        WebView view = new WebView(Accelerometer.this);
+        view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        view.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+
+        AlertDialog alertDialog = new AlertDialog.Builder(Accelerometer.this).create();
+        alertDialog.setView(view);
+        alertDialog.setTitle("What to do ?");
+        alertDialog.setCancelable(false);
+        alertDialog.setMessage("Hold your hand straight in front of you while wearing the watch for 15 seconds\nInstructor will guide you through\n");
+        alertDialog.setIcon(R.drawable.handtremor);
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
+        view.loadUrl("file:///android_asset/armhold.jpg");
+
     }
 }

@@ -13,7 +13,7 @@
     tools:showIn="@layout/activity_login">
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:ems="10"
@@ -21,17 +21,19 @@
         android:layout_alignParentTop="true"
         android:layout_alignLeft="@+id/et_pass"
         android:layout_alignStart="@+id/et_pass"
-        android:text="@string/et_usremail" />
+        android:text="@string/et_usremail"
+        android:hint="Email"/>
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/et_pass"
         android:layout_below="@+id/et_email"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:hint="Password"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -41,7 +43,8 @@
         android:id="@+id/tv_email"
         android:layout_alignBottom="@+id/et_email"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:visibility="gone" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -51,10 +54,11 @@
         android:id="@+id/tv_pass"
         android:layout_alignBottom="@+id/et_pass"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:visibility="gone" />
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/et_pass"
@@ -63,18 +67,39 @@
         android:layout_marginTop="23dp">
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/btn_login"
             android:id="@+id/btn_login"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:background="@color/colorPrimary" />
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/btn_signup"
             android:id="@+id/btn_signup"
             android:layout_weight="1" />
     </LinearLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView5"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/brain100" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Welcome \n Login to begin assessment"
+        android:id="@+id/textView5"
+        android:gravity="center_horizontal"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"
+        android:layout_below="@+id/imageView5"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
