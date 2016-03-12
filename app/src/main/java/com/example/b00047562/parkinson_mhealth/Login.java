@@ -1,6 +1,7 @@
 package com.example.b00047562.parkinson_mhealth;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -31,10 +32,11 @@ public class Login extends ActionBarActivity {
     protected EditText passwordEditText;
     protected Button loginButton;
     protected Button signUpButton;
+    ProgressDialog mProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);//progress bar circle
+        //requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);//progress bar circle
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -70,7 +72,16 @@ public class Login extends ActionBarActivity {
                     AlertDialog dialog = builder.create();
                     dialog.show();
                 } else {
-                    setProgressBarIndeterminateVisibility(true);//enable
+                    //setProgressBarIndeterminateVisibility(true);//enable
+                    mProgressDialog = new ProgressDialog(Login.this);
+                    // Set progressdialog title
+                    mProgressDialog.setTitle("Authenticating");
+                    // Set progressdialog message
+                    mProgressDialog.setMessage("Hang on...");
+                    mProgressDialog.setIcon(R.drawable.process);
+                    mProgressDialog.setIndeterminate(false);
+                    // Show progressdialog
+                    mProgressDialog.show();
                     ParseQuery<ParseUser> query = ParseUser.getQuery();
                     query.whereEqualTo("email", email);
                     final String finalPassword = password;
@@ -83,12 +94,14 @@ public class Login extends ActionBarActivity {
                                     public void done(ParseUser user, ParseException e) {
                                         if (e == null) {
                                             // Success
+                                            mProgressDialog.dismiss();
                                             Intent intent = new Intent(Login.this, MainActivity.class);
                                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                             startActivity(intent);
                                         } else {
                                             // Fail
+                                            mProgressDialog.dismiss();
                                             AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
                                             builder.setMessage(e.getMessage())
                                                     .setTitle(R.string.login_error_title)
