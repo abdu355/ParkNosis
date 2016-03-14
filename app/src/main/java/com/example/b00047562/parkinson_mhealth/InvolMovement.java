@@ -45,7 +45,8 @@ public class InvolMovement extends AppCompatActivity {
         start=(Button)findViewById(R.id.btn_start_invol);
         leftview=(TextView)findViewById(R.id.left_indic);
         rightview=(TextView)findViewById(R.id.right_indic);
-        customParse= new ParseFunctions(getApplicationContext());
+        //customParse= new ParseFunctions(getApplicationContext());
+        customParse = new ParseFunctions();
 
         //barTimer.getProgressDrawable().setColorFilter(Color.parseColor("#FF4081"), PorterDuff.Mode.SRC_IN);
         showHelpDialog();

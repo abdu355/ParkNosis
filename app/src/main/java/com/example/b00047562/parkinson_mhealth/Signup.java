@@ -119,6 +119,7 @@ public class Signup extends ActionBarActivity {
                     newUser.put("DOB", dobEditText.getText().toString());
                     newUser.put("Gender", genderselection);
                     newUser.put("DomHand" ,domhandselection);
+                    newUser.put("Complete" , false);
 
                     //newUser.pinInBackground();
                     newUser.signUpInBackground(new SignUpCallback() {

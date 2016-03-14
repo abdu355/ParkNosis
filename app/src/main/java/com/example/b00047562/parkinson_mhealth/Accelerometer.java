@@ -82,7 +82,7 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
     //private int i=0;
 
     /* Handles the refresh */
-    private Handler outputUpdater = new Handler();
+    //private Handler outputUpdater = new Handler();
 
     /* Adjust this value for your purpose */
     public static final long REFRESH_INTERVAL = 100;      // in milliseconds
@@ -144,28 +144,29 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
             Min_Delay = 0.0;
             Log.d("Accelerometer not found", "Accelerometer not found");
         }
-        Thread t = new Thread() {//http://stackoverflow.com/questions/14814714/update-textview-every-second
+//        Thread t = new Thread() {//http://stackoverflow.com/questions/14814714/update-textview-every-second
+//
+//            @Override
+//            public void run() {
+//                try {
+//                    while (!isInterrupted()) {
+//                        Thread.sleep(3000);
+//                        runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                updateTextView();
+//                            }
+//                        });
+//                    }
+//                } catch (InterruptedException e) {
+//                }
+//            }
+//        };
 
-            @Override
-            public void run() {
-                try {
-                    while (!isInterrupted()) {
-                        Thread.sleep(3000);
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                updateTextView();
-                            }
-                        });
-                    }
-                } catch (InterruptedException e) {
-                }
-            }
-        };
+        //t.start();
 
-        t.start();
-
-        customParse = new ParseFunctions(getApplicationContext()); //initialized
+        //customParse = new ParseFunctions(getApplicationContext()); //initialized
+        customParse = new ParseFunctions();
     }
 
     @Override

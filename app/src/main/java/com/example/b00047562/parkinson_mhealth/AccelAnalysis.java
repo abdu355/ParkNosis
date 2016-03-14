@@ -38,8 +38,9 @@ public class AccelAnalysis {
     //Constructor - Initializes all needed variables and calls all necessary functions
     public AccelAnalysis (double fs){
         Fs = fs;
-        Accel = new Accelerometer();
-        customParse = new ParseFunctions(Accel.getApplication());
+        //Accel = new Accelerometer();
+       // customParse = new ParseFunctions(Accel.getApplication());
+        customParse = new ParseFunctions();
         //PerformAnalysis0();
         PerformAnalysis1();
     }
