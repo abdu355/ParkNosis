@@ -84,10 +84,7 @@ public class Spiral extends AppCompatActivity implements  View.OnClickListener {
                 }
                 DynamicFlag=true;
 
-
                 customCanvas.startAnimation(animationOut);
-
-
                 animationOut.setDuration(3000);
                 animationOut.setFillAfter(true);
                 animationOut.startNow();
