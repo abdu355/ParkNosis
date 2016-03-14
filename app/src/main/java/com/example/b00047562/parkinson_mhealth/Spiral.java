@@ -30,7 +30,7 @@ public class Spiral extends AppCompatActivity implements  View.OnClickListener {
     private CanvasSpiral customCanvas;
     public static TextView alert;
     private ParseFunctions customParse;
-    private AlphaAnimation animationIn;
+
     private AlphaAnimation animationOut;
     private boolean DynamicFlag=false;
 
@@ -47,8 +47,8 @@ public class Spiral extends AppCompatActivity implements  View.OnClickListener {
         customParse = new ParseFunctions(getApplicationContext());
         btnSubmit= (Button) findViewById(R.id.btnSubmit);
 
-        animationIn = new AlphaAnimation(0.0f,1.0f);
-        animationOut= new AlphaAnimation(1.0f,0.0f);
+
+        animationOut= new AlphaAnimation(1.0f,-1.0f);
         btnClr.setOnClickListener(this);
         redrawOpen.setOnClickListener(this);
         btnSubmit.setOnClickListener(this);
@@ -73,7 +73,9 @@ public class Spiral extends AppCompatActivity implements  View.OnClickListener {
 
                 String json = new Gson().toJson(CanvasSpiral.spiralData);
                 customParse.pushParseData(ParseUser.getCurrentUser(), "SpiralData", "ArrayList", json, "", "");
-                /**demo PURPOSES **/
+
+
+
                 customCanvas.cleardisp();
                 if (DynamicFlag) {
                     MainActivity.sp = true; //test finished
@@ -81,70 +83,15 @@ public class Spiral extends AppCompatActivity implements  View.OnClickListener {
                 }
                 DynamicFlag=true;
 
-                customCanvas.startAnimation(animationIn);
+
                 customCanvas.startAnimation(animationOut);
-                animationIn.setDuration(2000);
-                animationIn.setFillAfter(true);
-                animationOut.setDuration(2000);
+
+
+                animationOut.setDuration(3000);
                 animationOut.setFillAfter(true);
-                animationOut.setStartOffset(4200+animationIn.getStartOffset());
-//
-//                Timer timerInvisible=new Timer ();
-//                timerInvisible.schedule(new TimerTask() {
-//
-//                    @Override
-//                    public void run() {
-//                     runOnUiThread(new Runnable() {
-//                         @Override
-//                         public void run() {
-//                             customCanvas.setVisibility(View.INVISIBLE);
-//                         }
-//                     });
-//                    }
-//                },2000);
-//
-//                timerInvisible.schedule(new TimerTask() {
-//
-//                    @Override
-//                    public void run() {
-//                        runOnUiThread(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                customCanvas.setVisibility(View.VISIBLE);
-//                            }
-//                        });
-//                    }
-//                },4000);
-//                timerInvisible.schedule(new TimerTask() {
-//
-//                    @Override
-//                    public void run() {
-//                        runOnUiThread(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                customCanvas.setVisibility(View.INVISIBLE);
-//                            }
-//                        });
-//                    }
-//                }, 6000);
-//                timerInvisible.schedule(new TimerTask() {
-//
-//                    @Override
-//                    public void run() {
-//                        runOnUiThread(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                customCanvas.setVisibility(View.VISIBLE);
-//                            }
-//                        });
-//                    }
-//                }, 8000);
+                animationOut.startNow();
+                animationOut.setRepeatCount(Animation.INFINITE);
 
-
-             //   customCanvas.setVisibility(View.VISIBLE);
-//                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//                ft.replace(R.id.fragment_container, new DynamicSpiralFragment());
-//                ft.commit();
                 break;
 
 
