@@ -73,6 +73,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivity(intent);
     }
 
+    /*TODO
+     user completion status
+     */
     @Override
     protected void onResume() {
         super.onResume();
