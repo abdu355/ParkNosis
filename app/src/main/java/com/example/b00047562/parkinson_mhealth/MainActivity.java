@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.ParcelFormatException;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -20,6 +21,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.parse.GetCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -29,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private Button quest_btn,acc_btn,spiral_btn,usrinfo_btn,tap_btn,results;
     private Spanned email_about= Html.fromHtml("<a href=\"hello.sah802@gmail.com\">hello.sah802@gmail.com</a>");
-
+    ParseUser currentUser;
     public static boolean q,h,sp,t;  //completion indicator for each test
     //private boolean doneall;
 
@@ -55,7 +57,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         results.setOnClickListener(this);
 
 
-        ParseUser currentUser = ParseUser.getCurrentUser();//check if user logged in
+        try {
+            currentUser = ParseUser.getCurrentUser().fetch();//check if user logged in
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         if (currentUser == null) {
             loadLoginView();
         }
@@ -71,27 +77,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onResume() {
         super.onResume();
 
-        if(q && sp && t && h) //done all tests
-        {
-            results.setEnabled(true);
-            ParseObject ob = new ParseObject("Status");
-            ob.put("doneall",true);
-            ob.put("createdBy",ParseUser.getCurrentUser());
-            ob.saveEventually();
+        if (q && sp && t && h) {
+            currentUser.put("Complete", true);
         }
-        else
-        {
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("Status");
-            query.whereEqualTo("createdBy", ParseUser.getCurrentUser());
-            try {
-                ParseObject res = query.getFirst();
-                results.setEnabled(res.getBoolean("doneall"));
-            } catch (ParseException e) {
-                results.setEnabled(false);
-               Log.d("ParseMain", e.getMessage());
-            }
+        try {
+            currentUser.fetch();
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
+        results.setEnabled(currentUser.getBoolean("Complete"));
     }
+
+//                if (q && sp && t && h) //done all tests
+//                {
+//    //            results.setEnabled(true);
+//    //            ParseObject ob = new ParseObject("Status");
+//    //            ob.put("doneall",true);
+//    //            ob.put("createdBy",ParseUser.getCurrentUser());
+//    //            ob.saveEventually();
+//                    //ParseUser usr = new ParseUser();
+//                    usr.put("Complete", true);
+//                } else {
+//    //            ParseQuery<ParseObject> query = ParseQuery.getQuery("Status");
+//    //            query.whereEqualTo("createdBy", ParseUser.getCurrentUser());
+//    //            try {
+//    //                ParseObject res = query.getFirst();
+//    //                results.setEnabled(res.getBoolean("doneall"));
+//    //            } catch (ParseException e) {
+//    //                results.setEnabled(false);
+//    //               Log.d("ParseMain", e.getMessage());
+//    //            }
+//                    results.setEnabled(usr.getBoolean("Complete"));
+//                }
 
     @Override
     protected void onPause() {
@@ -151,22 +168,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         {
 
             case R.id.quest_btn:
-                this.startActivity(  new Intent(this,Questionnaire.class));
+                Intent questIntent = new Intent(this, Questionnaire.class);
+                questIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                this.startActivity(questIntent);
                 break;
             case R.id.acc_btn:
-                this.startActivity(  new Intent(this,Accelerometer.class));
+                Intent accIntent = new Intent(this, Accelerometer.class);
+                accIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                this.startActivity(accIntent);
                 break;
             case R.id.spiral_btn:
-                this.startActivity(  new Intent(this,Spiral.class));
+                Intent spiralIntent = new Intent(this, Spiral.class);
+                spiralIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                this.startActivity(spiralIntent);
                 break;
             case R.id.btn_usrinfo_main:
-                this.startActivity(new Intent(this,UserInfo.class));
+                Intent userIntent = new Intent(this, UserInfo.class);
+                userIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                this.startActivity(userIntent);
                 break;
             case R.id.btn_tap_main:
-                this.startActivity(new Intent(this,SimpleTapping.class));
+                Intent tapIntent = new Intent(this, SimpleTapping.class);
+                tapIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                this.startActivity(tapIntent);
                 break;
             case R.id.btn_resultsmain: //display results in seperate activity
-                this.startActivity(new Intent(this,ResultsAnalysis.class));
+                Intent resultsIntent = new Intent(this, ResultsAnalysis.class);
+                resultsIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                this.startActivity(resultsIntent);
                 break;
         }
     }

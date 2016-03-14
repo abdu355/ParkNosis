@@ -24,7 +24,7 @@ import java.util.List;
 public class TappingTestFunctions {
 
     private ParseFunctions customParse;
-    private SimpleTapping tapclass= new SimpleTapping();
+    //private SimpleTapping tapclass= new SimpleTapping();
 
 
     //shared vars
@@ -46,13 +46,13 @@ public class TappingTestFunctions {
     private int indicator , indicator2, indicator3,indicator4;// for tapping scale 0:normal , <=2:hesistant ,  <=4:mild, >4  <=9:moderate , >9:severe
 
 
-    public ArrayList fetchData() {
+    public void fetchData() {
 
         indicator=0;
         indicator2=0;
         indicator3=0;
 
-        customParse = new ParseFunctions(tapclass.getApplication());
+        customParse = new ParseFunctions();
         intList= new ArrayList<>();
         rightfingerarr = new ArrayList<>();
         leftfingerarr = new ArrayList<>();
@@ -75,11 +75,27 @@ public class TappingTestFunctions {
         Log.d("TappingTest",hand+"");
         Log.d("TappingTest",intList.toString());
 
-        avgdelay = tapclass.average(simpletaps);
-        avgdelayrightfinger = tapclass.average(rightfingerarr);
-        avgdelayleftfinger=tapclass.average(leftfingerarr);
+//        avgdelay = tapclass.average(simpletaps);
+//        avgdelayrightfinger = tapclass.average(rightfingerarr);
+//        avgdelayleftfinger=tapclass.average(leftfingerarr);
+        avgdelay = average(simpletaps);
+        avgdelayrightfinger = average(rightfingerarr);
+        avgdelayleftfinger=average(leftfingerarr);
 
-        return new ArrayList();
+        //return new ArrayList();
+    }
+    public static double average(List<Long> list) {
+        // 'average' is undefined if there are no elements in the list.
+        if (list == null || list.isEmpty())
+            return 0.0;
+        // Calculate the summation of the elements in the list
+        long sum = 0;
+        int n = list.size();
+        // Iterating manually is faster than using an enhanced for loop.
+        for (int i = 0; i < n; i++)
+            sum += list.get(i);
+        // We don't want to perform an integer division, so the cast is mandatory.
+        return ((double) sum) / n;
     }
 
    // public void runAlgorithm() {}

@@ -30,10 +30,10 @@ public class ParseFunctions {
     public ArrayList<String> resarr;
     private Type type;
     private Context context;
-    public ParseFunctions(Context c)
-    {
-        context=c;
-    }
+    //public ParseFunctions(Context c)
+//    {
+//        context=c;
+//    }
 
     public ArrayList<Long> getParseData(ParseUser user , final int listPointer, final String ... params) //fetch from Parse
     //0: class name -- 1: orderby String  -- 2: column name
@@ -69,10 +69,10 @@ public class ParseFunctions {
             ob.put("hand",params[4]);
             //add additional query paramters here if needed ( make sure to also include the params[index] for it ) ...
             ob.saveInBackground();
-            Toast.makeText(context, "Data uploaded to Parse",Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, "Data uploaded to Parse",Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Log.d("ParseError", e.getMessage());
-            Toast.makeText(context, "Data upload fail",Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, "Data upload fail",Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -93,10 +93,10 @@ public class ParseFunctions {
                 ob.put("position",params[numofitems+(i+2)]); //get remaining parameters
                 ob.put("numoftaps",params[numofitems+(i+4)]);
                 objectlist.add(i++, ob);
-                Toast.makeText(context, "Data uploaded to Parse",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "Data uploaded to Parse",Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
                 Log.d("ParseError",e.getMessage());
-                Toast.makeText(context, "Data upload fail",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "Data upload fail",Toast.LENGTH_SHORT).show();
             }
         }
         ob.saveAllInBackground(objectlist);

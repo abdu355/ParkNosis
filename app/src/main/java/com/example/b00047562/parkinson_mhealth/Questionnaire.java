@@ -42,7 +42,8 @@ public class Questionnaire extends AppCompatActivity implements View.OnClickList
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         groupid=new ArrayList<>();
-        customParse = new ParseFunctions(getApplicationContext());
+        //customParse = new ParseFunctions(getApplicationContext());
+        customParse = new ParseFunctions();
 
         /*TODO
         more to be added

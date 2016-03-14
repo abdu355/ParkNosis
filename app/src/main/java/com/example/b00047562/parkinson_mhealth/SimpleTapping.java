@@ -56,7 +56,7 @@ public class SimpleTapping extends AppCompatActivity implements View.OnClickList
 
 
         delaylist = new ArrayList<>();
-        customParse= new ParseFunctions(getApplicationContext());
+        customParse= new ParseFunctions();
 
         showHelpDialog();
     }

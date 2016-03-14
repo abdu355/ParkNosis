@@ -38,7 +38,8 @@ public class DynamicSpiralFragment extends Fragment implements View.OnClickListe
 
 
         customCanvas=(CanvasSpiral)view.findViewById(R.id.spiral_canvas);
-        customParse = new ParseFunctions(getActivity().getApplicationContext());
+        //customParse = new ParseFunctions(getActivity().getApplicationContext());
+        customParse = new ParseFunctions();
         btnClr= (Button)  view.findViewById(R.id.btn_clear);
 
         btnSubmit= (Button) view.findViewById(R.id.btnSubmit);

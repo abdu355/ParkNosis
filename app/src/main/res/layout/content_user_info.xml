@@ -11,14 +11,15 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.b00047562.parkinson_mhealth.UserInfo"
     tools:showIn="@layout/activity_user_info"
-    android:background="@drawable/rsz_1abswall1">
+    android:background="#fce4ec">
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/linearLayout"
-        android:background="@android:drawable/alert_light_frame">
+        android:background="#ffcdd2"
+        android:layout_marginTop="10dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -28,7 +29,8 @@
             android:id="@+id/tv1usrinfo"
             android:paddingTop="20dp"
             android:layout_weight="1"
-            android:textColor="#040303" />
+            android:textColor="#040303"
+            android:textStyle="bold|italic" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -37,7 +39,8 @@
             android:text="@string/tv_nameusrinfo"
             android:id="@+id/tv_nameusrinfo"
             android:layout_weight="1"
-            android:textColor="#040303" />
+            android:textColor="#040303"
+            android:gravity="right" />
     </LinearLayout>
 
     <LinearLayout
@@ -48,7 +51,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:id="@+id/linearLayout4"
-        android:background="@android:drawable/alert_light_frame">
+        android:background="#ffcdd2"
+        android:layout_marginTop="10dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -61,7 +65,8 @@
             android:layout_alignParentStart="true"
             android:paddingTop="20dp"
             android:layout_weight="1"
-            android:textColor="#040303" />
+            android:textColor="#040303"
+            android:textStyle="bold|italic" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -70,7 +75,8 @@
             android:text="@string/tv_genusrinfo"
             android:id="@+id/tv_genusrinfo"
             android:layout_weight="1"
-            android:textColor="#040303" />
+            android:textColor="#040303"
+            android:gravity="right" />
     </LinearLayout>
 
     <LinearLayout
@@ -81,7 +87,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:id="@+id/linearLayout3"
-        android:background="@android:drawable/alert_light_frame">
+        android:background="#ffcdd2"
+        android:layout_marginTop="10dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -91,7 +98,8 @@
             android:id="@+id/tv3usrinfo"
             android:paddingTop="20dp"
             android:layout_weight="1"
-            android:textColor="#040303" />
+            android:textColor="#040303"
+            android:textStyle="bold|italic" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -100,7 +108,8 @@
             android:text="@string/tv_dobusrinfo"
             android:id="@+id/tv_dobusrinfo"
             android:layout_weight="1"
-            android:textColor="#040303" />
+            android:textColor="#040303"
+            android:gravity="right" />
     </LinearLayout>
 
     <LinearLayout
@@ -111,7 +120,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:id="@+id/linearLayout2"
-        android:background="@android:drawable/alert_light_frame">
+        android:background="#ffcdd2"
+        android:layout_marginTop="10dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -121,7 +131,8 @@
             android:id="@+id/tv2usrinfo"
             android:paddingTop="20dp"
             android:layout_weight="1"
-            android:textColor="#040303" />
+            android:textColor="#040303"
+            android:textStyle="bold|italic" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -130,7 +141,8 @@
             android:text="@string/tv_emailusrinfo"
             android:id="@+id/tv_emailusrinfo"
             android:layout_weight="1"
-            android:textColor="#040303" />
+            android:textColor="#040303"
+            android:gravity="right" />
     </LinearLayout>
 
     <LinearLayout
@@ -140,7 +152,8 @@
         android:id="@+id/linearLayout5"
         android:layout_below="@+id/linearLayout4"
         android:layout_alignParentStart="true"
-        android:background="@android:drawable/alert_light_frame">
+        android:background="#ffcdd2"
+        android:layout_marginTop="10dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -150,7 +163,8 @@
             android:id="@+id/textView24"
             android:paddingTop="20dp"
             android:layout_weight="1"
-            android:textColor="#040303" />
+            android:textColor="#040303"
+            android:textStyle="bold|italic" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -159,7 +173,8 @@
             android:text="@string/tv_domhandinfo"
             android:id="@+id/tv_domhand"
             android:layout_weight="1"
-            android:textColor="#040303" />
+            android:textColor="#040303"
+            android:gravity="right" />
     </LinearLayout>
 
 </RelativeLayout>

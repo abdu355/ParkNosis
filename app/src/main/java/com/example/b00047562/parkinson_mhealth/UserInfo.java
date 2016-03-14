@@ -36,7 +36,12 @@ public class UserInfo extends AppCompatActivity {
         gender=(TextView)findViewById(R.id.tv_genusrinfo);
         domhand=(TextView)findViewById(R.id.tv_domhand);
 
-        ParseUser currentUser = ParseUser.getCurrentUser();
+        ParseUser currentUser = null;
+        try {
+            currentUser = ParseUser.getCurrentUser().fetch();
+        } catch (com.parse.ParseException e) {
+            e.printStackTrace();
+        }
 
         if (currentUser != null) {
             try {

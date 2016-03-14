@@ -29,7 +29,8 @@ public class StaticSpiralFragment extends Fragment implements View.OnClickListen
         customCanvas=(CanvasSpiral)view.findViewById(R.id.spiral_canvas);
         redrawOpen =(Button)view.findViewById(R.id.btn_redraw);
         btnClr= (Button) view.findViewById(R.id.btn_clear);
-        customParse = new ParseFunctions(getActivity().getApplicationContext());
+        //customParse = new ParseFunctions(getActivity().getApplicationContext());
+        customParse = new ParseFunctions();
         btnSubmit= (Button) view.findViewById(R.id.btnSubmit);
 
         btnClr.setOnClickListener(this);

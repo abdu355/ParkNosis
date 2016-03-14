@@ -35,7 +35,8 @@ public class Spiral extends AppCompatActivity implements  View.OnClickListener {
         customCanvas=(CanvasSpiral)findViewById(R.id.spiral_canvas);
         redrawOpen =(Button)findViewById(R.id.btn_redraw);
         btnClr= (Button) findViewById(R.id.btn_clear);
-        customParse = new ParseFunctions(getApplicationContext());
+        //customParse = new ParseFunctions(getApplicationContext());
+        customParse = new ParseFunctions();
         btnSubmit= (Button) findViewById(R.id.btnSubmit);
 
         btnClr.setOnClickListener(this);

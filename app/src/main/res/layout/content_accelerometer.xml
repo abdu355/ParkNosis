@@ -104,7 +104,8 @@
             android:id="@+id/tv_shake"
             android:layout_column="14"
             android:gravity="center"
-            android:textColor="#ffffff" />
+            android:textColor="#ffffff"
+            android:visibility="gone" />
 
         <Button
             android:layout_width="wrap_content"

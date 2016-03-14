@@ -63,38 +63,37 @@ public class ResultsAnalysis extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        customParse = new ParseFunctions(getApplicationContext());
-        tapresults= new TappingTestFunctions();
-        accelresult = new AccelAnalysis(10.0);
-        /*ToDo
-        Karim: I made AccelAnalysis constructor require an Int parameter in order to pass Fs (sensor sampling rate) from accelerometer class
-        So it broke this...
-         */
+        //customParse = new ParseFunctions(getApplicationContext());
+         customParse = new ParseFunctions();
+         tapresults= new TappingTestFunctions();
+         accelresult = new AccelAnalysis(10.0);
+        initialize();
+
         //accelresult= new AccelAnalysis();
 
-        ad1=(TableRow)findViewById(R.id.tbrow_ad1);
-        ad2=(TableRow)findViewById(R.id.tbrow_ad2);
-        ad3=(TableRow)findViewById(R.id.tbrow_ad3);
-        graphs=(TableRow)findViewById(R.id.tbrow_graphs);
-        tapres= (TableRow)findViewById(R.id.tbrow_tap);
-        spiralres=(TableRow)findViewById(R.id.tbrow_spiral);
-        handres=(TableRow)findViewById(R.id.tbrow_hand);
-        title=(TableRow)findViewById(R.id.tbrow_title);
-
-        showhide=(Button)findViewById(R.id.btn_showadvice);
-
-        extras = (TextView)findViewById(R.id.tv_question_extra); //questionnaire score here
-        extra1=(TextView)findViewById(R.id.tv_extra1);
-        advice= (TextView)findViewById(R.id.advice_tv_analysis); //detail advice and score details
-        title_tv=(TextView)findViewById(R.id.tv_title);
-        tapscore_tv=(TextView)findViewById(R.id.tapscore_tv);
-        spiralscore_tv=(TextView)findViewById(R.id.tv_spiralres);
-        handsore_tv=(TextView)findViewById(R.id.handres_tv);
-
-
-        //test draw a bar chart
-        primarygraph=(FrameLayout)findViewById(R.id.content_primary);
-        secondarygraph=(FrameLayout)findViewById(R.id.content_secondary);
+//        ad1=(TableRow)findViewById(R.id.tbrow_ad1);
+//        ad2=(TableRow)findViewById(R.id.tbrow_ad2);
+//        ad3=(TableRow)findViewById(R.id.tbrow_ad3);
+//        graphs=(TableRow)findViewById(R.id.tbrow_graphs);
+//        tapres= (TableRow)findViewById(R.id.tbrow_tap);
+//        spiralres=(TableRow)findViewById(R.id.tbrow_spiral);
+//        handres=(TableRow)findViewById(R.id.tbrow_hand);
+//        title=(TableRow)findViewById(R.id.tbrow_title);
+//
+//        showhide=(Button)findViewById(R.id.btn_showadvice);
+//
+//        extras = (TextView)findViewById(R.id.tv_question_extra); //questionnaire score here
+//        extra1=(TextView)findViewById(R.id.tv_extra1);
+//        advice= (TextView)findViewById(R.id.advice_tv_analysis); //detail advice and score details
+//        title_tv=(TextView)findViewById(R.id.tv_title);
+//        tapscore_tv=(TextView)findViewById(R.id.tapscore_tv);
+//        spiralscore_tv=(TextView)findViewById(R.id.tv_spiralres);
+//        handsore_tv=(TextView)findViewById(R.id.handres_tv);
+//
+//
+//        //test draw a bar chart
+//        primarygraph=(FrameLayout)findViewById(R.id.content_primary);
+//        secondarygraph=(FrameLayout)findViewById(R.id.content_secondary);
 
 
     }
@@ -141,6 +140,8 @@ public class ResultsAnalysis extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+
+
             // Create a progressdialog
             mProgressDialog = new ProgressDialog(ResultsAnalysis.this);
             // Set progressdialog title
@@ -155,6 +156,7 @@ public class ResultsAnalysis extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
+            //initialize();
             processQuestionnaire();
             processTappingData();
             processAccelData();//accel data (karim)
@@ -304,5 +306,39 @@ public class ResultsAnalysis extends AppCompatActivity {
             clicked=false;
             showhide.setText("Show Advice");
         }
+    }
+
+    private void initialize ()
+    {
+
+        ad1=(TableRow)findViewById(R.id.tbrow_ad1);
+        ad2=(TableRow)findViewById(R.id.tbrow_ad2);
+        ad3=(TableRow)findViewById(R.id.tbrow_ad3);
+        graphs=(TableRow)findViewById(R.id.tbrow_graphs);
+        tapres= (TableRow)findViewById(R.id.tbrow_tap);
+        spiralres=(TableRow)findViewById(R.id.tbrow_spiral);
+        handres=(TableRow)findViewById(R.id.tbrow_hand);
+        title=(TableRow)findViewById(R.id.tbrow_title);
+
+        showhide=(Button)findViewById(R.id.btn_showadvice);
+
+        extras = (TextView)findViewById(R.id.tv_question_extra); //questionnaire score here
+        extra1=(TextView)findViewById(R.id.tv_extra1);
+        advice= (TextView)findViewById(R.id.advice_tv_analysis); //detail advice and score details
+        title_tv=(TextView)findViewById(R.id.tv_title);
+        tapscore_tv=(TextView)findViewById(R.id.tapscore_tv);
+        spiralscore_tv=(TextView)findViewById(R.id.tv_spiralres);
+        handsore_tv=(TextView)findViewById(R.id.handres_tv);
+
+
+        //test draw a bar chart
+        primarygraph=(FrameLayout)findViewById(R.id.content_primary);
+        secondarygraph=(FrameLayout)findViewById(R.id.content_secondary);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        new processDataTask().cancel(true);
     }
 }
