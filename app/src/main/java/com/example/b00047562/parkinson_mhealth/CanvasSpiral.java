@@ -38,7 +38,7 @@ public class CanvasSpiral extends View {
     private Bitmap mBitmap;
     private Canvas mCanvas;
     Context context;
-    private Paint mPaint,mPaint2;
+    private Paint mPaint,mPaint2,mPaint3;
     int maxX,maxY;
 
 
@@ -67,6 +67,12 @@ public class CanvasSpiral extends View {
         mPaint2.setStyle(Paint.Style.STROKE);
         mPaint2.setStrokeJoin(Paint.Join.ROUND);
         mPaint2.setStrokeWidth(10f);
+        mPaint3= new Paint();
+        mPaint3.setAntiAlias(true);
+        mPaint3.setColor(Color.parseColor("#f06292"));
+        mPaint3.setStyle(Paint.Style.STROKE);
+        mPaint3.setStrokeJoin(Paint.Join.ROUND);
+        mPaint3.setStrokeWidth(10f);
 
         Display mdisp =((Activity) context).getWindowManager().getDefaultDisplay();
         Point mdispSize = new Point();
@@ -147,7 +153,7 @@ public class CanvasSpiral extends View {
            // Log.d(TAG2, "onDraw: "+(i/2)+ " x&y: " + OriginalSpiralPoints[i] + " " + OriginalSpiralPoints[i + 1]);
         }
 
-    //    canvas.drawPoints(OriginalSpiralPoints,mPaint2);
+        canvas.drawPoints(OriginalSpiralPoints,mPaint3);
 
         canvas.drawBitmap(canvasBitmap, 0, 0, canvasPaint);
         canvas.drawPath(drawPath, drawPaint);

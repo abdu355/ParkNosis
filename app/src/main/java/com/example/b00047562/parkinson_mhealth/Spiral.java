@@ -66,9 +66,7 @@ public class Spiral extends AppCompatActivity implements  View.OnClickListener {
                 /**demo PURPOSES **/
                 MainActivity.sp=true; //test finished
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
-//                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//                ft.replace(R.id.fragment_container, new DynamicSpiralFragment());
-//                ft.commit();
+
                 break;
 
 
