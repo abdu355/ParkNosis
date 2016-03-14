@@ -19,6 +19,8 @@ import org.achartengine.ChartFactory;
 import org.achartengine.chart.BarChart;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /*TODO
 call data processing functions from this class and use AsyncTasks
@@ -27,33 +29,28 @@ call data processing functions from this class and use AsyncTasks
 public class ResultsAnalysis extends AppCompatActivity {
 
 
-    private static final int NORMAL=0,SLIGHT=1,MILD=2,MODERATE=3,SEVERE=4; /**FOR SPIRAL, NO CALCULATIONS ASSOCIATED WITH THESE NUMBERS*/
-
-    ProgressDialog mProgressDialog;
+    private static final int NORMAL=0,SLIGHT=1,MILD=2,MODERATE=3,SEVERE=4;
+    private Map<Integer,String> ResultsMap;
+    private ProgressDialog mProgressDialog;
     private boolean clicked=false;
     private TappingTestFunctions tapresults;
     private SpiralDataProcessing spiralDataProcessing;
     private AccelAnalysis accelresult;
-    SpiralData sd;
+    private SpiralData sd;
     public static ArrayList<SpiralData> StaticSpiralData;
     public static ArrayList<SpiralData> DynamicSpiralData;
 
-
-
-
-    ParseFunctions customParse;
-    Double qscore; //questionnaire score - not overall score
-    TextView extras,advice,extra1,title_tv,tapscore_tv,spiralscore_tv,handsore_tv;
+    private ParseFunctions customParse;
+    private  Double qscore; //questionnaire score - not overall score
+    private TextView extras,advice,extra1,title_tv,tapscore_tv,spiralscore_tv,handsore_tv;
 
     private FrameLayout primarygraph,secondarygraph;
 
-    TableRow ad1,ad2,ad3,tapres,spiralres,handres,graphs,title;
-    Button showhide;
+    private  TableRow ad1,ad2,ad3,tapres,spiralres,handres,graphs,title;
+    private Button showhide;
     private View mChart1,mChart2;
 
     private int tapscore,handscore,spiralscore; //use these for final scale
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +59,13 @@ public class ResultsAnalysis extends AppCompatActivity {
         setContentView(R.layout.activity_results_analysis);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        ResultsMap=new HashMap<>() ;
+        ResultsMap.put(0, getString(R.string.Results_Normal));
+        ResultsMap.put(1,getString(R.string.Results_Slight));
+        ResultsMap.put(2,getString(R.string.Results_Mild));
+        ResultsMap.put(3,getString(R.string.Results_Moderate));
+        ResultsMap.put(4,getString(R.string.Results_Severe));
 
         //customParse = new ParseFunctions(getApplicationContext());
          customParse = new ParseFunctions();
@@ -176,9 +180,9 @@ public class ResultsAnalysis extends AppCompatActivity {
             mProgressDialog.dismiss();
             //tapresults.displayResults();
             extras.setText("Questionnaire Score: " + qscore);
-            tapscore_tv.setText(tapscore+"");
-            spiralscore_tv.setText(""+spiralscore);
-            handsore_tv.setText(""+handscore);
+            tapscore_tv.setText(ResultsMap.get(tapscore)+"");
+            spiralscore_tv.setText(""+ResultsMap.get(spiralscore));
+            handsore_tv.setText(""+ResultsMap.get(handscore));
 
             displayscoreAdvice();   // calls all display functions
 

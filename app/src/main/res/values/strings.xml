@@ -103,6 +103,11 @@
     <string name="radio_ans5">Severe</string>
     <string name="ClearSpiralDrawing">clear drawing</string>
     <string name="SpiralSubmit">Submit</string>
+    <string name="Results_Normal">Normal</string>
+    <string name="Results_Slight">Slight</string>
+    <string name="Results_Mild">Mild</string>
+    <string name="Results_Moderate">Moderate</string>
+    <string name="Results_Severe">Severe</string>
 
 
 </resources>

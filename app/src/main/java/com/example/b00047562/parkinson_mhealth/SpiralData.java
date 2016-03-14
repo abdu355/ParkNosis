@@ -38,7 +38,7 @@ public class SpiralData {
         this.y = y;
     }
     public SpiralData(long timestamp, float x, float y,Context context) {
-        customParse = new ParseFunctions(context);
+        customParse = new ParseFunctions();
         this.timestamp = timestamp;
         this.x = x;
         this.y = y;

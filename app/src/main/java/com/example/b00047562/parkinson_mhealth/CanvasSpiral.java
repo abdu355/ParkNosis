@@ -129,8 +129,7 @@ public class CanvasSpiral extends View {
         super.onDraw(canvas);
 
         float angle,x ,y ;
-//        float []pointsArray = new float[2160];
-        //OriginalSpiralPoints = new float[168];
+
 
         int j=0;
         for (int i=0; i< 1080; i++,j=j+2) {
@@ -193,7 +192,7 @@ public class CanvasSpiral extends View {
                 drawPath.reset();
                 Spiral.redrawOpen.setEnabled(true); // to prevent crashing or redrawing when no data is available - this will updated soon
                 Spiral.btnSubmit.setEnabled(true);
-                Log.d(TAG, "onTouchEvent: " + spiralData.size());
+             //   Log.d(TAG, "onTouchEvent: " + spiralData.size());
                 break;
             default:
                 return false;
