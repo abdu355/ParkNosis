@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,18 +22,10 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Button;
-import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.wearable.DataEvent;
-import com.google.android.gms.wearable.DataEventBuffer;
-import com.google.android.gms.wearable.DataItem;
-import com.google.android.gms.wearable.DataMap;
-import com.google.android.gms.wearable.DataMapItem;
-import com.google.android.gms.wearable.Wearable;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.parse.ParseUser;
@@ -50,8 +41,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import almadani.com.shared.AccelData;
-
-import static com.google.android.gms.wearable.DataApi.DataListener;
 
 
 public class Accelerometer extends AppCompatActivity implements SensorEventListener, View.OnClickListener
@@ -175,7 +164,7 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
             if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
                 // outputUpdater.post(outputUpdaterTask);
                 long curTime = System.currentTimeMillis();
-                if ((curTime - lastUpdate) > 100) {
+                if ((curTime - lastUpdate) > 6) {
                     long diffTime = (curTime - lastUpdate);
                     lastUpdate = curTime;
 

@@ -161,9 +161,9 @@ public class AccelAnalysis {
         else {
             Log.d("Mean", "Normal"); //Testing
         }
-        for(int i=0; i< ArrZ_Normalized.length; i++) {
-            Log.d("ArrZ_Normalized[" + i + "]", ArrZ_Normalized[i] + "");
-        }
+        //for(int i=0; i< ArrZ_Normalized.length; i++) {
+        //    Log.d("ArrZ_Normalized[" + i + "]", ArrZ_Normalized[i] + "");
+        //}
         double VC = getVarCoeff();
         Log.d("Variation Coefficient", VC + ""); //Testing
         if (VC > 0.74725) {

@@ -1,30 +1,21 @@
 package com.example.b00047562.parkinson_mhealth;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.ParcelFormatException;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
-import android.util.Log;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.parse.GetCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -57,11 +48,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         results.setOnClickListener(this);
 
 
-        try {
-            currentUser = ParseUser.getCurrentUser().fetch();//check if user logged in
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+
+        currentUser = ParseUser.getCurrentUser();//check if user logged in
+
         if (currentUser == null) {
             loadLoginView();
         }
