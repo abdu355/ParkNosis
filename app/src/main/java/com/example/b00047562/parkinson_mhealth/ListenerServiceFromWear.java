@@ -119,7 +119,7 @@ public class ListenerServiceFromWear extends WearableListenerService {
             Intent startIntent = new Intent(this, Accelerometer.class);
             //c=new Accelerometer();
            // c.ReadForAWhile(Accelerometer.FROMWEAR);
-            startIntent.putExtra("Read Data",1);
+           // startIntent.putExtra("Read Data",1);
             startIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(startIntent);

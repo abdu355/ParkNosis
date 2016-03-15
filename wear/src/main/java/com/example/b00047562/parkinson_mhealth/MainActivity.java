@@ -244,6 +244,8 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
 
     private void storeData(){
 
+        datalist = new ArrayList<>();
+
         long curTime = System.currentTimeMillis();
         AccelData data= new AccelData(curTime, SEvent.values[0], SEvent.values[1], SEvent.values[2]);
 

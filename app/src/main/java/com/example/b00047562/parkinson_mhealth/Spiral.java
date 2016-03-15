@@ -80,7 +80,8 @@ public class Spiral extends AppCompatActivity implements  View.OnClickListener {
                 customCanvas.cleardisp();
                 if (DynamicFlag) {
                     MainActivity.sp = true; //test finished
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    //startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    finish();
                 }
                 DynamicFlag=true;
 
@@ -115,6 +116,5 @@ public class Spiral extends AppCompatActivity implements  View.OnClickListener {
                 });
         alertDialog.show();
         view.loadUrl("file:///android_asset/spiraldraw.png");
-
     }
 }
