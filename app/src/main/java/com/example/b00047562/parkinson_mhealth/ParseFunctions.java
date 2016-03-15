@@ -68,7 +68,8 @@ public class ParseFunctions {
             ob.put("numoftaps",params[3]); //if not using taps just put "" [empty String]
             ob.put("hand",params[4]);
             //add additional query paramters here if needed ( make sure to also include the params[index] for it ) ...
-            ob.saveInBackground();
+            //ob.saveInBackground();
+            ob.saveEventually();
             //Toast.makeText(context, "Data uploaded to Parse",Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Log.d("ParseError", e.getMessage());
