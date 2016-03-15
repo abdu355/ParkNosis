@@ -53,6 +53,7 @@
         <activity
             android:name=".Login"
             android:label="@string/title_activity_login"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
@@ -98,10 +99,12 @@
         <activity
             android:name=".Questionnaire"
             android:label="@string/title_activity_questionnaire"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".InvolMovement"
             android:label="@string/title_activity_invol_movement"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
