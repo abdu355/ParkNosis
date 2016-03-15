@@ -92,7 +92,6 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
 
 
         executorService = Executors.newCachedThreadPool();
-        datalist = new ArrayList<>(); // new list
         mSensorManager = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
         mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         datamap = new DataMap();
@@ -114,13 +113,14 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
                 accelbtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        //sendMessage();
+
                         mGoogleApiClient.reconnect();
                         tvCountDownTimer.setText("Started");
 
                         CountDown dd = new CountDown();
                         dd.execute();
-                        sendMessage();
+
+                        datalist = new ArrayList<>();
                         TimerTask task = new TimerTask() {
 
                             @Override
@@ -137,40 +137,7 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
                             }
                         };
                         timer = new Timer(true);  // runs on a separate thread
-                        timer.schedule(task, 0, 500);
-//                        Handler handler = new Handler();
-//                        handler.postDelayed(new Runnable() {
-//                            public void run() {
-//                                    //storeData();
-////                                TimerTask task = new TimerTask() {
-////
-////                                    @Override
-////                                    public void run() {
-////
-////
-////                                        String TAG = " ";
-////                                        if (SEvent != null) {
-////
-////                                            //storeData();
-////                                            Log.d(TAG, "run: " + SEvent.values[0]);
-////
-////
-////                                        }
-////                                    }
-////                                };
-////                                Timer timer = new Timer(true);  // runs on a separate thread
-////                                timer.schedule(task, 0, 500);
-//                                //mGoogleApiClient.disconnect();
-//                                //sendatathread.execute();
-//                                //sendatathread.cancel(true);
-//
-//                            }
-//
-//
-//                        }, 15000);
-//                        //TODO
-//                        //CREATE NEW HANDLER AND PUT IN IT SENDDATATHREAD.CANCEL();
-
+                        timer.schedule(task, 0,10);
                     }
 
 
@@ -244,40 +211,21 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
 
     private void storeData(){
 
-        datalist = new ArrayList<>();
+
 
         long curTime = System.currentTimeMillis();
         AccelData data= new AccelData(curTime, SEvent.values[0], SEvent.values[1], SEvent.values[2]);
 
         datalist.add(data);
 
-        //datamap=new DataMap();
-//        datamap.putLong("Time", System.currentTimeMillis());
-//        datamap.putLong("Time Stamp", data.getTimestamp());
-//        datamap.putFloat("X value", data.getX());
-//        datamap.putFloat("Y value", data.getY());
-//        datamap.putFloat("Z value", data.getZ());
-        //sendatathread = new SendToDataLayerThread();
-
-
-//        SendToDataLayerThread sendData= new SendToDataLayerThread("/Accel", datamap);
-//        sendData.start();
-
     }
 
     //NEW-------------------------------------------------------------------------------------------------------------------------------------------------------------
     public void sendSensorData(final long curtime, final ArrayList<AccelData> datalist) {
-        long t = System.currentTimeMillis();
-
-        //long lastTimestamp = lastSensorData.get(sensorType);
-        //long timeAgo = t - lastTimestamp;
-
-        // lastSensorData.put(sensorType, t);
 
         executorService.submit(new Runnable() {
             @Override
             public void run() {
-                //sendSensorDataInBackground(curtime, datalist);
                 sendMessageArray(datalist);
             }
         });
@@ -286,11 +234,6 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
     private void sendSensorDataInBackground(long curtime, final ArrayList<AccelData> datalist) {
 
         PutDataMapRequest dataMap = PutDataMapRequest.create("/Accel/");
-
-        //dataMap.getDataMap().putLong(DataMapKeys.TIMESTAMP, timestamp);
-        // AccelData data= new AccelData(curtime, SEvent.values[0], SEvent.values[1], SEvent.values[2]);
-        //datamap=new DataMap();
-
         String data = new Gson().toJson(datalist);
 
         datamap.putLong("Time", curtime);
@@ -347,94 +290,6 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
         }
         super.onStop();
     }
-
-
-//    private void syncing(AccelData sensorData)
-//    {
-//        if(lastUpdate<=Max){
-//            Log.d(TAG, "syncing: Bitch Being Called !! ");
-//            PutDataMapRequest putDataMapReq = PutDataMapRequest.create("/Accel");
-//            putDataMapReq.getDataMap().putLong("Time",System.currentTimeMillis());
-//            putDataMapReq.getDataMap().putLong("Time Stamp", sensorData.getTimestamp());
-//            putDataMapReq.getDataMap().putFloat("X value",sensorData.getX());
-//            putDataMapReq.getDataMap().putFloat("Y value",sensorData.getY());
-//            putDataMapReq.getDataMap().putFloat("Z value", sensorData.getZ());
-//            PutDataRequest putDataReq = putDataMapReq.setUrgent().asPutDataRequest();
-//
-//
-//            /*PendingResult<DataApi.DataItemResult> pendingResult = */Wearable.DataApi.putDataItem(mGoogleApiClient, putDataReq);
-//           // Wearable.DataApi.deleteDataItems(mGoogleApiClient, putDataReq.getUri());
-//            /*
-//            TODO
-//             Wearable.DataApi.deleteDataItems(mGoogleApiClient, putDataReq.getUri());
-//             as suggested here: http://stackoverflow.com/questions/25141046/wearablelistenerservice-ondatachanged-is-not-called
-//
-//             "It is a replication trick that do 3 things :
-//
-//               1. wake up pair
-//
-//               2. send data
-//
-//               3. execute OnDataChange on both with good data
-//
-//               4. delete data (execute OnDataChange on both with no data) (so prepare to work even after the data was deleted)
-//
-//                My problem was that data was queued and paused on watch until first touch - now it is real time bidirectional"
-//             */
-//            lastUpdate++;
-//            Log.d(TAG, "syncing: Bitch Being Called Again !! ");
-//        }
-//
-//
-//    }
-
-//    class SendToDataLayerThread extends Thread {
-//        String path;
-//        DataMap dataMap;
-//
-//        // Constructor for sending data objects to the data layer
-//        SendToDataLayerThread(String p, DataMap data) {
-//            path = p;
-//            dataMap = data;
-//        }
-//
-//        public void run() {
-//            // Construct a DataRequest and send over the data layer
-//            PutDataMapRequest putDMR = PutDataMapRequest.create(path);
-//            putDMR.getDataMap().putAll(dataMap);
-//            PutDataRequest request = putDMR.asPutDataRequest().setUrgent();
-//            DataApi.DataItemResult result = Wearable.DataApi.putDataItem(mGoogleApiClient, request).await();
-//            if (result.getStatus().isSuccess()) {
-//                Log.v("myTag", "DataMap: " + dataMap + " sent successfully to data layer ");
-//            }
-//            else {
-//                // Log an error
-//                Log.v("myTag", "ERROR: failed to send DataMap to data layer");
-//            }
-//        }
-//    }
-
-
-//private void sync(AccelData sensorData){
-//
-//    if (mNode != null && mGoogleApiClient!=null && mGoogleApiClient.isConnected()) {
-//        Wearable.MessageApi.sendMessage(mGoogleApiClient, mNode.getId(), String.valueOf(sensorData.getTimestamp())+"@"+
-//                String.valueOf(sensorData.getX()+"@"+), null).
-//                setResultCallback(
-//
-//                        new ResultCallback<MessageApi.SendMessageResult>() {
-//                            @Override
-//                            public void onResult(MessageApi.SendMessageResult sendMessageResult) {
-//
-//                                if (!sendMessageResult.getStatus().isSuccess()) {
-//                                    Log.e("TAG", "Failed to send message with status code: "
-//                                            + sendMessageResult.getStatus().getStatusCode());
-//                                }
-//                            }
-//                        }
-//                );
-//    }
-//}
 
     @Override
     public void onSensorChanged(SensorEvent event) {
@@ -516,26 +371,6 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
         }
     }
 
-    private void sendMessage() {
-
-        if (mNode != null && mGoogleApiClient!=null && mGoogleApiClient.isConnected()) {
-            Wearable.MessageApi.sendMessage(mGoogleApiClient, mNode.getId(), HELLO_WORLD_WEAR_PATH, null).setResultCallback(
-
-                    new ResultCallback<MessageApi.SendMessageResult>() {
-                        @Override
-                        public void onResult(MessageApi.SendMessageResult sendMessageResult) {
-
-                            if (!sendMessageResult.getStatus().isSuccess()) {
-                                Log.e("TAG", "Failed to send message with status code: "
-                                        + sendMessageResult.getStatus().getStatusCode());
-                            }
-                        }
-                    }
-            );
-        }else{
-            //Improve your code
-        }
-    }
     private void sendMessageArray(final ArrayList<AccelData> datalist) {
 
         String data = new Gson().toJson(datalist);
@@ -582,6 +417,3 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
 
 
 }
-//WATCH ACTIVITY !
-
-//Ref: https://gist.github.com/gabrielemariotti/117b05aad4db251f7534
