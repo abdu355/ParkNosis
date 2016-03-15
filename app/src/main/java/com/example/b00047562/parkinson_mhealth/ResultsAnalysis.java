@@ -211,7 +211,7 @@ public class ResultsAnalysis extends AppCompatActivity {
 
        if(0.04f >= DAH)
           spiralscore=NORMAL;
-        else if (0.05f>=DAH&&DAH<0.075)
+        else if (0.05f>=DAH&&DAH<0.075f)
            spiralscore=SLIGHT;
         else if (0.075f>=DAH&&DAH<0.1f)
            spiralscore=MILD;

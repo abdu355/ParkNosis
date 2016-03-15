@@ -82,6 +82,10 @@ public class TappingTestFunctions {
         avgdelayrightfinger = average(rightfingerarr);
         avgdelayleftfinger=average(leftfingerarr);
 
+        Log.d("TappingTestAVG",""+avgdelay);
+        Log.d("TappingTestAVGR",""+avgdelayrightfinger);
+        Log.d("TappingTestAVGL",""+avgdelayleftfinger);
+
         //return new ArrayList();
     }
     public static double average(List<Long> list) {
@@ -98,28 +102,28 @@ public class TappingTestFunctions {
         return ((double) sum) / n;
     }
 
-   // public void runAlgorithm() {}
+    // public void runAlgorithm() {}
 
     public int runTempAlgorithm() {
 
         //1- check avg delay on simple taps if >200 hesitant else >300 <400 mild  else >400 <500 moderate else >500 severe
-            if(avgdelay<=200)
-            {
-                indicator = 0;
-            } else if(avgdelay>200)
-            {
-                indicator = 1;
-            }else if (avgdelay>300 && avgdelay<=400) {
+        if(avgdelay<=200)
+        {
+            indicator = 0;
+        } else if(avgdelay>200)
+        {
+            indicator = 1;
+        }else if (avgdelay>300 && avgdelay<=400) {
 
-                indicator =  2;
-            }else if(avgdelay>400 && avgdelay<=500)
-            {
-                indicator =  3;
+            indicator =  2;
+        }else if(avgdelay>400 && avgdelay<=500)
+        {
+            indicator =  3;
 
-            }else if(avgdelay>500)
-            {
-                indicator =  4;
-            }
+        }else if(avgdelay>500)
+        {
+            indicator =  4;
+        }
 
         //2- check number of taps on alternate test >20 normal   <10 taps hesitant  <5 taps moderate to severe
         if(intList.get(2)<=5 || intList.get(3)<=5)
@@ -137,17 +141,17 @@ public class TappingTestFunctions {
         }
 
         //3 - check avg delay on alt left and right taps if >200 <300 hesitant/mild  else if >300 <500 moderate  else if >500 severe
-        if((avgdelayrightfinger<=200) || (avgdelayleftfinger<=200))
+        if((avgdelayrightfinger<=450) || (avgdelayleftfinger<=450))
         {
             indicator3 =0;
-        }else if ((avgdelayrightfinger>200 && avgdelayrightfinger<=300) || (avgdelayleftfinger>200 && avgdelayleftfinger<=300))
+        }else if ((avgdelayrightfinger>450 && avgdelayrightfinger<=500) || (avgdelayleftfinger>450 && avgdelayleftfinger<=500))
         {
             indicator3=1;
-        }else if ((avgdelayrightfinger>300 && avgdelayrightfinger<=500) || (avgdelayleftfinger>300 && avgdelayleftfinger<=500))
+        }else if ((avgdelayrightfinger>500 && avgdelayrightfinger<=550) || (avgdelayleftfinger>500 && avgdelayleftfinger<=550))
         {
             indicator3=2;
 
-        }else if ((avgdelayrightfinger>500) || (avgdelayleftfinger>500))
+        }else if ((avgdelayrightfinger>650) || (avgdelayleftfinger>650))
         {
             indicator3=4;
         }
@@ -161,7 +165,18 @@ public class TappingTestFunctions {
             indicator4=3;
         }
 
-        return indicator+indicator2+indicator3+indicator4;
+        int indic = indicator+indicator2+indicator3+indicator4;
+        if(indic>0 && indic<=2)
+            return 1;
+        else if(indic>2 && indic<=4)
+            return 2;
+        else if(indic>4 && indic<=7)
+            return 3;
+        else if (indic >7 && indic<=9)
+            return 4;
+        else if (indic >9 )
+            return 5;
+        else return 0;
     }
     //public void displayResults() {}
 

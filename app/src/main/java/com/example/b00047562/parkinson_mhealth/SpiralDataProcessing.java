@@ -4,6 +4,7 @@ import android.util.Log;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -39,6 +40,10 @@ public class SpiralDataProcessing {
 
 
     SpiralDataProcessing(ArrayList<SpiralData> StaticInputtedData,ArrayList<SpiralData> DynamicInputtedData){
+
+            Log.d("Input", "SpiralDataProcessing: "+ StaticInputtedData.toString() );
+
+
 
 
         acceleration1 = new float[StaticInputtedData.size()];
@@ -77,6 +82,8 @@ public class SpiralDataProcessing {
             acceleration[i]=velocity[i]-velocity[i-1];
             acceleration[i]= Float.parseFloat(df.format(acceleration[i]));
         }
+       // for (int i=0;i<acceleration.length;i++)
+   //     Log.d("Acceleration ", "FindAcceleration: "+ acceleration[i]);
         return acceleration;
     }
 
@@ -126,7 +133,10 @@ public class SpiralDataProcessing {
         for (Iterator it = list.iterator(); it.hasNext();) {
             Map.Entry entry = (Map.Entry) it.next();
             sortedHashMap.put(entry.getKey(), entry.getValue());
+
         }
+
+        Log.d("Sort", "sortByValues: "+ sortedHashMap.toString());
 
         return sortedHashMap;
     }
@@ -137,8 +147,8 @@ public class SpiralDataProcessing {
         Map<String, Integer> Dynamic =sortByValues(DynamicCount);
 
         int a = Math.min(Static.size(), Dynamic.size());
-        ArrayList<Integer> staticArr=new ArrayList ();
-        ArrayList<Integer> dynamicArr= new ArrayList ();
+        ArrayList<Float> staticArr=new ArrayList ();
+        ArrayList<Float> dynamicArr= new ArrayList ();
         ArrayList<Float> DAHarr=new ArrayList ();
 //
         for (Map.Entry<String, Integer> Staticentry : Static.entrySet() )
@@ -147,15 +157,19 @@ public class SpiralDataProcessing {
             String key = Staticentry.getKey();
             Integer value = Staticentry.getValue();
 
-          staticArr.add(value);
+            Log.d("static ", "Count : "+ value);
+            float valuef= value*1.0f;
+          staticArr.add(valuef);
+
 
         }
         for(Map.Entry<String, Integer> Dynamicentry : Dynamic.entrySet() )
         {
             String key = Dynamicentry.getKey();
             Integer value = Dynamicentry.getValue();
-
-          dynamicArr.add(value);
+            float valuef= value*1.0f;
+          dynamicArr.add(valuef);
+    //        Log.d("dynamic ", "Count : "+ value);
         }
 
         /*TODO
@@ -164,9 +178,9 @@ public class SpiralDataProcessing {
 */
         for(int i =0 ; i<10;i++)
         {
-
-            DAHarr.add((float)Math.pow((double)staticArr.get(i) - (double)dynamicArr.get(i),2.0));
-            Log.d("DAH Arr Val", "Processing: "+ DAHarr.get(i));
+            float x=staticArr.get(i)/staticArr.size() - dynamicArr.get(i)/dynamicArr.size();
+            DAHarr.add(x*x);
+       //     Log.d("DAH Arr Val", "Processing: "+ DAHarr.get(i));
         }
 
         for(int i=0;i<10;i++)
@@ -177,6 +191,7 @@ public class SpiralDataProcessing {
 
         return DAH;
     }
+
 
 
 }
