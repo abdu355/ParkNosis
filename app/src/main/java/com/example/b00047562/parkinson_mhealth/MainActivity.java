@@ -57,11 +57,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         results.setOnClickListener(this);
 
 
-        try {
-            currentUser = ParseUser.getCurrentUser().fetch();//check if user logged in
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        //try {
+            currentUser = ParseUser.getCurrentUser();//check if user logged in
+        //} catch (ParseException e) {
+        //    e.printStackTrace();
+        //}
         if (currentUser == null) {
             loadLoginView();
         }
@@ -87,8 +87,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             currentUser.fetch();
         } catch (ParseException e) {
             e.printStackTrace();
+        }catch  (NullPointerException e2){
+
+            e2.printStackTrace();
         }
-        results.setEnabled(currentUser.getBoolean("Complete"));
+        try {
+            results.setEnabled(currentUser.getBoolean("Complete"));
+        }catch  (NullPointerException e2){
+
+            e2.printStackTrace();
+        }
+
     }
 
 //                if (q && sp && t && h) //done all tests
