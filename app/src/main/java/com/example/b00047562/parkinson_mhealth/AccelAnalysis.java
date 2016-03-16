@@ -39,23 +39,23 @@ public class AccelAnalysis {
     public AccelAnalysis (double fs){
         Fs = fs;
         //Accel = new Accelerometer();
-       // customParse = new ParseFunctions(Accel.getApplication());
+        // customParse = new ParseFunctions(Accel.getApplication());
         customParse = new ParseFunctions();
         //PerformAnalysis0();
         PerformAnalysis1();
     }
 
     public ArrayList<AccelData> getAccelData() {
-       try {
-           AD = new ArrayList<>();
-           AD = customParse.getParseDataAccel(ParseUser.getCurrentUser(), 0, "AccelData", "createdAt", "ArrayList");
-           ADSize = AD.size();
+        try {
+            AD = new ArrayList<>();
+            AD = customParse.getParseDataAccel(ParseUser.getCurrentUser(), 0, "AccelData", "createdAt", "ArrayList");
+            ADSize = AD.size();
 
-           Log.d("AccelTest", AD.toString()); //Testing
-           Log.d("AccelArraySize", ADSize + ""); //Testing}
-       }catch (Exception e){
-           Log.d("ACCel analysis", "getAccelData: problem");
-       }
+            Log.d("AccelTest", AD.toString()); //Testing
+            Log.d("AccelArraySize", ADSize + ""); //Testing}
+        }catch (Exception e){
+            Log.d("ACCel analysis", "getAccelData: problem");
+        }
         return AD; //get time series of
     }
 
@@ -147,42 +147,89 @@ public class AccelAnalysis {
     var coeff = 1.2825                      (1.7  times higher)
     */
 
-    public int PerformAnalysis1() {
+    public int PerformAnalysis1() {  //rescale
         int resscale =0 ;
         AD = getAccelData(); //get data from parse
         ArrZ_double = ConvertToDoubleArr(AD, ADSize); //convert to double array
         double Mean = getMean();
         ArrZ_Normalized = NormalizeArrayZ(ArrZ_double, Mean); //normalize the accelerometer values with respect to the mean
-        Log.d("Mean", Mean + ""); //Testing
-        if (Mean > 7.2144) {
-            resscale++;
-            Log.d("Mean", "Tremor Detected"); //Testing
-        }
-        else {
-            Log.d("Mean", "Normal"); //Testing
-        }
+//        Log.d("Mean", Mean + ""); //Testing
+//        if (Mean > 7.2144) {
+//            resscale++;
+//            Log.d("Mean", "Tremor Detected"); //Testing
+//        }
+//        else {
+//            Log.d("Mean", "Normal"); //Testing
+//        }
         //for(int i=0; i< ArrZ_Normalized.length; i++) {
         //    Log.d("ArrZ_Normalized[" + i + "]", ArrZ_Normalized[i] + "");
         //}
         double VC = getVarCoeff();
         Log.d("Variation Coefficient", VC + ""); //Testing
-        if (VC > 0.74725) {
+        if(VC>=1.58E-04 && VC<3.26E-04)
+        {
             resscale++;
-            Log.d("VC", "Tremor Detected"); //Testing
+            Log.d("VC", "Slight Tremor Detected"); //Testing
         }
-        else {
-            Log.d("VC", "Normal"); //Testing
+        else if (VC >=3.26E-04 && VC<4.16E-03) {
+            resscale=resscale+2;
+            Log.d("VC", "Mild Tremor Detected"); //Testing
         }
+        else if(VC>=4.16E-03 && VC<1.31E-02)
+        {
+            resscale=resscale+3;
+            Log.d("VC", "Moderate Tremor Detected");
+        }
+        else if(VC>=1.31E-02)
+        {
+            resscale=resscale+4;
+            Log.d("VC", "Severe Tremor Detected");
+        }
+        else
+            resscale =0;
+//        else {
+//            Log.d("VC", "Normal"); //Testing
+//        }
         double STD = getSTD();
         Log.d("Standard Deviation", STD + ""); //Testing
-        if (STD > 0.002108) {
+        if (STD>=0.012529495 && STD <0.017852823)
+        {
             resscale++;
-            Log.d("STD", "Tremor Detected"); //Testing
+            Log.d("STD", "Slight Tremor Detected"); //Testing
         }
-        else {
-            Log.d("STD", "Normal"); //Testing
+        else if (STD >= 0.017852823 && STD<0.058794609) {
+            resscale = resscale+2;
+            Log.d("STD", "Mild Tremor Detected"); //Testing
         }
-        return  resscale; //if resscale is 3 all variables are indicating tremor
+        else if(STD>=0.058794609 && STD <0.107180989)
+        {
+            resscale = resscale+3;
+            Log.d("VC", "Moderate Tremor Detected");
+        }
+        else if(STD>=0.107180989)
+        {
+            resscale = resscale+4;
+            Log.d("VC", "Severe Tremor Detected");
+        }
+        else
+            resscale=0;
+//        else {
+//            Log.d("STD", "Normal"); //Testing
+//        }
+        int accelscalval;
+
+        if(resscale>=1 && resscale<=2)
+            accelscalval=1;
+        else if(resscale>2 && resscale<=4)
+            accelscalval=2;
+        else if(resscale>4 && resscale<=6)
+            accelscalval=3;
+        else if(resscale>6 && resscale<=8)
+            accelscalval=4;
+        else
+            accelscalval=0;
+
+        return  accelscalval; //if resscale is 3 all variables are indicating tremor
     }
 
     private double getVarCoeff() //returns coefficient of variation
