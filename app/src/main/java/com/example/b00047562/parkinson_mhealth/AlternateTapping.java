@@ -197,7 +197,7 @@ public class AlternateTapping extends AppCompatActivity implements View.OnClickL
         alertDialog.setTitle("What to do ?");
         alertDialog.setCancelable(false);
         alertDialog.setMessage("Tap the squares on screen as fast as possible within 20 seconds\nAlternate between index and middle finger\nInstructor will guide you through\n");
-        alertDialog.setIcon(R.drawable.tapping5);
+        //alertDialog.setIcon(R.drawable.tapping5);
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {

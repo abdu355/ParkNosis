@@ -107,7 +107,7 @@ public class Spiral extends AppCompatActivity implements  View.OnClickListener {
         alertDialog.setTitle("What to do ?");
         alertDialog.setCancelable(false);
         alertDialog.setMessage("Place the phone on a flat surface and draw a complete spiral using your index finger\nThe spiral may dissapear and appear after a while\nInstructor will guide you through\n");
-        alertDialog.setIcon(R.drawable.spiralicon3);
+        //alertDialog.setIcon(R.drawable.spiralicon3);
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {

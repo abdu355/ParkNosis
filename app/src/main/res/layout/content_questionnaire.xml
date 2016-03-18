@@ -1508,6 +1508,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:text="Submit"
+                        android:background="@color/colorPrimary"
                         android:id="@+id/btn_submitquest" />
                 </TableRow>
             </TableLayout>

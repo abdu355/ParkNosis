@@ -148,7 +148,7 @@ public class SimpleTapping extends AppCompatActivity implements View.OnClickList
         alertDialog.setTitle("What to do ?");
         alertDialog.setCancelable(false);
         alertDialog.setMessage("Tap the square on screen as fast as possible 10 times\nInstructor will guide you through\n");
-        alertDialog.setIcon(R.drawable.tapping5);
+        //alertDialog.setIcon(R.drawable.tapping5);
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {

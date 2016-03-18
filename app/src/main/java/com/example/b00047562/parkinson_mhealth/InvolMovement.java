@@ -138,7 +138,7 @@ public class InvolMovement extends AppCompatActivity {
         alertDialog.setTitle("What to do ?");
         alertDialog.setCancelable(false);
         alertDialog.setMessage("rest your hand above the phone screen for 20 seconds\ntry not to press any of the buttons\nInstructor will guide you through\n");
-        alertDialog.setIcon(R.drawable.tapping5);
+        //alertDialog.setIcon(R.drawable.tapping5);
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
