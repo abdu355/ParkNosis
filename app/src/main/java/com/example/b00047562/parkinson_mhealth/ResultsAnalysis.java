@@ -152,6 +152,7 @@ public class ResultsAnalysis extends AppCompatActivity {
 
             // Create a progressdialog
             mProgressDialog = new ProgressDialog(ResultsAnalysis.this);
+            mProgressDialog.setCancelable(false);
             // Set progressdialog title
             mProgressDialog.setTitle("Fetching Results");
             // Set progressdialog message
@@ -165,11 +166,13 @@ public class ResultsAnalysis extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... params) {
             //initialize();
+            try{
             processQuestionnaire();
             processTappingData();
             processAccelData();//accel data (karim)
-            try{processSpiralData();}catch (Exception e){
-                Log.d("TAG", "doInBackground: Spiral analysis not working "+ e.getMessage());
+            processSpiralData();
+            }catch (Exception e){
+                Log.d("TAG", "doInBackground: Error "+ e.getMessage());
             }
             return null;
         }

@@ -480,7 +480,7 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
         alertDialog.setTitle("What to do ?");
         alertDialog.setCancelable(false);
         alertDialog.setMessage("Hold your hand straight in front of you while wearing the watch for 15 seconds\nInstructor will guide you through\n");
-        alertDialog.setIcon(R.drawable.handtremor);
+        //alertDialog.setIcon(R.drawable.handtremor);
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {

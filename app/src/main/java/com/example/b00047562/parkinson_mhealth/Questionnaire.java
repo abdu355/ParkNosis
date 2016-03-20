@@ -125,7 +125,7 @@ public class Questionnaire extends AppCompatActivity implements View.OnClickList
         alertDialog.setTitle("What to do ?");
         alertDialog.setCancelable(false);
         alertDialog.setMessage("Instructor will guide you through the survey\nthe questionnaire will be filled by instructor\n");
-        alertDialog.setIcon(R.drawable.questicon);
+        //alertDialog.setIcon(R.drawable.questicon);
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {

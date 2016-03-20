@@ -5,6 +5,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -52,7 +53,14 @@ public class ParseFunctions {
             e.printStackTrace();
         }
 
-        return new Gson().fromJson(result1,type);
+
+        try {
+            return new Gson().fromJson(result1,type);
+        } catch (JsonSyntaxException e) {
+            Log.d("ParseGSON",e.getMessage());
+            return null;
+
+        }
     }
     public void pushParseData(ParseUser user, String ... params) //upload to Parse single row
     //0: class name -- 1: column name -- 2: json String
@@ -121,7 +129,13 @@ public class ParseFunctions {
             e.printStackTrace();
         }
 
-        return new Gson().fromJson(result1,type);
+        try {
+            return new Gson().fromJson(result1,type);
+        } catch (JsonSyntaxException e) {
+            Log.d("ParseGSON", e.getMessage());
+            return null;
+
+        }
     }
 
     public String getParseSingleColData(ParseUser user , final int listPointer, final String ... params)
@@ -179,6 +193,12 @@ public class ParseFunctions {
             e.printStackTrace();
         }
 
-        return new Gson().fromJson(result1,type);
+        try {
+            return new Gson().fromJson(result1,type);
+        } catch (JsonSyntaxException e) {
+            Log.d("ParseGSON", e.getMessage());
+            return null;
+
+        }
     }
 }
