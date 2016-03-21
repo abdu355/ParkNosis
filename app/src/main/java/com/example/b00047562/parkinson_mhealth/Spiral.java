@@ -3,20 +3,24 @@ package com.example.b00047562.parkinson_mhealth;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.parse.ParseUser;
@@ -55,6 +59,25 @@ public class Spiral extends AppCompatActivity implements  View.OnClickListener {
         btnSubmit.setOnClickListener(this);
 
         showHelpDialog();
+        checkScreenSize();
+
+//        WindowManager wm = (WindowManager) getSystemService(WINDOW_SERVICE);
+//        final DisplayMetrics displayMetrics = new DisplayMetrics();
+//        wm.getDefaultDisplay().getMetrics(displayMetrics);
+//        int height = displayMetrics.heightPixels;
+//        int width = displayMetrics.widthPixels;
+//
+//        customCanvas.setDensity(displayMetrics.densityDpi);
+
+//        final DisplayMetrics dm = new DisplayMetrics();
+//        getWindowManager().getDefaultDisplay().getMetrics(dm);
+//
+//        int width = dm.widthPixels;
+//        int height = dm.heightPixels;
+//        getWindow().setLayout((int) (width * .8), (int) (height * .5));
+/*TODO
+resizing worked here but it scaled all of the activity, nothing worked in CanvasSpiral
+ */
     }
 
 
@@ -116,5 +139,27 @@ public class Spiral extends AppCompatActivity implements  View.OnClickListener {
                 });
         alertDialog.show();
         view.loadUrl("file:///android_asset/spiraldraw.png");
+    }
+
+    public void checkScreenSize()
+    {
+        int screenSize = getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK;
+
+        String toastMsg;
+        switch(screenSize) {
+            case Configuration.SCREENLAYOUT_SIZE_LARGE:
+                toastMsg = "Large screen";
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_NORMAL:
+                toastMsg = "Normal screen";
+                break;
+            case Configuration.SCREENLAYOUT_SIZE_SMALL:
+                toastMsg = "Small screen";
+                break;
+            default:
+                toastMsg = "Screen size is neither large, normal or small";
+        }
+        Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
     }
 }

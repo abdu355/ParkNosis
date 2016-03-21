@@ -6,13 +6,16 @@ package com.example.b00047562.parkinson_mhealth;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -20,7 +23,9 @@ import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
 
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 
 public class CanvasSpiral extends View {
@@ -36,6 +41,7 @@ public class CanvasSpiral extends View {
     private Canvas drawCanvas;
     //canvas bitmap
     private Bitmap canvasBitmap;
+    private int density;
 
     private Bitmap mBitmap;
     private Canvas mCanvas;
@@ -129,12 +135,11 @@ public class CanvasSpiral extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        DisplayMetrics metrics = new DisplayMetrics();
-        WindowManager wm = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
-        wm.getDefaultDisplay().getMetrics(metrics);
-        canvas.setDensity(metrics.densityDpi);
-        float angle,x ,y ;
 
+        //DisplayMetrics metrics = new DisplayMetrics();
+        //WindowManager wm = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
+
+        float angle,x ,y ;
 
         int j=0;
         for (int i=0; i< 1080; i++,j=j+2) {
@@ -213,4 +218,12 @@ public class CanvasSpiral extends View {
 
         invalidate();
     }
+//
+//    public void setDensity(int density) {
+//        this.density = density;
+//    }
+//    public int getDensity()
+//    {
+//        return density;
+//    }
 }
