@@ -22,10 +22,7 @@ import java.util.ArrayList;
 
 public class Questionnaire extends AppCompatActivity implements View.OnClickListener {
 
-    /*TODO
-          this section is incomplete , but the data is correctly transferred to results page
-           */
-    //private RadioGroup g1,g2,g3,g4;
+
     private int numofquestions=27; //define number of questions
     int radioButtonID ;
     View radioButton ;

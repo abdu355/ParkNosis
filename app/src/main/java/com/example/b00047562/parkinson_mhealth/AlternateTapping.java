@@ -4,15 +4,13 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
@@ -23,8 +21,6 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.parse.ParseUser;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +41,9 @@ public class AlternateTapping extends AppCompatActivity implements View.OnClickL
     private TextView time1,time2;
 
     private ArrayList<Long> delaylist1,delaylist2;
+    private ArrayList<Float> locationarr1,locationarr2;
+    private ArrayList<Integer> originalbtnloc;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,8 +69,54 @@ public class AlternateTapping extends AppCompatActivity implements View.OnClickL
         //customParse= new ParseFunctions(getApplicationContext());
         customParse = new ParseFunctions();
 
+        //----------------------------------------------
+        originalbtnloc = new ArrayList<>();
+
+        int[] values1 = new int[2];
+        btn1.getLocationOnScreen(values1);
+        int[] values2 = new int[2];
+        btn2.getLocationOnScreen(values2);
+
+        originalbtnloc.add(values1[0]);
+        originalbtnloc.add(values1[1]);
+        originalbtnloc.add(values2[0]);
+        originalbtnloc.add(values2[1]);
+
+        Log.d("OriginalX&Y", originalbtnloc.toString());
+        //----------------------------------------------
+
         //barTimer.getProgressDrawable().setColorFilter(Color.parseColor("#FF4081"), PorterDuff.Mode.SRC_IN);
         showHelpDialog();
+
+        btn1.setOnTouchListener(new View.OnTouchListener() {
+
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    locationarr1.add(event.getX());
+                    locationarr1.add(event.getY());
+                    locationarr1.add((float) System.currentTimeMillis());
+                    Log.d("X&Ybtn1",locationarr1.toString());
+                }
+                return false;
+            }
+        });
+
+        btn2.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    locationarr2.add(event.getX()); //0 : X
+                    locationarr2.add(event.getY()); //1 : Y
+                    locationarr2.add((float) System.currentTimeMillis()); //2: time
+
+                    Log.d("X&Ybtn2",locationarr2.toString());
+
+                }
+                return false;
+            }
+        });
+
+
+
     }
     private void startTimer() {
         countDownTimer = new CountDownTimer(20*1000, 500) {
@@ -110,11 +155,14 @@ public class AlternateTapping extends AppCompatActivity implements View.OnClickL
         tapcounter2 = 0;
         delaylist1 = new ArrayList<>();
         delaylist2= new ArrayList<>();
+        locationarr1 = new ArrayList<>();
+        locationarr2= new ArrayList<>();
 
         btn1.setEnabled(false);
         btn2.setEnabled(false);
         next.setEnabled(false);
     }
+
 
     @Override
     public void onClick(View v) {
@@ -130,6 +178,9 @@ public class AlternateTapping extends AppCompatActivity implements View.OnClickL
 
             case R.id.alttap_btn1:
 
+//                int[] values1 = new int[2];
+//                btn1.getLocationOnScreen(values1);
+
                 btn2.setBackgroundColor(Color.parseColor("#FFDCEDC8"));
                 btn1.setBackgroundColor(Color.parseColor("#FFCFD8DC"));
 
@@ -138,17 +189,22 @@ public class AlternateTapping extends AppCompatActivity implements View.OnClickL
                 long temp = System.currentTimeMillis();
                 if (previousClickTime != 0)
                 {
-                    Log.i("MyView", "Time Between Clicks=" + (temp - previousClickTime));
+                    //Log.i("MyView", "Time Between Clicks=" + (temp - previousClickTime));
                     delaylist1.add(tapcounter1++, temp - previousClickTime);
                 }
                 else {
-                    Log.i("MyView", "First Click");
+                    //Log.i("MyView", "First Click");
                     //btn1.setBackgroundColor(Color.parseColor("#FFDCEDC8"));
                 }
                 previousClickTime = temp;
                 break;
 
             case R.id.alttap_btn2:
+
+//                int[] values2 = new int[2];
+//                btn2.getLocationOnScreen(values2);
+
+
 
                 btn1.setBackgroundColor(Color.parseColor("#FFDCEDC8"));
                 btn2.setBackgroundColor(Color.parseColor("#FFCFD8DC"));
@@ -158,11 +214,11 @@ public class AlternateTapping extends AppCompatActivity implements View.OnClickL
                 long temp2 = System.currentTimeMillis();
                 if (previousClickTime2 != 0)
                 {
-                    Log.i("MyView", "Time Between Clicks=" + (temp2 - previousClickTime2));
+                    //Log.i("MyView", "Time Between Clicks=" + (temp2 - previousClickTime2));
                     delaylist2.add(tapcounter2++, temp2 - previousClickTime2);
                 }
                 else {
-                    Log.i("MyView", "First Click");
+                    //Log.i("MyView", "First Click");
                     //btn2.setBackgroundColor(Color.parseColor("#FFDCEDC8"));
                 }
                 previousClickTime2 = temp2;

@@ -64,10 +64,7 @@ public class ListenerServiceFromWear extends WearableListenerService {
 ////                    Log.d(TAG, "onDataChanged: " + ACDATA.getZ());
 ////                    DataFromWearable.add(ACDATA);
 ////
-////                        /*TODO
-////                               graph this
-////                               and stop continuous reading
-////                        */
+////
 ////                }
 ////            }
 ////            else if (event.getType() == DataEvent.TYPE_DELETED) {

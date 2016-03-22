@@ -2,6 +2,7 @@ package com.example.b00047562.parkinson_mhealth;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -29,6 +30,7 @@ public class SpiralRedraw extends AppCompatActivity implements View.OnClickListe
     private View sChart;
     private Button BtnShowSpiral;
     private ParseFunctions customParse;
+    private  ArrayList<SpiralData> spiralData;;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +47,35 @@ public class SpiralRedraw extends AppCompatActivity implements View.OnClickListe
 
         //customParse = new ParseFunctions(getApplicationContext());
         customParse = new ParseFunctions();
+        spiralData= new ArrayList<>();
 
     }
 
+
+    /*TODO
+    - will now redraw the last UPLAODED spiral points and not the currently drawn points
+    - NO frames skipped in this method ! (tested)
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_drawspiral:
-                openChart(CanvasSpiral.spiralData);
+                AsyncTask.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        // fetch data in background
+                        spiralData = customParse.getParseDataSpiral(ParseUser.getCurrentUser(), 0, "SpiralData", "createdAt", "ArrayList");
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                //display data on UI thread
+                                openChart(spiralData);
+                            }
+                        });
+
+                    }
+                });
+
                 break;
         }
     }
