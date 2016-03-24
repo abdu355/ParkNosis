@@ -206,7 +206,7 @@ public class AccelAnalysis {
             resscale = resscale+3;
             Log.d("VC", "Moderate Tremor Detected");
         }
-        else if(STD>=0.107180989)
+        else if(STD>=0.071)
         {
             resscale = resscale+4;
             Log.d("VC", "Severe Tremor Detected");

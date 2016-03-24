@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.support.wearable.view.WatchViewStub;
 import android.util.Log;
 import android.util.SparseLongArray;
@@ -83,6 +84,7 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
     private ExecutorService executorService;
     private ArrayList<AccelData> datalist;
     private Timer timer;
+    private Vibrator vibrator;
     // ------------------------------------------------------------------------------------------------------------------------
 
     @Override
@@ -90,7 +92,7 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         executorService = Executors.newCachedThreadPool();
         mSensorManager = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
         mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -168,8 +170,8 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
                     tvCountDownTimer.setText("done!");
                     timer.cancel();
                     //Data collected now send:
+                    vibrator.vibrate(750); //vibrate
                     sendSensorData(System.currentTimeMillis(),datalist);
-
                     Log.d("DataBeforeSend",datalist.toString());
 
                 }

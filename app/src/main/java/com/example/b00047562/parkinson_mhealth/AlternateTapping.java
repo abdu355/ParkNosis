@@ -88,6 +88,19 @@ public class AlternateTapping extends AppCompatActivity implements View.OnClickL
         //barTimer.getProgressDrawable().setColorFilter(Color.parseColor("#FF4081"), PorterDuff.Mode.SRC_IN);
         showHelpDialog();
 
+        /*
+        TODO
+        To measure the overall precision while tapping the two fields over the
+test trial, the mean distance from the centers of the fields (MDCF) was calculated. For the taps that
+were tapped within the area of the fields, the distance was preset to zero. The second parameter
+measures the regularity of precision over the test trial and is defined as the CV of distances from the
+center fields (CVDCF). The higher the CVDCF, the higher irregularity of tapping precision is. In order
+to quantify the overall distribution of the taps (ODT) over the two fields, initially the variation (ratio
+between summed distance and total number of taps) for each field was calculated followed by a
+calculation of mean variation of the two fields. Finally, the overall tapping precision (OTP) was
+defined as the mean distance from center fields irrespective of whether the taps were inside or outside
+the field areas, corrected for total number of taps. (page 7 , Automatic and Objective Assessment of Alternating Tapping Performance in Parkinson’s Disease,Sensors 2013, 13, 16965-16984; doi:10.3390/s131216965)
+         */
         btn1.setOnTouchListener(new View.OnTouchListener() {
 
             public boolean onTouch(View v, MotionEvent event) {
@@ -114,8 +127,6 @@ public class AlternateTapping extends AppCompatActivity implements View.OnClickL
                 return false;
             }
         });
-
-
 
     }
     private void startTimer() {

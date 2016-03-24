@@ -212,7 +212,7 @@ public class ResultsAnalysis extends AppCompatActivity {
         final float DAH=spiralDataProcessing.getDAH();
         Log.d("DAH", "processSpiralData: "+DAH);
 
-       if(7.95E-05 >= DAH)
+       if(1.45E-05 <= DAH)
           spiralscore=NORMAL;
 //        else if (0.05f>=DAH&&DAH<0.075f)
 //           spiralscore=SLIGHT;
