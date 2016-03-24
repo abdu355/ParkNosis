@@ -12,6 +12,7 @@ import android.widget.FrameLayout;
 import android.widget.Switch;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.ParseUser;
 
@@ -172,7 +173,15 @@ public class ResultsAnalysis extends AppCompatActivity {
             processAccelData();//accel data (karim)
             processSpiralData();
             }catch (Exception e){
-                Log.d("TAG", "doInBackground: Error "+ e.getMessage());
+                Log.d("TAG", "doInBackground: Error " + e.getMessage());
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), "Some tests do not have complete data", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                finish();
             }
             return null;
         }
@@ -190,7 +199,12 @@ public class ResultsAnalysis extends AppCompatActivity {
             displayscoreAdvice();   // calls all display functions
 
             //display graphs for  results
-            viewgraphs();
+            try {
+                viewgraphs();
+            } catch (Exception e) {
+                Toast.makeText(getApplicationContext(),"Some tests do not have complete data",Toast.LENGTH_SHORT).show();
+                finish();
+            }
             showhide.performClick();
 
             //call next AsyncTask

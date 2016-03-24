@@ -2,7 +2,9 @@ package com.example.b00047562.parkinson_mhealth;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,7 +14,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -31,7 +36,7 @@ public class Signup extends ActionBarActivity {
     protected EditText dobEditText;
     protected RadioGroup gender, domhand;
     protected RadioButton male,female,lh,rh;
-    protected Button signUpButton;
+    protected Button signUpButton,consentbtn;
     private String genderselection,domhandselection;
 
 
@@ -58,8 +63,17 @@ public class Signup extends ActionBarActivity {
         female = (RadioButton)findViewById(R.id.radioButton_female);
         rh=(RadioButton)findViewById(R.id.radioButton_rh);
         lh= (RadioButton)findViewById(R.id.radioButton_lh);
-        genderselection="Male";
-        domhandselection="Right Handed";
+        consentbtn = (Button)findViewById(R.id.consent_btn);
+        genderselection="N/A";
+        domhandselection="N/A";
+
+        consentbtn.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                showconsent();
+            }
+        });
 
 
         gender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -167,6 +181,36 @@ public class Signup extends ActionBarActivity {
 //            return true;
 //        }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void showconsent()
+    {
+        WebView view = new WebView(Signup.this);
+        view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        view.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+
+        AlertDialog alertDialog = new AlertDialog.Builder(Signup.this).create();
+        alertDialog.setView(view);
+        alertDialog.setTitle("Agreement");
+        alertDialog.setCancelable(false);
+        alertDialog.setMessage("Read the consent carefully");
+        //alertDialog.setIcon(R.drawable.tapping5);
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "AGREE",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        signUpButton.setVisibility(View.VISIBLE);
+                    }
+                });
+        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "DECLINE", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                signUpButton.setVisibility(View.INVISIBLE);
+                dialog.dismiss();
+            }
+        });
+        alertDialog.show();
+        //alertDialog.getWindow().setLayout(1000, 1500);
+        view.loadUrl("http://www.lillytrialguide.com/_global-assets/img/template/icons/icon_informed-consent.png");
+
     }
 
 

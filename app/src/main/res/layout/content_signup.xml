@@ -15,7 +15,9 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:id="@+id/linearLayout8">
 
         <EditText
             android:layout_width="match_parent"
@@ -87,20 +89,22 @@
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Left Handed"
+                android:text="Left\nHanded"
                 android:id="@+id/radioButton_lh"
                 android:checked="false"
                 android:padding="20dp"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:layout_weight="1" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Right Handed"
+                android:text="Right\nHanded"
                 android:id="@+id/radioButton_rh"
                 android:checked="true"
                 android:padding="20dp"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:layout_weight="1" />
         </RadioGroup>
 
         <Button
@@ -108,6 +112,27 @@
             android:layout_height="wrap_content"
             android:text="@string/btn_signup"
             android:id="@+id/btn_sign"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:visibility="invisible" />
     </LinearLayout>
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Read Consent"
+        android:id="@+id/consent_btn"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorPrimary" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="You may leave gender and dominant hand empty"
+        android:id="@+id/textView9"
+        android:layout_below="@+id/linearLayout8"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="27dp"
+        android:gravity="center_horizontal" />
 </RelativeLayout>
