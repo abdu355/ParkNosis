@@ -177,7 +177,7 @@ public class ResultsAnalysis extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getApplicationContext(), "Some tests do not have complete data", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "ProcessingError - Some tests do not have complete data", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -202,7 +202,7 @@ public class ResultsAnalysis extends AppCompatActivity {
             try {
                 viewgraphs();
             } catch (Exception e) {
-                Toast.makeText(getApplicationContext(),"Some tests do not have complete data",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"ViewError - Some tests do not have complete data",Toast.LENGTH_SHORT).show();
                 finish();
             }
             showhide.performClick();
