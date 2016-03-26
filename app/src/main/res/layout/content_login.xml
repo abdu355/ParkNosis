@@ -22,7 +22,7 @@
         android:layout_alignLeft="@+id/et_pass"
         android:layout_alignStart="@+id/et_pass"
         android:text="@string/et_usremail"
-        android:hint="Email"/>
+        android:hint="userid@genid.com"/>
 
     <EditText
         android:layout_width="fill_parent"

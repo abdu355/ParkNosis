@@ -92,6 +92,7 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         executorService = Executors.newCachedThreadPool();
         mSensorManager = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);

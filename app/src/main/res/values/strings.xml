@@ -32,7 +32,7 @@
     <string name="logout_label">Logout</string>
     <string name="et_name">Name/Alias </string>
     <string name="et_passsign">Password</string>
-    <string name="et_emailsign">Email</string>
+    <string name="et_emailsign">Email(Optional)</string>
     <string name="et_dob">DOB</string>
     <string name="signup_error_title">Invalid</string>
     <string name="signup_error_message">Please fill all fields</string>
@@ -108,6 +108,11 @@
     <string name="Results_Mild">Mild</string>
     <string name="Results_Moderate">Moderate</string>
     <string name="Results_Severe">Severe</string>
+    <string name="title_activity_consent">Consent</string>
+
+    <string name="consentpos">AGREE</string>
+    <string name="consentneg">DISAGREE</string>
+
 
 
 </resources>

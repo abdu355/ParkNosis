@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
-            android:hint="@string/et_name"
+            android:hint="User ID"
             android:ems="10"
             android:id="@+id/et_name"
             android:layout_gravity="center_horizontal" />
@@ -125,14 +125,4 @@
         android:layout_centerHorizontal="true"
         android:background="@color/colorPrimary" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="You may leave gender and dominant hand empty"
-        android:id="@+id/textView9"
-        android:layout_below="@+id/linearLayout8"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="27dp"
-        android:gravity="center_horizontal" />
 </RelativeLayout>

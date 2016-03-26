@@ -276,15 +276,15 @@ public class ResultsAnalysis extends AppCompatActivity {
         }
        else if(qscore<=32) //mild
      {
-            advice.setText("Your Questionnaire score shows mild symptoms\nRepeat the tests every month to track your symptoms");
+            advice.setText("Your Questionnaire score shows mild symptoms.Repeat the tests every month to track your progress");
      }
         else if(qscore>=33 && qscore<=58) //moderate
      {
-            advice.setText("Your Questionnaire score shows moderate symptoms\nconsider visiting your docotor ");
+            advice.setText("Your Questionnaire score shows moderate symptoms\nconsider visiting your doctor ");
      }
         else if(qscore>=59)//severe
      {
-            advice.setText("Your Questionnaire score shows severe symptoms\nconsider visiting your docotor ");
+            advice.setText("Your Questionnaire score shows severe symptoms\nconsider visiting your doctor ");
      }
 
         extra1.setText("Keep in mind that Questionnaire scores may not reflect all symptoms.\nConsider scores for other tests aswell.");

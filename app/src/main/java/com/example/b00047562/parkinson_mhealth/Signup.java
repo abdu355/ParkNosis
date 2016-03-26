@@ -2,6 +2,7 @@ package com.example.b00047562.parkinson_mhealth;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -11,6 +12,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,6 +29,9 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
+import java.math.BigInteger;
+import java.security.SecureRandom;
+
 @SuppressWarnings("deprecation")
 public class Signup extends ActionBarActivity {
 
@@ -38,11 +43,12 @@ public class Signup extends ActionBarActivity {
     protected RadioButton male,female,lh,rh;
     protected Button signUpButton,consentbtn;
     private String genderselection,domhandselection;
-
+    private SessionIdentifierGenerator gen;
+    private ProgressDialog mProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-       // requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+        // requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         //requestWindowFeature(Window.FEATURE_ACTION_BAR);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
@@ -64,8 +70,16 @@ public class Signup extends ActionBarActivity {
         rh=(RadioButton)findViewById(R.id.radioButton_rh);
         lh= (RadioButton)findViewById(R.id.radioButton_lh);
         consentbtn = (Button)findViewById(R.id.consent_btn);
-        genderselection="N/A";
-        domhandselection="N/A";
+        genderselection="Male";
+        domhandselection="Right Handed";
+
+        gen= new SessionIdentifierGenerator();
+        String genid = gen.nextSessionId();
+
+        usernameEditText.setText(genid);
+        passwordEditText.setText(genid);
+        emailEditText.setText(genid+"@genid.com");
+
 
         consentbtn.setOnClickListener(new View.OnClickListener(){
 
@@ -125,6 +139,15 @@ public class Signup extends ActionBarActivity {
                     dialog.show();
                 } else {
                     //setProgressBarIndeterminateVisibility(true);
+                    mProgressDialog = new ProgressDialog(Signup.this);
+                    // Set progressdialog title
+                    mProgressDialog.setTitle("Creating User");
+                    // Set progressdialog message
+                    mProgressDialog.setMessage("Hang on...");
+                    mProgressDialog.setIcon(R.drawable.process);
+                    mProgressDialog.setIndeterminate(false);
+                    // Show progressdialog
+                    mProgressDialog.show();
 
                     ParseUser newUser = new ParseUser();//create new user data
                     newUser.setUsername(username);
@@ -143,12 +166,14 @@ public class Signup extends ActionBarActivity {
 
                             if (e == null) {
                                 // Success!
+                                mProgressDialog.dismiss();
                                 Intent intent = new Intent(Signup.this, MainActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
                             } else {
                                 try {
+                                    mProgressDialog.dismiss();
                                     AlertDialog.Builder builder = new AlertDialog.Builder(Signup.this);
                                     builder.setMessage(e.getMessage())
                                             .setTitle(R.string.signup_error_title)
@@ -185,33 +210,29 @@ public class Signup extends ActionBarActivity {
 
     public void showconsent()
     {
-        WebView view = new WebView(Signup.this);
-        view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        view.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-
-        AlertDialog alertDialog = new AlertDialog.Builder(Signup.this).create();
-        alertDialog.setView(view);
-        alertDialog.setTitle("Agreement");
-        alertDialog.setCancelable(false);
-        alertDialog.setMessage("Read the consent carefully");
-        //alertDialog.setIcon(R.drawable.tapping5);
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "AGREE",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        signUpButton.setVisibility(View.VISIBLE);
-                    }
-                });
-        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "DECLINE", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                signUpButton.setVisibility(View.INVISIBLE);
-                dialog.dismiss();
-            }
-        });
-        alertDialog.show();
-        //alertDialog.getWindow().setLayout(1000, 1500);
-        view.loadUrl("http://www.lillytrialguide.com/_global-assets/img/template/icons/icon_informed-consent.png");
+        startActivityForResult(new Intent(this,Consent.class),1);
 
     }
+    @Override
+    protected void onActivityResult(int reqCode, int respCode, Intent i) {
+        super.onActivityResult(reqCode, respCode, i);
+            switch (respCode) {
+                case 0:
+                    signUpButton.setVisibility(View.INVISIBLE);
+                    break;
+                case 1:
+                    signUpButton.setVisibility(View.VISIBLE);
+                    break;
+                default:
+                    signUpButton.setVisibility(View.INVISIBLE);
+                    break;
+        }
+    }
+    public final class SessionIdentifierGenerator {
+        private SecureRandom random = new SecureRandom();
 
-
+        public String nextSessionId() {
+            return new BigInteger(30, random).toString(32);
+        }
+    }
 }

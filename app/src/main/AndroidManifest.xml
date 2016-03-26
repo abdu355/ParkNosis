@@ -5,8 +5,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-
-
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
@@ -17,9 +15,9 @@
         android:allowBackup="true"
         android:icon="@mipmap/brain100"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme.NoActionBar"
-        android:largeHeap="true">
+        android:theme="@style/AppTheme.NoActionBar">
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -36,9 +34,11 @@
             android:label="@string/title_activity_accelerometer"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <intent-filter>
             <action android:name="com.google.android.gms.wearable.BIND_LISTENER" />
         </intent-filter>
+
         <activity
             android:name=".Spiral"
             android:label="@string/title_activity_spiral"
@@ -49,13 +49,11 @@
             android:label="@string/title_activity_spiral_redraw"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".Login"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".Signup"
             android:label="@string/title_activity_signup"
@@ -105,6 +103,10 @@
             android:name=".InvolMovement"
             android:label="@string/title_activity_invol_movement"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Consent"
+            android:label="@string/title_activity_consent"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
