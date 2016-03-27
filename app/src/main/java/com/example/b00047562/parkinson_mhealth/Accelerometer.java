@@ -10,6 +10,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -68,7 +69,13 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
     private View mChart;
     private Button BtnShowGraph, BtnReadAccel, BtnShowAnalysis;
     private ParseFunctions customParse; //for custom parse functions from ParseFunctions class
-    //private int i=0;
+
+    //hand button L-R
+    private Button lefthand,righthand;
+    private String handtag="N/A";
+    SharedPreferences sharedpreferences;
+    public static final String MyPREFERENCES = "MyPrefs" ;
+    SharedPreferences.Editor editor ;
 
     /* Handles the refresh */
     //private Handler outputUpdater = new Handler();
@@ -92,12 +99,19 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
 //                .addOnConnectionFailedListener(this)
 //                .build();
 
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+
 
         txtXValue = (TextView) findViewById(R.id.txtXValue);
         txtYValue = (TextView) findViewById(R.id.txtYValue);
         txtZValue = (TextView) findViewById(R.id.txtZValue);
         tv_shakeAlert = (TextView) findViewById(R.id.tv_shake);
 
+        lefthand=(Button)findViewById(R.id.btn_tagL);
+        righthand=(Button)findViewById(R.id.btn_tagR);
+
+        lefthand.setOnClickListener(this);
+        righthand.setOnClickListener(this);
         //intent=new Intent();
 
 
@@ -328,8 +342,31 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
                 if(Min_Delay != 0) {
                     //double Fs = 1/(Min_Delay/1000000);
                     //A = new AccelAnalysis(Fs);
-                    A = new AccelAnalysis(Min_Delay);
+                    new AsyncTask<Void, Void, Void>() {
+
+                        @Override
+                        protected Void doInBackground(Void... params) {
+                            A = new AccelAnalysis(Min_Delay);
+                            return null;
+                        }
+                    }.execute();
+
                 }
+                break;
+            case R.id.btn_tagL:
+                handtag = "Left";
+                righthand.setEnabled(false);
+                editor = sharedpreferences.edit();
+                editor.putString("handtag", handtag);
+                editor.commit();
+                break;
+
+            case R.id.btn_tagR:
+                handtag = "Right";
+                lefthand.setEnabled(false);
+                editor = sharedpreferences.edit();
+                editor.putString("handtag", handtag);
+                editor.commit();
                 break;
         }
     }
@@ -430,7 +467,7 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
         //push accel data to Parse
         String json = new Gson().toJson(DataFromPhone);
 
-        customParse.pushParseData(ParseUser.getCurrentUser(), "AccelData", "ArrayList", json, "", ""); //user pointer
+        customParse.pushParseData(ParseUser.getCurrentUser(), "AccelData", "ArrayList", json, "", sharedpreferences.getString("handtag","")); //user pointer
         openChart(DataFromPhone);
         MainActivity.h=true; //test finished
     }
@@ -446,7 +483,7 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
         //String json = new Gson().toJson(listner.getDataFromWearable());
         Log.d("DatainAccelfromListener",DataFromWearable.toString());
 
-        customParse.pushParseData(ParseUser.getCurrentUser(),"AccelData","ArrayList",intent.getStringExtra("DataFromWearable"),"",""); //user pointer
+        customParse.pushParseData(ParseUser.getCurrentUser(), "AccelData", "ArrayList", intent.getStringExtra("DataFromWearable"), "", sharedpreferences.getString("handtag","")); //user pointer
         openChart(DataFromWearable);
         MainActivity.h=true; //test finished
     }

@@ -116,7 +116,7 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
                 accelbtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
+                        accelbtn.setEnabled(false);
                         mGoogleApiClient.reconnect();
                         tvCountDownTimer.setText("Started");
 
@@ -168,6 +168,7 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
                 }
 
                 public void onFinish() {
+                    accelbtn.setEnabled(true);
                     tvCountDownTimer.setText("done!");
                     timer.cancel();
                     //Data collected now send:

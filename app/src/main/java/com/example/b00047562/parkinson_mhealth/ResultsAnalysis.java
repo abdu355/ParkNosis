@@ -270,11 +270,11 @@ public class ResultsAnalysis extends AppCompatActivity {
     //questionnaire score thresholds  59+/108 = severe -   33-58/108 moderate - 32 and below/108 mild
     private void displayscoreAdvice()
     {
-        if(qscore <20)//normal
+        if(qscore>=0 && qscore<20)//normal
         {
             advice.setText("Your Questionnaire score shows almost no symptoms\n Nothing to worry about for now");
         }
-       else if(qscore<=32) //mild
+       else if(qscore>=20 && qscore<=32) //mild
      {
             advice.setText("Your Questionnaire score shows mild symptoms.Repeat the tests every month to track your progress");
      }
@@ -286,6 +286,8 @@ public class ResultsAnalysis extends AppCompatActivity {
      {
             advice.setText("Your Questionnaire score shows severe symptoms\nconsider visiting your doctor ");
      }
+        else if(qscore<0)
+            advice.setText("Your Questionnaire score is incomplete");
 
         extra1.setText("Keep in mind that Questionnaire scores may not reflect all symptoms.\nConsider scores for other tests aswell.");
     }

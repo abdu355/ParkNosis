@@ -72,7 +72,8 @@
         android:enabled="false"
         android:layout_alignBottom="@+id/btn_next2"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:visibility="invisible" />
 
     <Button
         android:layout_width="wrap_content"
@@ -82,7 +83,8 @@
         android:layout_alignBottom="@+id/btn_back1"
         android:layout_toRightOf="@+id/btn_back1"
         android:layout_toEndOf="@+id/btn_back1"
-        android:enabled="false" />
+        android:enabled="false"
+        android:visibility="invisible" />
 
     <Button
         android:layout_width="fill_parent"
@@ -90,7 +92,9 @@
         android:text="START"
         android:id="@+id/start_btn"
         android:layout_below="@+id/description"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorPrimary"
+        android:layout_marginTop="10dp" />
 
     <TextView
         android:layout_width="50dp"

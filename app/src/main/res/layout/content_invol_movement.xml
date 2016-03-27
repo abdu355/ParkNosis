@@ -31,7 +31,9 @@
         android:id="@+id/btn_start_invol"
         android:layout_below="@+id/description"
         android:layout_centerHorizontal="true"
-        android:onClick="startDetection" />
+        android:onClick="startDetection"
+        android:background="@color/colorPrimary"
+        android:layout_marginTop="10dp" />
 
     <Button
         android:layout_width="120dp"
@@ -87,7 +89,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:onClick="finishTest"
-        android:layout_toEndOf="@+id/textView2" />
+        android:layout_toEndOf="@+id/textView2"
+        android:background="@color/colorPrimary" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -97,7 +100,8 @@
         android:id="@+id/btn_back2"
         android:enabled="false"
         android:layout_alignTop="@+id/btn_finish_involtap"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:visibility="invisible" />
 
     <Button
         android:layout_width="wrap_content"
@@ -106,7 +110,8 @@
         android:id="@+id/btn_reset2"
         android:enabled="false"
         android:layout_alignTop="@+id/btn_back2"
-        android:layout_toEndOf="@+id/btn_back2" />
+        android:layout_toEndOf="@+id/btn_back2"
+        android:visibility="invisible" />
 
     <ProgressBar
         style="?android:attr/progressBarStyleHorizontal"

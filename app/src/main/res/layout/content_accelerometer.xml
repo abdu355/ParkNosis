@@ -136,11 +136,55 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="200dp"
             android:id="@+id/Layout_Graph_Container"
             android:layout_marginBottom="35dp">
 
         </LinearLayout>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="L"
+                android:id="@+id/btn_tagL"
+                android:layout_column="0"
+                android:background="@color/colorPrimary"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp" />
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="R"
+                android:id="@+id/btn_tagR"
+                android:layout_column="1"
+                android:background="@color/colorPrimary"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </TableRow>
 
     </TableLayout>
 

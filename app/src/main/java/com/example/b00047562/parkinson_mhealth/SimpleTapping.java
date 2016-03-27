@@ -10,6 +10,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
@@ -42,6 +43,8 @@ public class SimpleTapping extends AppCompatActivity implements View.OnClickList
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         tap=(Button)findViewById(R.id.btn_tap);
         next=(Button)findViewById(R.id.btn_next1);
@@ -159,4 +162,5 @@ public class SimpleTapping extends AppCompatActivity implements View.OnClickList
         view.loadUrl("file:///android_asset/simpletap.png");
 
     }
+
 }

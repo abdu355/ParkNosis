@@ -41,11 +41,17 @@ public class TappingTestFunctions {
     private ArrayList<Long> rightfingerarr;
     private ArrayList<Long> simpletaps;
     private ArrayList<Integer> intList;
+    private ArrayList<AltTapData> leftfingerxy,rightfingerxy;
+    //Accuracy and precision variables
+    private float D; //distance
+    private float vectorx,vectory; //x2-x1,y2-y1
 
-    //used for X,Y calculations
+    //used for X,Y calculations (RAW values)
     private int Rorgx = 561;
     private int Lorgx = 159;
     private int orgy = 1041;
+
+
 
 
 
@@ -81,9 +87,7 @@ public class TappingTestFunctions {
         Log.d("TappingTest",hand+"");
         Log.d("TappingTest",intList.toString());
 
-//        avgdelay = tapclass.average(simpletaps);
-//        avgdelayrightfinger = tapclass.average(rightfingerarr);
-//        avgdelayleftfinger=tapclass.average(leftfingerarr);
+
         avgdelay = average(simpletaps);
         avgdelayrightfinger = average(rightfingerarr);
         avgdelayleftfinger=average(leftfingerarr);

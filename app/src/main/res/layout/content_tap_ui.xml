@@ -54,7 +54,8 @@
         android:layout_alignBottom="@+id/btn_next1"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:enabled="false" />
+        android:enabled="false"
+        android:visibility="invisible" />
 
     <Button
         android:layout_width="wrap_content"
@@ -63,7 +64,9 @@
         android:id="@+id/btn_lefthand"
         android:layout_below="@+id/textView"
         android:layout_alignLeft="@+id/btn_tap"
-        android:layout_alignStart="@+id/btn_tap" />
+        android:layout_alignStart="@+id/btn_tap"
+        android:background="@color/colorPrimary"
+        android:layout_marginTop="10dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -72,7 +75,9 @@
         android:id="@+id/btn_righthand"
         android:layout_below="@+id/textView"
         android:layout_alignRight="@+id/btn_tap"
-        android:layout_alignEnd="@+id/btn_tap" />
+        android:layout_alignEnd="@+id/btn_tap"
+        android:background="@color/colorPrimary"
+        android:layout_marginTop="10dp" />
 
     <TextView
         android:layout_width="fill_parent"
@@ -81,7 +86,7 @@
         android:id="@+id/tv_avgtime"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="65dp"
         android:gravity="center_vertical|center_horizontal"
         android:textColor="#ffffff" />
 

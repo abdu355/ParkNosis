@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
@@ -148,5 +149,10 @@ public class InvolMovement extends AppCompatActivity {
         alertDialog.show();
         view.loadUrl("file:///android_asset/holdabove2.png");
 
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        return ((keyCode == KeyEvent.KEYCODE_BACK || keyCode==KeyEvent.KEYCODE_APP_SWITCH) ? true : super.onKeyDown(keyCode, event));
     }
 }

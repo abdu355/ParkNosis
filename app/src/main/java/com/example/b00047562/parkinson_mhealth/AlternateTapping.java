@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +54,7 @@ public class AlternateTapping extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_alternate_tapping);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
 
 
@@ -313,6 +315,10 @@ the field areas, corrected for total number of taps. (page 7 , Automatic and Obj
                 });
         alertDialog.show();
         view.loadUrl("file:///android_asset/tapping3.png");
-
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        return ((keyCode == KeyEvent.KEYCODE_BACK || keyCode==KeyEvent.KEYCODE_APP_SWITCH) ? true : super.onKeyDown(keyCode, event));
     }
 }
