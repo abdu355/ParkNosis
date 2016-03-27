@@ -347,6 +347,7 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
                         @Override
                         protected Void doInBackground(Void... params) {
                             A = new AccelAnalysis(Min_Delay);
+                            A.PerformAnalysis1();
                             return null;
                         }
                     }.execute();

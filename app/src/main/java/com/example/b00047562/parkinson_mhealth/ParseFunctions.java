@@ -160,11 +160,11 @@ public class ParseFunctions {
         ParseQuery<ParseObject> query = ParseQuery.getQuery(params[0]);
         query.whereEqualTo("createdBy", user);
         query.orderByDescending(params[1]); //typically order by date to get latest data string
-        query.setLimit(5);
+        query.setLimit(6);
         //add additional query paramters here if needed ( make sure to also include the params[index] for it ) ...
         try {
             List<ParseObject> results = query.find();
-           for(int i=0;i<5;i++)
+           for(int i=0;i<6;i++)
            {
                resarr.add(i, results.get(i).getString(params[2]));
            }

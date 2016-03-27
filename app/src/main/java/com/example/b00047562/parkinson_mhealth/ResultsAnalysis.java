@@ -50,6 +50,7 @@ public class ResultsAnalysis extends AppCompatActivity {
     private  TableRow ad1,ad2,ad3,tapres,spiralres,handres,graphs,title;
     private Button showhide;
     private View mChart1,mChart2;
+    private double tapprecision;
 
     private int tapscore,handscore,spiralscore; //use these for final scale
 
@@ -100,9 +101,10 @@ public class ResultsAnalysis extends AppCompatActivity {
 //        primarygraph=(FrameLayout)findViewById(R.id.content_primary);
 //        secondarygraph=(FrameLayout)findViewById(R.id.content_secondary);
 
-        StaticSpiralData= new ArrayList();
-        DynamicSpiralData= new ArrayList();
-        sd=new SpiralData(0,0,0,this);
+//        StaticSpiralData= new ArrayList();
+//        DynamicSpiralData= new ArrayList();
+//        sd=new SpiralData(0,0,0,this);
+        new processDataTask().execute();
 
 
     }
@@ -110,7 +112,7 @@ public class ResultsAnalysis extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        new processDataTask().execute(); //Tapping data task
+        //Tapping data task
     }
 
 //    private class processSpiralDataTask extends AsyncTask<Void,Void,Void>
@@ -166,6 +168,9 @@ public class ResultsAnalysis extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
+            StaticSpiralData= new ArrayList();
+            DynamicSpiralData= new ArrayList();
+            sd=new SpiralData(0,0,0,getApplicationContext());
             //initialize();
             try{
             processQuestionnaire();
@@ -190,13 +195,16 @@ public class ResultsAnalysis extends AppCompatActivity {
         protected void onPostExecute(Void result) {
 
             mProgressDialog.dismiss();
+
+            displayscoreAdvice();
             //tapresults.displayResults();
             extras.setText("Questionnaire Score: " + qscore);
-            tapscore_tv.setText(ResultsMap.get(tapscore)+"");
-            spiralscore_tv.setText(""+ResultsMap.get(spiralscore));
-            handsore_tv.setText(""+ResultsMap.get(handscore));
 
-            displayscoreAdvice();   // calls all display functions
+            tapscore_tv.setText(ResultsMap.get(tapscore)+" ("+ String.format("%.2f", tapprecision)+"%)");
+            spiralscore_tv.setText(""+ResultsMap.get(spiralscore));
+            handsore_tv.setText("" + ResultsMap.get(handscore));
+
+              // calls all display functions
 
             //display graphs for  results
             try {
@@ -248,9 +256,12 @@ public class ResultsAnalysis extends AppCompatActivity {
      private void processTappingData()
     {
         //tapresults.runAlgorithm(tapresults.fetchData());   //run algo on arraylist retreived from parse
+
         tapresults.fetchData();
-        //run tempalgo here
         tapscore=tapresults.runTempAlgorithm();
+        tapprecision=tapresults.getPrecision()*100;
+
+        //Log.d("TapPrec",tapprecision+"");
     }
     private void processQuestionnaire()//questionairre data fetch result
     {
@@ -286,8 +297,10 @@ public class ResultsAnalysis extends AppCompatActivity {
      {
             advice.setText("Your Questionnaire score shows severe symptoms\nconsider visiting your doctor ");
      }
-        else if(qscore<0)
+        else if(qscore<0) {
+            qscore = 0.0;
             advice.setText("Your Questionnaire score is incomplete");
+        }
 
         extra1.setText("Keep in mind that Questionnaire scores may not reflect all symptoms.\nConsider scores for other tests aswell.");
     }

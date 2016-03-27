@@ -42,7 +42,7 @@ public class AccelAnalysis {
         // customParse = new ParseFunctions(Accel.getApplication());
         customParse = new ParseFunctions();
         //PerformAnalysis0();
-        PerformAnalysis1();
+        //PerformAnalysis1();
     }
     /*TODO
 
@@ -86,7 +86,7 @@ public class AccelAnalysis {
     public double[] ConvertToDoubleArr(ArrayList<AccelData> AD, int size) {
         double ArrZ_d[] = new double[size];
         for (int i = 0; i<size; i++){
-            ArrZ_d[i] = AD.get(i).getY(); //get Y-axis only
+            ArrZ_d[i] = AD.get(i).getZ(); //get Y-axis only
         }
         return ArrZ_d;
         //return AD.toArray(new Double[AD.size()]);
@@ -170,6 +170,7 @@ public class AccelAnalysis {
     */
 
     public int PerformAnalysis1() {  //rescale
+
         int resscale =0 ;
         AD = getAccelData(); //get data from parse
         ArrZ_double = ConvertToDoubleArr(AD, ADSize); //convert to double array

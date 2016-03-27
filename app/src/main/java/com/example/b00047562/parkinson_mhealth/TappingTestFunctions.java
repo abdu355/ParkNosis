@@ -119,6 +119,12 @@ public class TappingTestFunctions {
 
 
      }
+    public double getPrecision()
+    {
+
+        return ((intList.get(2).doubleValue() / (intList.get(2).doubleValue() + intList.get(4).doubleValue())))*1.0;
+
+    }
 
     public int runTempAlgorithm() {
 
