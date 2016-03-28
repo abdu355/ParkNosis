@@ -18,7 +18,9 @@ import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class CanvasSpiral extends View {
@@ -165,6 +167,25 @@ public class CanvasSpiral extends View {
 
     }
 
+    public float FindAccuracy(){
+        float AccuracyPercent=0;
+try {
+    DecimalFormat df = new DecimalFormat("#.###");
+    for (int i = 0; i < spiralData.size(); i++) {
+        float tempx = spiralData.get(i).getX();
+        float tempy = spiralData.get(i).getY();
+        for (int j = 0; j < OriginalSpiralPoints.length - 2; j += 2) {
+            if (Float.parseFloat(df.format(tempx)) == Float.parseFloat(df.format(OriginalSpiralPoints[j]))
+                    && Float.parseFloat(df.format(tempy)) ==Float.parseFloat(df.format( OriginalSpiralPoints[j + 1])))
+                AccuracyPercent++;
+        }
+    }
+    AccuracyPercent /= spiralData.size();
+}catch (Exception c){c.printStackTrace();}
+        return AccuracyPercent*100f;
+
+    }
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 //detect user touch
@@ -175,6 +196,8 @@ public class CanvasSpiral extends View {
         //store spiral draw points
         SpiralData data = new SpiralData(curTime,touchX,touchY);
         spiralData.add(data);
+
+
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
@@ -192,6 +215,7 @@ public class CanvasSpiral extends View {
                 drawPath.reset();
                 Spiral.redrawOpen.setEnabled(true); // to prevent crashing or redrawing when no data is available - this will updated soon
                 Spiral.btnSubmit.setEnabled(true);
+                Toast.makeText(context, String.valueOf(FindAccuracy()),Toast.LENGTH_SHORT).show();
              //   Log.d(TAG, "onTouchEvent: " + spiralData.size());
                 break;
             default:

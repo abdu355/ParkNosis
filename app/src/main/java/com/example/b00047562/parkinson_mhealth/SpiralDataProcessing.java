@@ -1,6 +1,7 @@
 package com.example.b00047562.parkinson_mhealth;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -44,7 +45,7 @@ public class SpiralDataProcessing {
             Log.d("Input", "SpiralDataProcessing: "+ StaticInputtedData.toString() );
 
 
-
+      //  Toast.makeText(context, String.valueOf(FindAccuracy()), Toast.LENGTH_SHORT).show();
 
         acceleration1 = new float[StaticInputtedData.size()];
         acceleration2 = new float[DynamicInputtedData.size()];
@@ -59,6 +60,7 @@ public class SpiralDataProcessing {
 
 
     }
+
 
     private float[] FindAcceleration(ArrayList<SpiralData> InputedData){
         float [] acceleration;
