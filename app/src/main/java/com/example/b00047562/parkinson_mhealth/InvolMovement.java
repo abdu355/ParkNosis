@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
@@ -138,7 +139,7 @@ public class InvolMovement extends AppCompatActivity {
         alertDialog.setTitle("What to do ?");
         alertDialog.setCancelable(false);
         alertDialog.setMessage("rest your hand above the phone screen for 20 seconds\ntry not to press any of the buttons\nInstructor will guide you through\n");
-        alertDialog.setIcon(R.drawable.tapping5);
+        //alertDialog.setIcon(R.drawable.tapping5);
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
@@ -148,5 +149,10 @@ public class InvolMovement extends AppCompatActivity {
         alertDialog.show();
         view.loadUrl("file:///android_asset/holdabove2.png");
 
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        return ((keyCode == KeyEvent.KEYCODE_BACK || keyCode==KeyEvent.KEYCODE_APP_SWITCH) ? true : super.onKeyDown(keyCode, event));
     }
 }

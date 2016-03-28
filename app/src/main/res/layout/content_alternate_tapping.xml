@@ -8,14 +8,18 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:clickable="false"
+    android:focusable="false"
+    android:focusableInTouchMode="false"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.b00047562.parkinson_mhealth.AlternateTapping"
     tools:showIn="@layout/activity_alternate_tapping"
-    android:background="@color/background_material_dark">
+    android:background="@color/background_material_dark"
+    android:id="@+id/altrellayout">
 
     <Button
         android:layout_width="120dp"
-        android:layout_height="200dp"
+        android:layout_height="120dp"
         android:text="TAP"
         android:id="@+id/alttap_btn1"
         android:layout_alignParentTop="true"
@@ -23,11 +27,11 @@
         android:layout_alignParentStart="true"
         android:layout_marginLeft="37dp"
         android:layout_marginStart="37dp"
-        android:layout_marginTop="172dp" />
+        android:layout_marginTop="250dp" />
 
     <Button
         android:layout_width="120dp"
-        android:layout_height="200dp"
+        android:layout_height="120dp"
         android:text="TAP"
         android:id="@+id/alttap_btn2"
         android:layout_alignTop="@+id/alttap_btn1"
@@ -68,7 +72,8 @@
         android:enabled="false"
         android:layout_alignBottom="@+id/btn_next2"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:visibility="invisible" />
 
     <Button
         android:layout_width="wrap_content"
@@ -78,7 +83,8 @@
         android:layout_alignBottom="@+id/btn_back1"
         android:layout_toRightOf="@+id/btn_back1"
         android:layout_toEndOf="@+id/btn_back1"
-        android:enabled="false" />
+        android:enabled="false"
+        android:visibility="invisible" />
 
     <Button
         android:layout_width="fill_parent"
@@ -86,7 +92,9 @@
         android:text="START"
         android:id="@+id/start_btn"
         android:layout_below="@+id/description"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorPrimary"
+        android:layout_marginTop="10dp" />
 
     <TextView
         android:layout_width="50dp"

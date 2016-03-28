@@ -22,7 +22,7 @@
         android:layout_alignLeft="@+id/et_pass"
         android:layout_alignStart="@+id/et_pass"
         android:text="@string/et_usremail"
-        android:hint="Email"/>
+        android:hint="userid@genid.com"/>
 
     <EditText
         android:layout_width="fill_parent"
@@ -64,7 +64,8 @@
         android:layout_below="@+id/et_pass"
         android:layout_alignRight="@+id/et_pass"
         android:layout_alignEnd="@+id/et_pass"
-        android:layout_marginTop="23dp">
+        android:layout_marginTop="23dp"
+        android:id="@+id/linearLayout6">
 
         <Button
             android:layout_width="fill_parent"
@@ -82,24 +83,76 @@
             android:layout_weight="1" />
     </LinearLayout>
 
-    <ImageView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView5"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/brain100" />
+        android:id="@+id/linearLayout7"
+        android:layout_below="@+id/linearLayout6"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/imageView6"
+            android:src="@drawable/aus"
+            android:scaleType="fitCenter"
+            android:layout_below="@+id/linearLayout7"
+            android:layout_alignEnd="@+id/linearLayout7"
+            android:layout_marginEnd="56dp"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView5"
+            android:src="@drawable/brain100"
+            android:layout_alignTop="@+id/imageView6"
+            android:layout_alignParentStart="true"
+            android:layout_weight="1" />
+
+    </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Welcome \n Login to begin assessment"
+        android:text="Welcome \n Login to begin\nassessment"
         android:id="@+id/textView5"
         android:gravity="center_horizontal"
         android:textColor="@color/colorPrimary"
         android:textStyle="bold"
-        android:layout_below="@+id/imageView5"
+        android:layout_gravity="bottom"
+        android:layout_below="@+id/linearLayout7"
         android:layout_centerHorizontal="true" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView5"
+        android:layout_toEndOf="@+id/tv_email"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Android Wear Required"
+            android:id="@+id/textView7"
+            android:layout_alignTop="@+id/imageView7"
+            android:layout_centerHorizontal="true"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/imageView8"
+            android:src="@drawable/androidwear"
+            android:layout_weight="1" />
+
+    </LinearLayout>
 
 </RelativeLayout>

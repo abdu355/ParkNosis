@@ -41,6 +41,18 @@ public class TappingTestFunctions {
     private ArrayList<Long> rightfingerarr;
     private ArrayList<Long> simpletaps;
     private ArrayList<Integer> intList;
+    private ArrayList<AltTapData> leftfingerxy,rightfingerxy;
+    //Accuracy and precision variables
+    private float D; //distance
+    private float vectorx,vectory; //x2-x1,y2-y1
+
+    //used for X,Y calculations (RAW values)
+    private int Rorgx = 561;
+    private int Lorgx = 159;
+    private int orgy = 1041;
+
+
+
 
 
     private int indicator , indicator2, indicator3,indicator4;// for tapping scale 0:normal , <=2:hesistant ,  <=4:mild, >4  <=9:moderate , >9:severe
@@ -59,12 +71,12 @@ public class TappingTestFunctions {
         simpletaps= new ArrayList<>();
         numoftaps = new ArrayList<>(); //0: invol left taps - 1:invol right taps - 2:right finger taps - 3:left finger taps - 4:simple tap count
 
-        rightfingerarr =  customParse.getParseData(ParseUser.getCurrentUser(),2,"TappingData","createdAt","ArrayList");
-        leftfingerarr = customParse.getParseData(ParseUser.getCurrentUser(), 3, "TappingData", "createdAt", "ArrayList");
-        simpletaps = customParse.getParseData(ParseUser.getCurrentUser(), 4, "TappingData", "createdAt", "ArrayList");
+        rightfingerarr =  customParse.getParseData(ParseUser.getCurrentUser(),6,"TappingData","createdAt","ArrayList");
+        leftfingerarr = customParse.getParseData(ParseUser.getCurrentUser(), 7, "TappingData", "createdAt", "ArrayList");
+        simpletaps = customParse.getParseData(ParseUser.getCurrentUser(), 8, "TappingData", "createdAt", "ArrayList");
         //2: right finger , 3:left finger, 4:simple tapping results
 
-        hand = customParse.getParseSingleColData(ParseUser.getCurrentUser(), 4,"TappingData", "createdAt", "hand");
+        hand = customParse.getParseSingleColData(ParseUser.getCurrentUser(), 8,"TappingData", "createdAt", "hand");
         numoftaps = customParse.getParseDataTappingCount(ParseUser.getCurrentUser(),"TappingData","createdAt","numoftaps");
 
         for(String s : numoftaps) intList.add(Integer.valueOf(s)); //convert string counts to int
@@ -75,9 +87,7 @@ public class TappingTestFunctions {
         Log.d("TappingTest",hand+"");
         Log.d("TappingTest",intList.toString());
 
-//        avgdelay = tapclass.average(simpletaps);
-//        avgdelayrightfinger = tapclass.average(rightfingerarr);
-//        avgdelayleftfinger=tapclass.average(leftfingerarr);
+
         avgdelay = average(simpletaps);
         avgdelayrightfinger = average(rightfingerarr);
         avgdelayleftfinger=average(leftfingerarr);
@@ -102,7 +112,19 @@ public class TappingTestFunctions {
         return ((double) sum) / n;
     }
 
-    // public void runAlgorithm() {}
+     public void runAlgorithm() {
+         // D = sqrt(xi+1 - xi)^2 +(yi+1-yi)^2
+
+
+
+
+     }
+    public double getPrecision()
+    {
+
+        return ((intList.get(2).doubleValue() / (intList.get(2).doubleValue() + intList.get(4).doubleValue())))*1.0;
+
+    }
 
     public int runTempAlgorithm() {
 

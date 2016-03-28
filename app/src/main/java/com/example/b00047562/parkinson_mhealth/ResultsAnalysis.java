@@ -12,6 +12,7 @@ import android.widget.FrameLayout;
 import android.widget.Switch;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.ParseUser;
 
@@ -49,6 +50,7 @@ public class ResultsAnalysis extends AppCompatActivity {
     private  TableRow ad1,ad2,ad3,tapres,spiralres,handres,graphs,title;
     private Button showhide;
     private View mChart1,mChart2;
+    private double tapprecision;
 
     private int tapscore,handscore,spiralscore; //use these for final scale
 
@@ -99,9 +101,10 @@ public class ResultsAnalysis extends AppCompatActivity {
 //        primarygraph=(FrameLayout)findViewById(R.id.content_primary);
 //        secondarygraph=(FrameLayout)findViewById(R.id.content_secondary);
 
-        StaticSpiralData= new ArrayList();
-        DynamicSpiralData= new ArrayList();
-        sd=new SpiralData(0,0,0,this);
+//        StaticSpiralData= new ArrayList();
+//        DynamicSpiralData= new ArrayList();
+//        sd=new SpiralData(0,0,0,this);
+        new processDataTask().execute();
 
 
     }
@@ -109,7 +112,7 @@ public class ResultsAnalysis extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        new processDataTask().execute(); //Tapping data task
+        //Tapping data task
     }
 
 //    private class processSpiralDataTask extends AsyncTask<Void,Void,Void>
@@ -152,6 +155,7 @@ public class ResultsAnalysis extends AppCompatActivity {
 
             // Create a progressdialog
             mProgressDialog = new ProgressDialog(ResultsAnalysis.this);
+            mProgressDialog.setCancelable(false);
             // Set progressdialog title
             mProgressDialog.setTitle("Fetching Results");
             // Set progressdialog message
@@ -164,12 +168,25 @@ public class ResultsAnalysis extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
+            StaticSpiralData= new ArrayList();
+            DynamicSpiralData= new ArrayList();
+            sd=new SpiralData(0,0,0,getApplicationContext());
             //initialize();
+            try{
             processQuestionnaire();
             processTappingData();
             processAccelData();//accel data (karim)
-            try{processSpiralData();}catch (Exception e){
-                Log.d("TAG", "doInBackground: Spiral analysis not working "+ e.getMessage());
+            processSpiralData();
+            }catch (Exception e){
+                Log.d("TAG", "doInBackground: Error " + e.getMessage());
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), "ProcessingError - Some tests do not have complete data", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                finish();
             }
             return null;
         }
@@ -178,16 +195,24 @@ public class ResultsAnalysis extends AppCompatActivity {
         protected void onPostExecute(Void result) {
 
             mProgressDialog.dismiss();
+
+            displayscoreAdvice();
             //tapresults.displayResults();
             extras.setText("Questionnaire Score: " + qscore);
-            tapscore_tv.setText(ResultsMap.get(tapscore)+"");
-            spiralscore_tv.setText(""+ResultsMap.get(spiralscore));
-            handsore_tv.setText(""+ResultsMap.get(handscore));
 
-            displayscoreAdvice();   // calls all display functions
+            tapscore_tv.setText(ResultsMap.get(tapscore)+" ("+ String.format("%.2f", tapprecision)+"%)");
+            spiralscore_tv.setText(""+ResultsMap.get(spiralscore));
+            handsore_tv.setText("" + ResultsMap.get(handscore));
+
+              // calls all display functions
 
             //display graphs for  results
-            viewgraphs();
+            try {
+                viewgraphs();
+            } catch (Exception e) {
+                Toast.makeText(getApplicationContext(),"ViewError - Some tests do not have complete data",Toast.LENGTH_SHORT).show();
+                finish();
+            }
             showhide.performClick();
 
             //call next AsyncTask
@@ -209,15 +234,15 @@ public class ResultsAnalysis extends AppCompatActivity {
         final float DAH=spiralDataProcessing.getDAH();
         Log.d("DAH", "processSpiralData: "+DAH);
 
-       if(0.04f >= DAH)
+       if(1.45E-05 <= DAH)
           spiralscore=NORMAL;
-        else if (0.05f>=DAH&&DAH<0.075f)
-           spiralscore=SLIGHT;
-        else if (0.075f>=DAH&&DAH<0.1f)
-           spiralscore=MILD;
-       else if (0.1f>=DAH&&DAH<0.15f)
-           spiralscore=MODERATE;
-        else if (DAH>=0.15f)
+//        else if (0.05f>=DAH&&DAH<0.075f)
+//           spiralscore=SLIGHT;
+//        else if (0.075f>=DAH&&DAH<0.1f)
+//           spiralscore=MILD;
+//       else if (0.1f>=DAH&&DAH<0.15f)
+//           spiralscore=MODERATE;
+        else if (DAH>=7.70E-04)
            spiralscore=SEVERE;
     }
 
@@ -231,9 +256,12 @@ public class ResultsAnalysis extends AppCompatActivity {
      private void processTappingData()
     {
         //tapresults.runAlgorithm(tapresults.fetchData());   //run algo on arraylist retreived from parse
+
         tapresults.fetchData();
-        //run tempalgo here
         tapscore=tapresults.runTempAlgorithm();
+        tapprecision=tapresults.getPrecision()*100;
+
+        //Log.d("TapPrec",tapprecision+"");
     }
     private void processQuestionnaire()//questionairre data fetch result
     {
@@ -253,22 +281,26 @@ public class ResultsAnalysis extends AppCompatActivity {
     //questionnaire score thresholds  59+/108 = severe -   33-58/108 moderate - 32 and below/108 mild
     private void displayscoreAdvice()
     {
-        if(qscore <20)//normal
+        if(qscore>=0 && qscore<20)//normal
         {
             advice.setText("Your Questionnaire score shows almost no symptoms\n Nothing to worry about for now");
         }
-       else if(qscore<=32) //mild
+       else if(qscore>=20 && qscore<=32) //mild
      {
-            advice.setText("Your Questionnaire score shows mild symptoms\nRepeat the tests every month to track your symptoms");
+            advice.setText("Your Questionnaire score shows mild symptoms.Repeat the tests every month to track your progress");
      }
         else if(qscore>=33 && qscore<=58) //moderate
      {
-            advice.setText("Your Questionnaire score shows moderate symptoms\nconsider visiting your docotor ");
+            advice.setText("Your Questionnaire score shows moderate symptoms\nconsider visiting your doctor ");
      }
         else if(qscore>=59)//severe
      {
-            advice.setText("Your Questionnaire score shows severe symptoms\nconsider visiting your docotor ");
+            advice.setText("Your Questionnaire score shows severe symptoms\nconsider visiting your doctor ");
      }
+        else if(qscore<0) {
+            qscore = 0.0;
+            advice.setText("Your Questionnaire score is incomplete");
+        }
 
         extra1.setText("Keep in mind that Questionnaire scores may not reflect all symptoms.\nConsider scores for other tests aswell.");
     }
