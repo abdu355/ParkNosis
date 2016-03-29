@@ -19,18 +19,33 @@ import java.util.Map;
  * Created by Os on 1/30/2016.
  */
 
-/*
-TODO
-create regular methods NOT Async
+
+/**
+ * Todo: Get time stamps
+ give each classification a value (noraml =1, rest +1 )
+ make a range for time difference between the first point and the last point
+ multiply the range by the classification
  */
+
 public class SpiralDataProcessing {
 
     //User inputed spiral
 
-    float [] velocity;
-    float [] acceleration1,acceleration2;
-
+    private float [] velocity;
+    private float [] acceleration1,acceleration2;
+    private long [] timestamps;
     public float getDAH() {
+        long RelateDAHandTime=RelateDAHandTime();
+        if (RelateDAHandTime<=7000)
+        DAH*=1f;//normal
+        else if (RelateDAHandTime>=7000 && RelateDAHandTime<12000)
+            DAH*=1.25f; //slight
+        else if (RelateDAHandTime>=12000&&RelateDAHandTime<15000)
+            DAH*=1.5f; //mild
+        else if (RelateDAHandTime>=15000&&RelateDAHandTime<17000)
+            DAH*=1.75f;//moderate
+        else
+            DAH*=2f; //severe
         return DAH;
     }
 
@@ -56,11 +71,18 @@ public class SpiralDataProcessing {
         StaticCount.putAll(FindDuplicates(acceleration1));
         DynamicCount.putAll(FindDuplicates(acceleration2));
 
-        Processing(StaticCount, DynamicCount);
 
+        Processing(StaticCount, DynamicCount);
+        timestamps= new long[]{StaticInputtedData.get(0).getTimestamp(),StaticInputtedData.get(StaticInputtedData.size()-1).getTimestamp(),
+                DynamicInputtedData.get(0).getTimestamp(),DynamicInputtedData.get(DynamicInputtedData.size()-1).getTimestamp()};
 
     }
 
+
+    private long RelateDAHandTime(){
+        long avgTime= (timestamps[0]-timestamps[1])+(timestamps[2]-timestamps[3])/2;
+        return avgTime;
+    }
 
     private float[] FindAcceleration(ArrayList<SpiralData> InputedData){
         float [] acceleration;

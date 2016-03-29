@@ -38,7 +38,7 @@ public class CanvasSpiral extends View {
     //drawing and canvas paint
     private Paint drawPaint, canvasPaint;
     //initial color
-  //  private int paintColor = 0xFF660000;
+    //  private int paintColor = 0xFF660000;
     //canvas
     private Canvas drawCanvas;
     //canvas bitmap
@@ -52,6 +52,7 @@ public class CanvasSpiral extends View {
     int maxX,maxY;
     float []OriginalSpiralPoints = new float[168];
     float []pointsArray = new float[2160];
+    ArrayList<Float> bigFlo;
 
     public static ArrayList<SpiralData> getSpiralData() {
         return spiralData;
@@ -92,6 +93,7 @@ public class CanvasSpiral extends View {
         maxY = mdispSize.y;
 
         setupDrawing();
+        bigFlo= new ArrayList<>();
     }
 
 
@@ -100,7 +102,7 @@ public class CanvasSpiral extends View {
         drawPath = new Path();
         drawPaint = new Paint();
 
-      //  drawPaint.setColor(paintColor);
+        //  drawPaint.setColor(paintColor);
 
         drawPaint.setAntiAlias(true);
         drawPaint.setStrokeWidth(10);
@@ -167,7 +169,7 @@ public class CanvasSpiral extends View {
         {
             canvas.drawLine(OriginalSpiralPoints[i], OriginalSpiralPoints[i + 1], OriginalSpiralPoints[i + 2], OriginalSpiralPoints[i + 3], mPaint);
 
-           // Log.d(TAG2, "onDraw: "+(i/2)+ " x&y: " + OriginalSpiralPoints[i] + " " + OriginalSpiralPoints[i + 1]);
+            // Log.d(TAG2, "onDraw: "+(i/2)+ " x&y: " + OriginalSpiralPoints[i] + " " + OriginalSpiralPoints[i + 1]);
         }
 
         canvas.drawPoints(OriginalSpiralPoints,mPaint3);
@@ -179,19 +181,27 @@ public class CanvasSpiral extends View {
 
     public float FindAccuracy(){
         float AccuracyPercent=0;
-try {
-    DecimalFormat df = new DecimalFormat("#.###");
-    for (int i = 0; i < spiralData.size(); i++) {
-        float tempx = spiralData.get(i).getX();
-        float tempy = spiralData.get(i).getY();
-        for (int j = 0; j < OriginalSpiralPoints.length - 2; j += 2) {
-            if (Float.parseFloat(df.format(tempx)) == Float.parseFloat(df.format(OriginalSpiralPoints[j]))
-                    && Float.parseFloat(df.format(tempy)) ==Float.parseFloat(df.format( OriginalSpiralPoints[j + 1])))
-                AccuracyPercent++;
-        }
-    }
-    AccuracyPercent /= spiralData.size();
-}catch (Exception c){c.printStackTrace();}
+        //try {
+            DecimalFormat df = new DecimalFormat("#.###");
+            for (int i = 0; i < bigFlo.size()/2-2; i+=2) {
+
+                for (int j = 0; j < OriginalSpiralPoints.length/2 - 2; j += 2) {
+                    if (Float.parseFloat(df.format(bigFlo.get(j))) == Float.parseFloat(df.format(OriginalSpiralPoints[j]))
+                            && Float.parseFloat(df.format(bigFlo.get(j+1))) == Float.parseFloat(df.format( OriginalSpiralPoints[j + 1])))
+                        AccuracyPercent++;
+//                    Log.d("BigFlo", bigFlo.get(j)+"");
+//                    Log.d("OS", OriginalSpiralPoints[j]+"");
+//                    Log.d("Acc", AccuracyPercent+"");
+
+                }
+            }
+            AccuracyPercent /= (float)spiralData.size();
+       // }catch (Exception c){
+           // Log.d("AccErr", c.getMessage());
+          ;
+
+       // }
+
         return AccuracyPercent*100f;
 
     }
@@ -202,6 +212,9 @@ try {
         long curTime = System.currentTimeMillis();
         float touchX = event.getX();
         float touchY = event.getY();
+        bigFlo.add(event.getX());
+        bigFlo.add(event.getY());
+
 
         //store spiral draw points
         SpiralData data = new SpiralData(curTime,touchX,touchY);
@@ -220,13 +233,14 @@ try {
                 break;
             case MotionEvent.ACTION_UP:
                 drawCanvas.drawPath(drawPath, drawPaint);
+                //Toast.makeText(context, String.valueOf(FindAccuracy()),Toast.LENGTH_SHORT).show();
 //                Spiral.alert.setTextColor(Color.RED);
 //                Spiral.alert.setText("KEEP TOUCHING!");
                 drawPath.reset();
                 Spiral.redrawOpen.setEnabled(true); // to prevent crashing or redrawing when no data is available - this will updated soon
                 Spiral.btnSubmit.setEnabled(true);
-                Toast.makeText(context, String.valueOf(FindAccuracy()),Toast.LENGTH_SHORT).show();
-             //   Log.d(TAG, "onTouchEvent: " + spiralData.size());
+
+                //   Log.d(TAG, "onTouchEvent: " + spiralData.size());
                 break;
             default:
                 return false;

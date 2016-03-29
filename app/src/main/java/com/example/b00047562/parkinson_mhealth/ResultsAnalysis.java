@@ -174,8 +174,8 @@ public class ResultsAnalysis extends AppCompatActivity {
             //initialize();
             try{
             processQuestionnaire();
-            processTappingData();
-            processAccelData();//accel data (karim)
+            //processTappingData();
+           //processAccelData();//accel data (karim)
             processSpiralData();
             }catch (Exception e){
                 Log.d("TAG", "doInBackground: Error " + e.getMessage());
@@ -186,7 +186,7 @@ public class ResultsAnalysis extends AppCompatActivity {
                     }
                 });
 
-                finish();
+                //finish();
             }
             return null;
         }
@@ -211,7 +211,7 @@ public class ResultsAnalysis extends AppCompatActivity {
                 viewgraphs();
             } catch (Exception e) {
                 Toast.makeText(getApplicationContext(),"ViewError - Some tests do not have complete data",Toast.LENGTH_SHORT).show();
-                finish();
+               //finish();
             }
             showhide.performClick();
 
@@ -226,12 +226,11 @@ public class ResultsAnalysis extends AppCompatActivity {
     private void processSpiralData() {
         spiralscore=0;
 
-        /**TODO
-         * Initialize the following:- */
         StaticSpiralData =sd.getAS();
         DynamicSpiralData=sd.getDAS();
         spiralDataProcessing= new SpiralDataProcessing(StaticSpiralData,DynamicSpiralData);
         final float DAH=spiralDataProcessing.getDAH();
+
         Log.d("DAH", "processSpiralData: "+DAH);
 
        if(1.45E-05 <= DAH)
