@@ -242,6 +242,7 @@ try {
 
         invalidate();
     }
+
 //
 //    public void setDensity(int density) {
 //        this.density = density;
