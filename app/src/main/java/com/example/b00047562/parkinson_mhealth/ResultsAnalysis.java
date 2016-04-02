@@ -174,8 +174,8 @@ public class ResultsAnalysis extends AppCompatActivity {
             //initialize();
             try{
             processQuestionnaire();
-            //processTappingData();
-           //processAccelData();//accel data (karim)
+            processTappingData();
+            processAccelData();//accel data (karim)
             processSpiralData();
             }catch (Exception e){
                 Log.d("TAG", "doInBackground: Error " + e.getMessage());
