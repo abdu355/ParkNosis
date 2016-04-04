@@ -233,15 +233,15 @@ public class ResultsAnalysis extends AppCompatActivity {
 
         Log.d("DAH", "processSpiralData: "+DAH);
 
-       if(1.45E-05 <= DAH)
+       if(9.174153E-06f <= DAH)
           spiralscore=NORMAL;
-//        else if (0.05f>=DAH&&DAH<0.075f)
-//           spiralscore=SLIGHT;
-//        else if (0.075f>=DAH&&DAH<0.1f)
-//           spiralscore=MILD;
-//       else if (0.1f>=DAH&&DAH<0.15f)
-//           spiralscore=MODERATE;
-        else if (DAH>=7.70E-04)
+        else if (9.174153E-06f>DAH&&DAH<=3.376123E-05f)
+           spiralscore=SLIGHT;
+        else if (3.376123E-05f>DAH&&DAH<=6.834831E-05f)
+           spiralscore=MILD;
+       else if (6.834831E-05f>DAH&&DAH<=7.70E-04f)
+           spiralscore=MODERATE;
+        else if (DAH>7.70E-04f)
            spiralscore=SEVERE;
     }
 
@@ -280,6 +280,7 @@ public class ResultsAnalysis extends AppCompatActivity {
     //questionnaire score thresholds  59+/108 = severe -   33-58/108 moderate - 32 and below/108 mild
     private void displayscoreAdvice()
     {
+        try{
         if(qscore>=0 && qscore<20)//normal
         {
             advice.setText("Your Questionnaire score shows almost no symptoms\n Nothing to worry about for now");
@@ -302,6 +303,9 @@ public class ResultsAnalysis extends AppCompatActivity {
         }
 
         extra1.setText("Keep in mind that Questionnaire scores may not reflect all symptoms.\nConsider scores for other tests aswell.");
+    }catch (Exception e ){
+            Log.e("Q failure", "displayscoreAdvice: "+e.getMessage() );
+        }
     }
 
     private void viewgraphs()

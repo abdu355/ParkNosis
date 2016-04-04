@@ -16,6 +16,8 @@ import android.graphics.Path;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.AsyncTask;
+import android.os.CountDownTimer;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -168,7 +170,6 @@ public class CanvasSpiral extends View {
         for (int i=0;i<166;i=i+2)
         {
             canvas.drawLine(OriginalSpiralPoints[i], OriginalSpiralPoints[i + 1], OriginalSpiralPoints[i + 2], OriginalSpiralPoints[i + 3], mPaint);
-
             // Log.d(TAG2, "onDraw: "+(i/2)+ " x&y: " + OriginalSpiralPoints[i] + " " + OriginalSpiralPoints[i + 1]);
         }
 
@@ -179,32 +180,48 @@ public class CanvasSpiral extends View {
 
     }
 
-    public float FindAccuracy(){
-        float AccuracyPercent=0;
-        //try {
-            DecimalFormat df = new DecimalFormat("#.###");
-            for (int i = 0; i < bigFlo.size()/2-2; i+=2) {
 
-                for (int j = 0; j < OriginalSpiralPoints.length/2 - 2; j += 2) {
-                    if (Float.parseFloat(df.format(bigFlo.get(j))) == Float.parseFloat(df.format(OriginalSpiralPoints[j]))
-                            && Float.parseFloat(df.format(bigFlo.get(j+1))) == Float.parseFloat(df.format( OriginalSpiralPoints[j + 1])))
-                        AccuracyPercent++;
+//    class AccuracyCl extends AsyncTask<Void, Void, Void> {
+//        @Override
+//        protected Void doInBackground(Void... params) {
+//
+//            Toast.makeText(context, String.valueOf(FindAccuracy()),Toast.LENGTH_SHORT).show();
+//            return null;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Void c) {
+//
+//        }
+//    }
+
+
+//    public float FindAccuracy(){
+//        float AccuracyPercent=0;
+//        //try {
+//            DecimalFormat df = new DecimalFormat("#.###");
+//            for (int i = 0; i < bigFlo.size()/2-2; i+=2) {
+//
+//                for (int j = 0; j < OriginalSpiralPoints.length/2 - 2; j += 2) {
+//                    if (Float.parseFloat(df.format(bigFlo.get(j))) == Float.parseFloat(df.format(OriginalSpiralPoints[j]))
+//                            && Float.parseFloat(df.format(bigFlo.get(j+1))) == Float.parseFloat(df.format( OriginalSpiralPoints[j + 1])))
+//                        AccuracyPercent++;
 //                    Log.d("BigFlo", bigFlo.get(j)+"");
 //                    Log.d("OS", OriginalSpiralPoints[j]+"");
 //                    Log.d("Acc", AccuracyPercent+"");
-
-                }
-            }
-            AccuracyPercent /= (float)spiralData.size();
-       // }catch (Exception c){
-           // Log.d("AccErr", c.getMessage());
-          ;
-
-       // }
-
-        return AccuracyPercent*100f;
-
-    }
+//
+//                }
+//            }
+//            AccuracyPercent /= (float)spiralData.size();
+//       // }catch (Exception c){
+//           // Log.d("AccErr", c.getMessage());
+//          ;
+//
+//       // }
+//
+//        return AccuracyPercent*100f;
+//
+//    }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -233,8 +250,8 @@ public class CanvasSpiral extends View {
                 break;
             case MotionEvent.ACTION_UP:
                 drawCanvas.drawPath(drawPath, drawPaint);
-                //Toast.makeText(context, String.valueOf(FindAccuracy()),Toast.LENGTH_SHORT).show();
-//                Spiral.alert.setTextColor(Color.RED);
+
+      //          Spiral.alert.setTextColor(Color.RED);
 //                Spiral.alert.setText("KEEP TOUCHING!");
                 drawPath.reset();
                 Spiral.redrawOpen.setEnabled(true); // to prevent crashing or redrawing when no data is available - this will updated soon
