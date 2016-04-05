@@ -4,30 +4,22 @@ package com.example.b00047562.parkinson_mhealth;
  * Created by Os on 2/22/2016.
  */
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.Point;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
 import android.view.WindowManager;
-import android.widget.Toast;
+
 
 import java.text.DecimalFormat;
-import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 
 public class CanvasSpiral extends View {
@@ -44,12 +36,16 @@ public class CanvasSpiral extends View {
     //canvas bitmap
     private Bitmap canvasBitmap;
     private int density;
+    private double screenInches;
+    private double diagonal;
+    int maxX,maxY,width,height;
+    float ratio;
+    float wd,hd;
 
     private Bitmap mBitmap;
     private Canvas mCanvas;
     Context context;
     private Paint mPaint,mPaint2,mPaint3;
-    int maxX,maxY;
     float []OriginalSpiralPoints = new float[168];
     float []pointsArray = new float[2160];
     ArrayList<Float> bigFlo;
@@ -86,19 +82,22 @@ public class CanvasSpiral extends View {
         mPaint3.setStrokeJoin(Paint.Join.ROUND);
         mPaint3.setStrokeWidth(10f);
 
+        /*
         Display mdisp =((Activity) context).getWindowManager().getDefaultDisplay();
         Point mdispSize = new Point();
         mdisp.getSize(mdispSize);
         maxX = mdispSize.x;
         maxY = mdispSize.y;
+        */
 
+        calculateMetrics();
         setupDrawing();
         bigFlo= new ArrayList<>();
     }
 
 
     private void setupDrawing(){
-//get drawing area setup for interaction
+        //get drawing area setup for interaction
         drawPath = new Path();
         drawPaint = new Paint();
 
@@ -136,28 +135,53 @@ public class CanvasSpiral extends View {
         return OriginalSpiralPoints;
     }
 
+    private void calculateMetrics()
+    {
+        DisplayMetrics dm = new DisplayMetrics();
+        WindowManager wm = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
+        wm.getDefaultDisplay().getMetrics(dm);
+        width=dm.widthPixels;
+        height=dm.heightPixels;
+        density=dm.densityDpi;
+
+        maxX = width;
+        maxY = height;
+
+        wd=(float)(width)/(float)density;
+        hd=(float)(height)/(float)density;
+        screenInches = Math.sqrt(Math.pow(wd,2)+Math.pow(hd,2));
+
+        diagonal = Math.sqrt(Math.pow((float)width,2)+Math.pow((float)height,2));
+        ratio = (wd > hd? hd : wd);
+        //ratio = (width > height? (float)height/width : (float)width/height);
+        height = height + 80;
+
+//        Log.d("debug", "Screen pixels - width: " +width+" height: "+height );
+//        Log.d("debug", "Screen density: "+density+" wd: " +wd+" hd: "+hd );
+//        Log.d("debug", "maxX: " +maxX+" maxY: "+maxY );
+//        Log.d("debug", "Screen in square inches : " + screenInches);
+//        Log.d("debug", "Diagonal: "+diagonal );
+//        Log.d("debug", "Ratio: "+ratio );
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        //DisplayMetrics metrics = new DisplayMetrics();
-        //WindowManager wm = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
-
         float angle,x ,y ;
+        int j=0, z=0;
 
-        int j=0;
-        for (int i=0; i< 1080; i++,j=j+2) {
-            angle = 0.50502f * i;
+        for (z=0; z<1080; z++,j=j+2) {
+            angle = 0.50502f * z;
 
-            x = maxX / 2 -10+ (5 + angle) * (float) Math.cos(angle);
-            y = (maxY / 2)-250 + (5 + angle) * (float) Math.sin(angle);
-
+            x = width/2   -10+ (5 + angle) * (float) Math.cos(angle);
+            y = height/2 -250+ (5 + angle) * (float) Math.sin(angle);
 
             pointsArray[j]=x;
             pointsArray[j+1]=y;
         }
         int k=0;
-        for (int m=0;m<2160;m++,k=k+2)
+        for (int m=0; m<2160; m++,k=k+2)
         {
 
             OriginalSpiralPoints[k]=pointsArray[m];
@@ -165,6 +189,7 @@ public class CanvasSpiral extends View {
             m+=25;
 
         }
+
         for (int i=0;i<166;i=i+2)
         {
             canvas.drawLine(OriginalSpiralPoints[i], OriginalSpiralPoints[i + 1], OriginalSpiralPoints[i + 2], OriginalSpiralPoints[i + 3], mPaint);
@@ -182,25 +207,25 @@ public class CanvasSpiral extends View {
     public float FindAccuracy(){
         float AccuracyPercent=0;
         //try {
-            DecimalFormat df = new DecimalFormat("#.###");
-            for (int i = 0; i < bigFlo.size()/2-2; i+=2) {
+        DecimalFormat df = new DecimalFormat("#.###");
+        for (int i = 0; i < bigFlo.size()/2-2; i+=2) {
 
-                for (int j = 0; j < OriginalSpiralPoints.length/2 - 2; j += 2) {
-                    if (Float.parseFloat(df.format(bigFlo.get(j))) == Float.parseFloat(df.format(OriginalSpiralPoints[j]))
-                            && Float.parseFloat(df.format(bigFlo.get(j+1))) == Float.parseFloat(df.format( OriginalSpiralPoints[j + 1])))
-                        AccuracyPercent++;
+            for (int j = 0; j < OriginalSpiralPoints.length/2 - 2; j += 2) {
+                if (Float.parseFloat(df.format(bigFlo.get(j))) == Float.parseFloat(df.format(OriginalSpiralPoints[j]))
+                        && Float.parseFloat(df.format(bigFlo.get(j+1))) == Float.parseFloat(df.format( OriginalSpiralPoints[j + 1])))
+                    AccuracyPercent++;
 //                    Log.d("BigFlo", bigFlo.get(j)+"");
 //                    Log.d("OS", OriginalSpiralPoints[j]+"");
 //                    Log.d("Acc", AccuracyPercent+"");
 
-                }
             }
-            AccuracyPercent /= (float)spiralData.size();
-       // }catch (Exception c){
-           // Log.d("AccErr", c.getMessage());
-          ;
+        }
+        AccuracyPercent /= (float)spiralData.size();
+        // }catch (Exception c){
+        // Log.d("AccErr", c.getMessage());
+        ;
 
-       // }
+        // }
 
         return AccuracyPercent*100f;
 

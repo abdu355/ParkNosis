@@ -260,7 +260,7 @@ public class ResultsAnalysis extends AppCompatActivity {
         tapscore=tapresults.runTempAlgorithm();
         tapprecision=tapresults.getPrecision()*100;
 
-        //Log.d("TapPrec",tapprecision+"");
+        Log.d("TapPrec",tapprecision+"");
     }
     private void processQuestionnaire()//questionairre data fetch result
     {

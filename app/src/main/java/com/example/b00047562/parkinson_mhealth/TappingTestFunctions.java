@@ -115,14 +115,12 @@ public class TappingTestFunctions {
      public void runAlgorithm() {
          // D = sqrt(xi+1 - xi)^2 +(yi+1-yi)^2
 
-
-
-
      }
     public double getPrecision()
     {
+        //Log.d("TapPrec",""+intList.get(2).doubleValue()+" "+intList.get(4).doubleValue());
+        return ((intList.get(4).doubleValue() / (intList.get(2).doubleValue() + intList.get(4).doubleValue())))*1.0;
 
-        return ((intList.get(2).doubleValue() / (intList.get(2).doubleValue() + intList.get(4).doubleValue())))*1.0;
 
     }
 
