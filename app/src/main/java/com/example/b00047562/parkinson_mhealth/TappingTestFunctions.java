@@ -41,10 +41,15 @@ public class TappingTestFunctions {
     private ArrayList<Long> rightfingerarr;
     private ArrayList<Long> simpletaps;
     private ArrayList<Integer> intList;
+
     private ArrayList<AltTapData> leftfingerxy,rightfingerxy;
+    private ArrayList<AltTapData> outleftxy,outrightxy, combR,combL;
+
     //Accuracy and precision variables
     private float D; //distance
     private float vectorx,vectory; //x2-x1,y2-y1
+    ArrayList<Float> distarr;
+
 
     //used for X,Y calculations (RAW values)
     private int Rorgx = 561;
@@ -69,32 +74,47 @@ public class TappingTestFunctions {
         rightfingerarr = new ArrayList<>();
         leftfingerarr = new ArrayList<>();
         simpletaps= new ArrayList<>();
+        outleftxy = new ArrayList<>();
+        outrightxy = new ArrayList<>();
+        combR= new ArrayList<>();
+        combL = new ArrayList<>();
+
         numoftaps = new ArrayList<>(); //0: invol left taps - 1:invol right taps - 2:right finger taps - 3:left finger taps - 4:simple tap count
 
-        rightfingerarr =  customParse.getParseData(ParseUser.getCurrentUser(),6,"TappingData","createdAt","ArrayList");
-        leftfingerarr = customParse.getParseData(ParseUser.getCurrentUser(), 7, "TappingData", "createdAt", "ArrayList");
-        simpletaps = customParse.getParseData(ParseUser.getCurrentUser(), 8, "TappingData", "createdAt", "ArrayList");
+
+        outleftxy = customParse.getParseDataAltTap(ParseUser.getCurrentUser(), 7, "TappingData", "createdAt", "ArrayList"); //taps outside the buttons
+        outrightxy = customParse.getParseDataAltTap(ParseUser.getCurrentUser(), 6, "TappingData","createdAt","ArrayList");
+
+        combR = customParse.getParseDataAltTap(ParseUser.getCurrentUser(), 2, "TappingData","createdAt","ArrayList");
+        combL = customParse.getParseDataAltTap(ParseUser.getCurrentUser(), 3, "TappingData","createdAt","ArrayList");
+
+        rightfingerxy = customParse.getParseDataAltTap(ParseUser.getCurrentUser(), 5, "TappingData","createdAt","ArrayList"); //taps inside the buttons
+        leftfingerxy = customParse.getParseDataAltTap(ParseUser.getCurrentUser(), 4, "TappingData","createdAt","ArrayList");
+
+        rightfingerarr =  customParse.getParseData(ParseUser.getCurrentUser(),9,"TappingData","createdAt","ArrayList");
+        leftfingerarr = customParse.getParseData(ParseUser.getCurrentUser(), 8, "TappingData", "createdAt", "ArrayList");
+        simpletaps = customParse.getParseData(ParseUser.getCurrentUser(), 10, "TappingData", "createdAt", "ArrayList");
         //2: right finger , 3:left finger, 4:simple tapping results
 
-        hand = customParse.getParseSingleColData(ParseUser.getCurrentUser(), 8,"TappingData", "createdAt", "hand");
+        hand = customParse.getParseSingleColData(ParseUser.getCurrentUser(), 10,"TappingData", "createdAt", "hand");
         numoftaps = customParse.getParseDataTappingCount(ParseUser.getCurrentUser(),"TappingData","createdAt","numoftaps");
 
         for(String s : numoftaps) intList.add(Integer.valueOf(s)); //convert string counts to int
 
-        Log.d("TappingTestR",rightfingerarr.toString());
-        Log.d("TappingTestL",leftfingerarr.toString());
-        Log.d("TappingTestS",simpletaps.toString());
-        Log.d("TappingTest",hand+"");
-        Log.d("TappingTest",intList.toString());
+//        Log.d("TappingTestR",rightfingerarr.toString());
+//        Log.d("TappingTestL",leftfingerarr.toString());
+//        Log.d("TappingTestS",simpletaps.toString());
+//        Log.d("TappingTest",hand+"");
+        //Log.d("TappingTest",intList.toString());
 
 
         avgdelay = average(simpletaps);
         avgdelayrightfinger = average(rightfingerarr);
         avgdelayleftfinger=average(leftfingerarr);
 
-        Log.d("TappingTestAVG",""+avgdelay);
-        Log.d("TappingTestAVGR",""+avgdelayrightfinger);
-        Log.d("TappingTestAVGL",""+avgdelayleftfinger);
+//        Log.d("TappingTestAVG",""+avgdelay);
+//        Log.d("TappingTestAVGR",""+avgdelayrightfinger);
+//        Log.d("TappingTestAVGL",""+avgdelayleftfinger);
 
         //return new ArrayList();
     }
@@ -115,11 +135,21 @@ public class TappingTestFunctions {
      public void runAlgorithm() {
          // D = sqrt(xi+1 - xi)^2 +(yi+1-yi)^2
 
+        //taps will start from right button
+         for(int i=0;i<intList.get(2);i++) {
+             vectorx = leftfingerxy.get(i + 1).getX() - rightfingerxy.get(i).getX();
+             vectory = leftfingerxy.get(i + 1).getY() - rightfingerxy.get(i).getY();
+
+             float vectorx2 = vectorx * vectorx;
+             float vectory2 = vectory * vectory;
+             distarr.add((float) Math.sqrt(vectorx2 + vectory2));
+         }
+
      }
-    public double getPrecision()
+    public double getPrecision()//for both right and left
     {
         //Log.d("TapPrec",""+intList.get(2).doubleValue()+" "+intList.get(4).doubleValue());
-        return ((intList.get(4).doubleValue() / (intList.get(2).doubleValue() + intList.get(4).doubleValue())))*1.0;
+        return ((intList.get(5).doubleValue() / (intList.get(2).doubleValue())))*1.0;
 
 
     }
@@ -146,16 +176,16 @@ public class TappingTestFunctions {
         }
 
         //2- check number of taps on alternate test >20 normal   <10 taps hesitant  <5 taps moderate to severe
-        if(intList.get(2)<=5 || intList.get(3)<=5)
+        if(intList.get(8)<=5 || intList.get(9)<=5)
         {
             indicator2 = 4;
-        }else if((intList.get(2)>5 && intList.get(2)<=10) || (intList.get(3)>5 && intList.get(3)<=10))
+        }else if((intList.get(8)>5 && intList.get(8)<=10) || (intList.get(9)>5 && intList.get(9)<=10))
         {
             indicator2 = 2;
-        }else if((intList.get(2)>10 && intList.get(2)<=20)|| (intList.get(3)>10 && intList.get(3)<=20))
+        }else if((intList.get(8)>10 && intList.get(8)<=20)|| (intList.get(9)>10 && intList.get(9)<=20))
         {
             indicator2 = 1;
-        }else if (intList.get(2)>20 || intList.get(3)>20)
+        }else if (intList.get(8)>20 || intList.get(9)>20)
         {
             indicator2 = 0;
         }

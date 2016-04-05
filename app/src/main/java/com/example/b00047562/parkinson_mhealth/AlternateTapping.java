@@ -44,7 +44,7 @@ public class AlternateTapping extends AppCompatActivity implements View.OnClickL
     private TextView time1,time2;
 
     private ArrayList<Long> delaylist1,delaylist2;
-    private ArrayList<AltTapData> locationarr1,locationarr2,locationarr3,locationarr4;
+    private ArrayList<AltTapData> locationarr1,locationarr2,locationarr3,locationarr4,combarrL,combarrR;
     private ArrayList<Integer> originalbtnloc;
     private AltTapData altdata;
 
@@ -112,6 +112,7 @@ the field areas, corrected for total number of taps. (page 7 , Automatic and Obj
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     altdata = new AltTapData(System.currentTimeMillis(),event.getRawX(),event.getRawY());
+                    combarrL.add(altdata);
                     locationarr1.add(altdata);
                     //Log.d("X&Ybtn1", locationarr1.toString());
                     //Log.d("X&Ybtn1","X:"+values1[0]+"Y:"+values1[1]);
@@ -124,6 +125,7 @@ the field areas, corrected for total number of taps. (page 7 , Automatic and Obj
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     altdata = new AltTapData(System.currentTimeMillis(),event.getRawX(),event.getRawY());
+                    combarrR.add(altdata);
                     locationarr2.add(altdata);
                     // Log.d("X&Ybtn2", locationarr2.toString());
                     // Log.d("X&Ybtn2","X:"+values1[0]+"Y:"+values1[1]);
@@ -140,10 +142,12 @@ the field areas, corrected for total number of taps. (page 7 , Automatic and Obj
                     altdata = new AltTapData(System.currentTimeMillis(), event.getRawX(), event.getRawY());
                     if(event.getRawX()>=550) {
                         locationarr4.add(altdata);//right taps outside field
+                        combarrR.add(altdata);
                         Log.d("X&YrellayoutRIGHT", locationarr4.toString());
                     }
                     else if(event.getRawX()<550) {
                         locationarr3.add(altdata); //left taps outside fields
+                        combarrL.add(altdata);
                         Log.d("X&YrellayoutLEFT", locationarr3.toString());
                     }
 
@@ -186,9 +190,14 @@ the field areas, corrected for total number of taps. (page 7 , Automatic and Obj
                 String json5 = new Gson().toJson(locationarr3);
                 String json6 = new Gson().toJson(locationarr4);
 
+                String combjsonL = new Gson().toJson(combarrL);
+                String combjsonR = new Gson().toJson(combarrR);
+
                 customParse.pushParseList(ParseUser.getCurrentUser(),2,"TappingData","ArrayList",json1,json2,"Left","Right",Integer.toString(tapcounter1),Integer.toString(tapcounter2));
                 customParse.pushParseList(ParseUser.getCurrentUser(), 2, "TappingData", "ArrayList",json3,json4,"LeftXY","RightXY",Integer.toString(tapcounter1),Integer.toString(tapcounter2) );
                 customParse.pushParseList(ParseUser.getCurrentUser(), 2, "TappingData", "ArrayList",json5,json6,"outL","outR",Integer.toString(outsidetaps),Integer.toString(outsidetaps));
+                customParse.pushParseList(ParseUser.getCurrentUser(), 2, "TappingData", "ArrayList",combjsonL,combjsonR,"combL","combR",Integer.toString(outsidetaps+tapcounter1),Integer.toString(outsidetaps+tapcounter2));
+
             }
         }.start();
 
@@ -206,6 +215,8 @@ the field areas, corrected for total number of taps. (page 7 , Automatic and Obj
         locationarr2 = new ArrayList<>();
         locationarr3 = new ArrayList<>();
         locationarr4 = new ArrayList<>();
+        combarrL = new ArrayList<>();
+        combarrR = new ArrayList<>();
 
         btn1.setEnabled(false);
         btn2.setEnabled(false);

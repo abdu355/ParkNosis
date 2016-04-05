@@ -160,11 +160,11 @@ public class ParseFunctions {
         ParseQuery<ParseObject> query = ParseQuery.getQuery(params[0]);
         query.whereEqualTo("createdBy", user);
         query.orderByDescending(params[1]); //typically order by date to get latest data string
-        query.setLimit(6);
+        query.setLimit(10);
         //add additional query paramters here if needed ( make sure to also include the params[index] for it ) ...
         try {
             List<ParseObject> results = query.find();
-           for(int i=0;i<6;i++)
+           for(int i=0;i<10;i++)
            {
                resarr.add(i, results.get(i).getString(params[2]));
            }
@@ -189,6 +189,32 @@ public class ParseFunctions {
             List<ParseObject> results = query.find();
             result1 = results.get(listPointer).getString(params[2]);
             type = new TypeToken<ArrayList<SpiralData>>() {}.getType();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        try {
+             return new Gson().fromJson(result1,type);
+        } catch (JsonSyntaxException e) {
+            Log.d("ParseGSON", e.getMessage());
+            return null;
+
+        }
+    }
+
+    public ArrayList<AltTapData> getParseDataAltTap(ParseUser user , final int listPointer, final String ... params) //fetch from Parse
+    //0: class name -- 1: orderby String  -- 2: column name
+    // user: pointer to ParseUser (use ParseUser.getCurrentUser())
+    // you may add additional String parameters as necessary
+    {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery(params[0]);
+        query.whereEqualTo("createdBy", user);
+        query.orderByDescending(params[1]); //typically order by date to get latest data string
+        //add additional query paramters here if needed ( make sure to also include the params[index] for it ) ...
+        try {
+            List<ParseObject> results = query.find();
+            result1 = results.get(listPointer).getString(params[2]);
+            type = new TypeToken<ArrayList<AltTapData>>() {}.getType();
         } catch (ParseException e) {
             e.printStackTrace();
         }

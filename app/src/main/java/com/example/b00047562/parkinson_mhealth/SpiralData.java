@@ -57,28 +57,28 @@ public class SpiralData {
         AS = new ArrayList<>();
         AS = (customParse.getParseDataSpiral(ParseUser.getCurrentUser(), 3, "SpiralData", "createdAt", "ArrayList"));
 
-        Log.d("SpiralTest", AS.toString());
+        //Log.d("SpiralTest", AS.toString());
         AS2 = new ArrayList<>();
         AS2 = (customParse.getParseDataSpiral(ParseUser.getCurrentUser(), 2, "SpiralData", "createdAt", "ArrayList"));
 
-        Log.d("SpiralTest", "\n"+AS2.toString());
+        //Log.d("SpiralTest", "\n"+AS2.toString());
         AS.addAll(AS2);
-        Log.d("SpiralTest[AS combined]", "\n AS combined" + AS.toString());
+        //Log.d("SpiralTest[AS combined]", "\n AS combined" + AS.toString());
         return AS;
     }
     public ArrayList<SpiralData> getDynamicSpiralData() {
         DAS= new ArrayList<>();
         DAS = (customParse.getParseDataSpiral(ParseUser.getCurrentUser(), 1, "SpiralData", "createdAt", "ArrayList"));
 
-        Log.d("SpiralTest", DAS.toString());
+        //Log.d("SpiralTest", DAS.toString());
 
         DAS2= new ArrayList<>();
         DAS2 = (customParse.getParseDataSpiral(ParseUser.getCurrentUser(), 0, "SpiralData", "createdAt", "ArrayList"));
 
-        Log.d("SpiralTest", DAS2.toString());
+        //Log.d("SpiralTest", DAS2.toString());
 
         DAS.addAll(DAS2);
-        Log.d("SpiralTest[AS combined]", "\n AS combined" + DAS.toString());
+        //Log.d("SpiralTest[AS combined]", "\n AS combined" + DAS.toString());
         return DAS;
     }
 
