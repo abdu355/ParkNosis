@@ -172,12 +172,12 @@ public class ResultsAnalysis extends AppCompatActivity {
             DynamicSpiralData= new ArrayList();
             sd=new SpiralData(0,0,0,getApplicationContext());
             //initialize();
-
+            processTappingData();
             try{
-                processQuestionnaire();
+                //processQuestionnaire();
                 //processSpiralData();
-                processTappingData();
-                processAccelData();//accel data (karim)
+
+                //processAccelData();//accel data (karim)
 
             }catch (Exception e){
                 Log.d("TAG", "doInBackground: Error " + e.getMessage());
@@ -258,15 +258,16 @@ public class ResultsAnalysis extends AppCompatActivity {
     {
         //tapresults.runAlgorithm(tapresults.fetchData());   //run algo on arraylist retreived from parse
 
-        tapresults.fetchData();
-        tapscore=tapresults.runTempAlgorithm();
+        tapresults.fetchData();//get data from DB
+        tapresults.runAlgorithm(); //main algo
+        tapscore=tapresults.runTempAlgorithm();//other algos
         tapprecision=tapresults.getPrecision()*100;
 
         Log.d("TapPrec",tapprecision+"");
     }
     private void processQuestionnaire()//questionairre data fetch result
     {
-        qscore = sumArr(customParse.getParseData(ParseUser.getCurrentUser(), 0, "Questionnaire", "createdAt", "Answers"));
+        qscore = sumArr(customParse.getParseData2(ParseUser.getCurrentUser(), 0, "Questionnaire", "createdAt", "Answers"));
     }
 
     public double sumArr(ArrayList<Long> arr)

@@ -105,12 +105,13 @@
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:id="@+id/imageView5"
-            android:src="@drawable/brain100"
+            android:src="@mipmap/ic_launcher"
             android:layout_alignTop="@+id/imageView6"
             android:layout_alignParentStart="true"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:layout_marginRight="10dp" />
 
     </LinearLayout>
 

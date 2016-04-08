@@ -3,18 +3,16 @@ package com.example.b00047562.parkinson_mhealth;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
-import android.view.View;
-import android.widget.LinearLayout;
 
 import com.parse.ParseUser;
 
-import org.achartengine.ChartFactory;
 import org.achartengine.model.CategorySeries;
 import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.renderer.SimpleSeriesRenderer;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,8 +45,8 @@ public class TappingTestFunctions {
 
     //Accuracy and precision variables
     private float D; //distance
-    private float vectorx,vectory; //x2-x1,y2-y1
-    ArrayList<Float> distarr;
+    private float vectorx,vectory,timevec, vectorxvarR, vectoryvarR,vectorxvarL,vectoryvarL,vectorrightX,vectorleftX,vectorrightY,vectorleftY; //x2-x1,y2-y1
+    ArrayList<Float> distarr,distarr2, distOTPR, distOTPL,distCVarrR,distCVarrL;
 
 
     //used for X,Y calculations (RAW values)
@@ -78,43 +76,53 @@ public class TappingTestFunctions {
         outrightxy = new ArrayList<>();
         combR= new ArrayList<>();
         combL = new ArrayList<>();
+        distarr = new ArrayList<>();
+        distarr2 = new ArrayList<>();
+        distOTPR = new ArrayList<>();
+        distOTPL= new ArrayList<>();
+        distCVarrR= new ArrayList<>();
+        distCVarrL= new ArrayList<>();
+        leftfingerxy= new ArrayList<>();
+        rightfingerxy= new ArrayList<>();
 
         numoftaps = new ArrayList<>(); //0: invol left taps - 1:invol right taps - 2:right finger taps - 3:left finger taps - 4:simple tap count
 
+        //"Left","Right","LeftXY","RightXY","outL","outR","combL","combR"
 
-        outleftxy = customParse.getParseDataAltTap(ParseUser.getCurrentUser(), 7, "TappingData", "createdAt", "ArrayList"); //taps outside the buttons
-        outrightxy = customParse.getParseDataAltTap(ParseUser.getCurrentUser(), 6, "TappingData","createdAt","ArrayList");
+        outleftxy = customParse.getParseDataAltTap(ParseUser.getCurrentUser(), "outL", "TappingData", "createdAt", "ArrayList"); //taps outside the buttons
+        outrightxy = customParse.getParseDataAltTap(ParseUser.getCurrentUser(), "outR", "TappingData","createdAt","ArrayList");
 
-        combR = customParse.getParseDataAltTap(ParseUser.getCurrentUser(), 2, "TappingData","createdAt","ArrayList");
-        combL = customParse.getParseDataAltTap(ParseUser.getCurrentUser(), 3, "TappingData","createdAt","ArrayList");
+        combR = customParse.getParseDataAltTap(ParseUser.getCurrentUser(), "combR", "TappingData","createdAt","ArrayList");
+        combL = customParse.getParseDataAltTap(ParseUser.getCurrentUser(), "combL", "TappingData","createdAt","ArrayList");
 
-        rightfingerxy = customParse.getParseDataAltTap(ParseUser.getCurrentUser(), 5, "TappingData","createdAt","ArrayList"); //taps inside the buttons
-        leftfingerxy = customParse.getParseDataAltTap(ParseUser.getCurrentUser(), 4, "TappingData","createdAt","ArrayList");
+        rightfingerxy = customParse.getParseDataAltTap(ParseUser.getCurrentUser(), "RightXY", "TappingData","createdAt","ArrayList"); //taps inside the buttons
+        leftfingerxy = customParse.getParseDataAltTap(ParseUser.getCurrentUser(), "LeftXY", "TappingData","createdAt","ArrayList");
 
-        rightfingerarr =  customParse.getParseData(ParseUser.getCurrentUser(),9,"TappingData","createdAt","ArrayList");
-        leftfingerarr = customParse.getParseData(ParseUser.getCurrentUser(), 8, "TappingData", "createdAt", "ArrayList");
-        simpletaps = customParse.getParseData(ParseUser.getCurrentUser(), 10, "TappingData", "createdAt", "ArrayList");
+        rightfingerarr =  customParse.getParseData(ParseUser.getCurrentUser(), "Right", "TappingData", "createdAt", "ArrayList");
+        leftfingerarr = customParse.getParseData(ParseUser.getCurrentUser(), "Left", "TappingData", "createdAt", "ArrayList");
+        simpletaps = customParse.getParseData(ParseUser.getCurrentUser(),"simple" , "TappingData", "createdAt", "ArrayList");
         //2: right finger , 3:left finger, 4:simple tapping results
 
-        hand = customParse.getParseSingleColData(ParseUser.getCurrentUser(), 10,"TappingData", "createdAt", "hand");
+        hand = customParse.getParseSingleColData(ParseUser.getCurrentUser(), 10, "TappingData", "createdAt", "hand");
+
         numoftaps = customParse.getParseDataTappingCount(ParseUser.getCurrentUser(),"TappingData","createdAt","numoftaps");
 
         for(String s : numoftaps) intList.add(Integer.valueOf(s)); //convert string counts to int
 
-//        Log.d("TappingTestR",rightfingerarr.toString());
-//        Log.d("TappingTestL",leftfingerarr.toString());
-//        Log.d("TappingTestS",simpletaps.toString());
-//        Log.d("TappingTest",hand+"");
-        //Log.d("TappingTest",intList.toString());
+       // Log.d("TappingTestR",rightfingerarr.toString());
+       // Log.d("TappingTestL",leftfingerarr.toString());
+       //Log.d("TappingTestS",simpletaps.toString());
+       // Log.d("TappingTest",hand+"");
+        Log.d("TappingTest",intList.toString());
 
 
         avgdelay = average(simpletaps);
         avgdelayrightfinger = average(rightfingerarr);
         avgdelayleftfinger=average(leftfingerarr);
 
-//        Log.d("TappingTestAVG",""+avgdelay);
-//        Log.d("TappingTestAVGR",""+avgdelayrightfinger);
-//        Log.d("TappingTestAVGL",""+avgdelayleftfinger);
+        //Log.d("TappingTestAVG",""+avgdelay);
+       // Log.d("TappingTestAVGR",""+avgdelayrightfinger);
+       // Log.d("TappingTestAVGL",""+avgdelayleftfinger);
 
         //return new ArrayList();
     }
@@ -133,23 +141,109 @@ public class TappingTestFunctions {
     }
 
      public void runAlgorithm() {
+
+         //GET MTS - SPEED FACTOR--------------------------------------------------------------------------------
          // D = sqrt(xi+1 - xi)^2 +(yi+1-yi)^2
 
         //taps will start from right button
-         for(int i=0;i<intList.get(2);i++) {
-             vectorx = leftfingerxy.get(i + 1).getX() - rightfingerxy.get(i).getX();
-             vectory = leftfingerxy.get(i + 1).getY() - rightfingerxy.get(i).getY();
+         int size;
+         //inside the buttons ONLY !
+         if(combR.size()>combL.size())
+             size = combL.size();
+         else
+             size = combR.size();
+
+         for(int i=1;i<size;i++) {
+             vectorx = combL.get(i).getX() - combR.get(i-1).getX();//xi+1-xi
+             vectory = combL.get(i).getY() - combR.get(i-1).getY();//yi+1-yi
+             timevec= combL.get(i).getTimestamp()-combR.get(i-1).getTimestamp();//ti+1-ti
 
              float vectorx2 = vectorx * vectorx;
              float vectory2 = vectory * vectory;
-             distarr.add((float) Math.sqrt(vectorx2 + vectory2));
+             distarr2.add((float) Math.sqrt(vectorx2 + vectory2));
+             distarr.add((float) Math.sqrt(vectorx2 + vectory2)/timevec);
+
+         }
+         float MTS = sum(distarr); //higher = better
+         Log.d("MTS",""+MTS);
+
+         //GET OTP - ACCURACY FACTOR--------------------------------------------------------------------------------
+         float initialleftx = combL.get(0).getX(); //center left X
+         float initiallefty = combL.get(0).getY(); //center left Y
+         float initialrightx = combR.get(0).getX(); //center right X
+         float initialrighty = combR.get(0).getY(); //center right Y
+
+         //taps will start froom right button
+         //xi-1 - initialrigght   xi - initialleftx
+
+
+         for(int i=0 ;i<size;i++) {
+
+             vectorxvarR = combR.get(i).getX() - initialrightx;
+             vectoryvarR = combR.get(i).getY() - initialrighty;
+             vectorxvarL = combL.get(i).getX() - initialleftx;
+             vectoryvarL = combL.get(i).getY() - initiallefty;
+
+
+             float vectoryotp2R = vectoryvarR * vectoryvarR;
+             float vectorxotp2R = vectorxvarR * vectorxvarR;
+
+             float vectoryotp2L = vectoryvarL * vectoryvarL;
+             float vectorxotp2L = vectorxvarL * vectorxvarL;
+
+
+             distOTPR.add((float) Math.sqrt(vectorxotp2R + vectoryotp2R)); //distances from center field to taps on right button
+             distOTPL.add((float) Math.sqrt(vectoryotp2L + vectorxotp2L)); //distances from center field to taps on left button
+         }
+         float OTPL = sum(distOTPL)/combL.size(); //lower = better
+         float OTPR = sum(distOTPR)/combR.size();
+         Log.d("OTP",""+OTPL+" "+OTPR);
+
+         //find CV - ACCURACY FACTOR --------------------------------------------------------------------------------
+         float ODT = sum(distarr2)/((combL.size()+combR.size())/2);
+         Log.d("ODT",""+ODT);
+
+         int size2;
+         //inside the buttons ONLY !
+         if(rightfingerxy.size()>leftfingerxy.size())
+            size2 = leftfingerxy.size();
+         else
+            size2 = rightfingerxy.size();
+
+         for(int i=0;i<size2;i++) {
+
+             vectorrightX = rightfingerxy.get(i).getX() - initialrightx;
+             vectorrightY = rightfingerxy.get(i).getY() - initialrighty;
+             vectorleftX = leftfingerxy.get(i).getX() - initialleftx;
+             vectorleftY = leftfingerxy.get(i).getY() - initiallefty;
+
+             float vectoryvar2R = vectorrightY * vectorrightY;
+             float vectorxvar2R = vectorrightX * vectorrightX;
+
+             float vectoryvar2L = vectorleftY * vectorleftY;
+             float vectorxvar2L = vectorleftX * vectorleftX;
+
+             distCVarrR.add((float) Math.sqrt(vectorxvar2R + vectoryvar2R));
+             distCVarrL.add((float) Math.sqrt(vectorxvar2L + vectoryvar2L));
+
+             Float cvR[] = new Float[distCVarrR.size()];
+             Float cvL[] = new Float[distCVarrL.size()];
+
+             distCVarrL.toArray(cvL);
+             distCVarrR.toArray(cvR);
+
+             double varR = getVariance(cvR,cvR.length); //CV of Right button taps
+             double varL = getVariance(cvL,cvL.length); //CV of l;eft button taps
+
+             Log.d("CV",varR+" "+varL);
+
          }
 
      }
     public double getPrecision()//for both right and left
     {
         //Log.d("TapPrec",""+intList.get(2).doubleValue()+" "+intList.get(4).doubleValue());
-        return ((intList.get(5).doubleValue() / (intList.get(2).doubleValue())))*1.0;
+        return ((intList.get(9).doubleValue() / (intList.get(2).doubleValue())))*1.0;
 
 
     }
@@ -372,5 +466,28 @@ public class TappingTestFunctions {
         renderer.setAxisTitleTextSize(20);
 
         return renderer;
+    }
+
+    public Float sum(List<Float> list) {
+        Float sum = 0f;
+        for (Float i:list)
+            sum = sum + i;
+        return sum;
+    }
+    double getMean(Float[] data,int size)
+    {
+        double sum = 0.0;
+        for(double a : data)
+            sum += a;
+        return sum/size;
+    }
+
+    double getVariance(Float[] data,int size)
+    {
+        double mean = getMean(data,size);
+        double temp = 0;
+        for(double a :data)
+            temp += (mean-a)*(mean-a);
+        return temp/size;
     }
 }

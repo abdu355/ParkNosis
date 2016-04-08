@@ -105,7 +105,7 @@ public class SimpleTapping extends AppCompatActivity implements View.OnClickList
                     avgtimedisp.setText("Average: " + average(delaylist) + " ms");
                     next.setEnabled(true);
                     String json = new Gson().toJson(delaylist);
-                    customParse.pushParseData(ParseUser.getCurrentUser(),"TappingData","ArrayList",json,Integer.toString(tapcounter),RL);
+                    customParse.pushParseDataSimpleTap(ParseUser.getCurrentUser(),"TappingData","ArrayList",json,Integer.toString(tapcounter),RL,"simple");
 
 
                 }

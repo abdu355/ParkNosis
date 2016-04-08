@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">ParkSearch</string>
-    <string name="hello_round">Hello Round World!</string>
+    <string name="hello_round">15 seconds</string>
     <string name="hello_square">Hello Square World!</string>
-    <string name="Accel_btn">Accel</string>
+    <string name="Accel_btn">Start</string>
 </resources>

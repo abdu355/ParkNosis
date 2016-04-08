@@ -31,7 +31,7 @@ public class AlternateTapping extends AppCompatActivity implements View.OnClickL
 
     private long previousClickTime,previousClickTime2;
     private Button btn1,btn2,start,next;
-    private int tapcounter1,tapcounter2,outsidetaps;
+    private int tapcounter1,tapcounter2,outsidetapsR,outsidetapsL;
     private CountDownTimer countDownTimer;
     private ParseFunctions customParse;
     private RelativeLayout altrellayout;
@@ -138,14 +138,16 @@ the field areas, corrected for total number of taps. (page 7 , Automatic and Obj
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    outsidetaps++;
+
                     altdata = new AltTapData(System.currentTimeMillis(), event.getRawX(), event.getRawY());
                     if(event.getRawX()>=550) {
+                        outsidetapsR++;
                         locationarr4.add(altdata);//right taps outside field
                         combarrR.add(altdata);
                         Log.d("X&YrellayoutRIGHT", locationarr4.toString());
                     }
                     else if(event.getRawX()<550) {
+                        outsidetapsL++;
                         locationarr3.add(altdata); //left taps outside fields
                         combarrL.add(altdata);
                         Log.d("X&YrellayoutLEFT", locationarr3.toString());
@@ -193,11 +195,12 @@ the field areas, corrected for total number of taps. (page 7 , Automatic and Obj
                 String combjsonL = new Gson().toJson(combarrL);
                 String combjsonR = new Gson().toJson(combarrR);
 
-                customParse.pushParseList(ParseUser.getCurrentUser(),2,"TappingData","ArrayList",json1,json2,"Left","Right",Integer.toString(tapcounter1),Integer.toString(tapcounter2));
-                customParse.pushParseList(ParseUser.getCurrentUser(), 2, "TappingData", "ArrayList",json3,json4,"LeftXY","RightXY",Integer.toString(tapcounter1),Integer.toString(tapcounter2) );
-                customParse.pushParseList(ParseUser.getCurrentUser(), 2, "TappingData", "ArrayList",json5,json6,"outL","outR",Integer.toString(outsidetaps),Integer.toString(outsidetaps));
-                customParse.pushParseList(ParseUser.getCurrentUser(), 2, "TappingData", "ArrayList",combjsonL,combjsonR,"combL","combR",Integer.toString(outsidetaps+tapcounter1),Integer.toString(outsidetaps+tapcounter2));
+//                customParse.pushParseList(ParseUser.getCurrentUser(),2,"TappingData","ArrayList",json1,json2,"Left","Right",Integer.toString(tapcounter1),Integer.toString(tapcounter2));
+//                customParse.pushParseList(ParseUser.getCurrentUser(), 2, "TappingData", "ArrayList",json3,json4,"LeftXY","RightXY",Integer.toString(tapcounter1),Integer.toString(tapcounter2) );
+//                customParse.pushParseList(ParseUser.getCurrentUser(), 2, "TappingData", "ArrayList",json5,json6,"outL","outR",Integer.toString(outsidetaps),Integer.toString(outsidetaps));
+//                customParse.pushParseList(ParseUser.getCurrentUser(), 2, "TappingData", "ArrayList",combjsonL,combjsonR,"combL","combR",Integer.toString(outsidetaps+tapcounter1),Integer.toString(outsidetaps+tapcounter2));
 
+                customParse.pushParseListAltTap(ParseUser.getCurrentUser(), 8, "TappingData","ArrayList",json1,json2,json3,json4,json5,json6,combjsonL,combjsonR,"Left","Right","LeftXY","RightXY","outL","outR","combL","combR",Integer.toString(tapcounter1),Integer.toString(tapcounter2),Integer.toString(tapcounter1),Integer.toString(tapcounter2),Integer.toString(outsidetapsL),Integer.toString(outsidetapsR),Integer.toString(outsidetapsL+tapcounter1),Integer.toString(outsidetapsR+tapcounter2));
             }
         }.start();
 
@@ -208,7 +211,8 @@ the field areas, corrected for total number of taps. (page 7 , Automatic and Obj
         super.onResume();
         tapcounter1 = 0;
         tapcounter2 = 0;
-        outsidetaps=0;
+        outsidetapsR=0;
+        outsidetapsL=0;
         delaylist1 = new ArrayList<>();
         delaylist2= new ArrayList<>();
         locationarr1 = new ArrayList<>();
@@ -234,7 +238,7 @@ the field areas, corrected for total number of taps. (page 7 , Automatic and Obj
                 altrellayout.setClickable(true);
                 altrellayout.setFocusable(true);
 
-                btn1.setEnabled(true);
+                //btn1.setEnabled(true);
                 btn2.setEnabled(true);
                 start.setEnabled(false);
 

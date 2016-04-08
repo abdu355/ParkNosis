@@ -105,7 +105,7 @@ public class InvolMovement extends AppCompatActivity {
                 leftview.setText("Taps: "+ tapcount_left);
                 rightview.setText("Taps: "+ tapcount_right);
 
-                customParse.pushParseList(ParseUser.getCurrentUser(), 2, "TappingData", "ArrayList", "Involuntary", "Involuntary", "Left", "Right", Integer.toString(tapcount_left), Integer.toString(tapcount_right));
+                customParse.pushParseList(ParseUser.getCurrentUser(), 2, "TappingData", "ArrayList", "Involuntary", "Involuntary", "LeftInv", "RightInv", Integer.toString(tapcount_left), Integer.toString(tapcount_right));
 
                 MainActivity.t=true; //test finished
 
