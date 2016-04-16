@@ -152,7 +152,7 @@ public class Login extends ActionBarActivity {
             AlertDialog alertDialog = new AlertDialog.Builder(Login.this).create();
             alertDialog.setTitle("About");
             alertDialog.setMessage("Parkinson's Disease research & development application.\n\nAmerican University of Sharjah\n\nSenior Design Project created By:\nAbdulwahab Sahyoun\nKarim Chehab\nOsama Al Madani\n\nAdvisors:\nDr.Fadi Aloul\nDr.Assim Sagahyroon\n\nFor more details contact:\n" + email_about);
-            alertDialog.setIcon(R.mipmap.brain48);
+            alertDialog.setIcon(R.mipmap.ic_launcher);
             alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {

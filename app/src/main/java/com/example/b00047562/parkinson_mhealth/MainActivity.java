@@ -3,6 +3,9 @@ package com.example.b00047562.parkinson_mhealth;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,8 +16,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.commit451.nativestackblur.NativeStackBlur;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 
@@ -25,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ParseUser currentUser;
     public static boolean q,h,sp,t;  //completion indicator for each test
     //private boolean doneall;
-
+    private RelativeLayout pdback;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +52,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tap_btn.setOnClickListener(this);
         results.setOnClickListener(this);
 
+        pdback=(RelativeLayout)findViewById(R.id.pdback);
+        Bitmap back = BitmapFactory.decodeResource(getResources(), R.drawable.rsz_1pdback2);
+        Bitmap bm = NativeStackBlur.process(back, 250);
+        BitmapDrawable ob = new BitmapDrawable(getResources(), bm);
+        //pdback.setBackground(ob);
 
         //try {
             currentUser = ParseUser.getCurrentUser();//check if user logged in
@@ -56,6 +66,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (currentUser == null) {
             loadLoginView();
         }
+
+
 
     }
     public void loadLoginView() {
@@ -150,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
             alertDialog.setTitle("About");
             alertDialog.setMessage("Parkinson's Disease research & development application.\n\nAmerican University of Sharjah\n\nSenior Design Project created By:\nAbdulwahab Sahyoun\nKarim Chehab\nOsama Al Madani\n\nAdvisors:\nDr.Fadi Aloul\nDr.Assim Sagahyroon\n\nFor more details contact:\n" + email_about);
-            alertDialog.setIcon(R.mipmap.brain48);
+            alertDialog.setIcon(R.mipmap.ic_launcher);
             alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {

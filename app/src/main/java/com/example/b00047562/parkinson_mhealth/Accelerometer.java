@@ -205,13 +205,13 @@ public class Accelerometer extends AppCompatActivity implements SensorEventListe
                     lasty = ay;
                     lastz = az;
                 }
-//                String x = String.format("%.1f", ax);
-//                String y = String.format("%.1f", ay);
-//                String z = String.format("%.1f", az);
-//                //change display values
-//                txtXValue.setText(x);
-//                txtYValue.setText(y);
-//                txtZValue.setText(z);
+                String x = String.format("%.1f", ax);
+                String y = String.format("%.1f", ay);
+                String z = String.format("%.1f", az);
+                //change display values
+                txtXValue.setText(x);
+                txtYValue.setText(y);
+                txtZValue.setText(z);
             }
         } catch (Exception e) {
             e.printStackTrace();

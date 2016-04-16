@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PD</string>
+    <string name="app_name">ParkNosis</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_accelerometer">Accelerometer</string>
     <string name="txtXLabel">X:</string>
@@ -101,7 +101,7 @@
     <string name="radio_ans3">Mild</string>
     <string name="radio_ans4">Moderate</string>
     <string name="radio_ans5">Severe</string>
-    <string name="ClearSpiralDrawing">clear drawing</string>
+    <string name="ClearSpiralDrawing">clear</string>
     <string name="SpiralSubmit">Submit</string>
     <string name="Results_Normal">Normal</string>
     <string name="Results_Slight">Slight</string>

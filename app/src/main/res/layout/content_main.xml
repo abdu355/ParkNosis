@@ -10,31 +10,31 @@
     tools:showIn="@layout/activity_main" tools:context=".MainActivity"
     android:background="#fce4ec"
     android:clickable="false"
-    android:visibility="visible">
+    android:visibility="visible"
+    android:id="@+id/pdback">
 
     <Button
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:text="User Info"
         android:id="@+id/btn_usrinfo_main"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
         android:layout_marginBottom="62dp"
-        android:background="@color/colorPrimary"
         android:layout_marginTop="10dp"
-        android:visibility="visible" />
+        android:visibility="visible"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:text="@string/results_btn"
         android:id="@+id/btn_resultsmain"
         android:layout_above="@+id/btn_usrinfo_main"
-        android:layout_centerHorizontal="true"
-        android:background="@color/colorPrimary"
         android:layout_marginTop="10dp"
         android:enabled="false"
-        android:visibility="visible" />
+        android:visibility="visible"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true" />
 
     <TableLayout
         android:layout_width="match_parent"
@@ -65,7 +65,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_toEndOf="@+id/imageView"
-                android:background="#e8f5e9"
+                android:background="#95e8f5e9"
                 android:layout_weight="4"
                 android:textSize="16sp"
                 android:visibility="visible" />
@@ -93,7 +93,7 @@
                 android:text="@string/acc_btn"
                 android:id="@+id/acc_btn"
                 android:layout_toEndOf="@+id/imageView"
-                android:background="#b2ebf2"
+                android:background="#85b2ebf2"
                 android:allowUndo="false"
                 android:layout_weight="1"
                 android:textSize="16sp"
@@ -123,7 +123,7 @@
                 android:id="@+id/spiral_btn"
                 android:layout_below="@+id/acc_btn"
                 android:layout_alignStart="@+id/acc_btn"
-                android:background="#ffccbc"
+                android:background="#88ffccbc"
                 android:allowUndo="false"
                 android:layout_weight="4"
                 android:textSize="16sp"
@@ -152,7 +152,7 @@
                 android:id="@+id/btn_tap_main"
                 android:layout_below="@+id/spiral_btn"
                 android:layout_toEndOf="@+id/imageView"
-                android:background="#fff9c4"
+                android:background="#aafff9c4"
                 android:allowUndo="false"
                 android:layout_weight="4"
                 android:textSize="16sp"

@@ -35,7 +35,7 @@
 
             <Button
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:text="@string/ClearSpiralDrawing"
                 android:id="@+id/btn_clear"
                 android:layout_gravity="center_horizontal"
@@ -43,7 +43,7 @@
 
             <Button
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:text="@string/btn_clear"
                 android:id="@+id/btn_redraw"
                 android:layout_gravity="center_horizontal"
@@ -52,7 +52,7 @@
 
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:text="@string/SpiralSubmit"
                 android:id="@+id/btnSubmit"
                 android:enabled="false"

@@ -172,12 +172,12 @@ public class ResultsAnalysis extends AppCompatActivity {
             DynamicSpiralData= new ArrayList();
             sd=new SpiralData(0,0,0,getApplicationContext());
             //initialize();
-            processTappingData();
-            try{
-                //processQuestionnaire();
-                //processSpiralData();
 
-                //processAccelData();//accel data (karim)
+            try{
+                processQuestionnaire();
+                processSpiralData();
+                processTappingData();
+                processAccelData();
 
             }catch (Exception e){
                 Log.d("TAG", "doInBackground: Error " + e.getMessage());
