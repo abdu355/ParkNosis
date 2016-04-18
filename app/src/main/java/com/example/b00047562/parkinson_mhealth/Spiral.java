@@ -95,22 +95,23 @@ resizing worked here but it scaled all of the activity, nothing worked in Canvas
                 this.startActivity(new Intent(this, SpiralRedraw.class));
                 break;
             case R.id.btnSubmit:
-/**
- * Divide a string to 2 parts by default no matter if the string is big or small
- * todo: retrieve data & combine it
- *
- *
- *
- * */
+///**
+// * Divide a string to 2 parts by default no matter if the string is big or small
+// * todo: retrieve data & combine it
+// *
+// *
+// *
+// * */
                 String json = new Gson().toJson(CanvasSpiral.spiralData);
-                Log.d("JSON ", "SPiral Before partition: "+ json);
-                final int mid = json.length() / 2;
-                String[] parts = {
-                        json.substring(0, mid),
-                        json.substring(mid),
-                };
-                customParse.pushParseData(ParseUser.getCurrentUser(), "SpiralData", "ArrayList", parts[0], "", "");
-                customParse.pushParseData(ParseUser.getCurrentUser(), "SpiralData", "ArrayList", parts[1], "", "");
+                customParse.pushParseData(ParseUser.getCurrentUser(), "SpiralData", "ArrayList", json, "", "");
+//                Log.d("JSON ", "SPiral Before partition: "+ json);
+//                final int mid = json.length() / 2;
+//                String[] parts = {
+//                        json.substring(0, mid),
+//                        json.substring(mid),
+//                };
+                //customParse.pushParseData(ParseUser.getCurrentUser(), "SpiralData", "ArrayList", parts[0], "", "");
+                //customParse.pushParseData(ParseUser.getCurrentUser(), "SpiralData", "ArrayList", parts[1], "", "");
 
 
 
