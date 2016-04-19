@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ParkSearch</string>
+    <string name="app_name">Park Nosis</string>
     <string name="hello_round">15 seconds</string>
     <string name="hello_square">Hello Square World!</string>
     <string name="Accel_btn">Start</string>
