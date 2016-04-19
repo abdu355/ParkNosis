@@ -67,7 +67,8 @@
         android:id="@+id/right_indic"
         android:textColor="#ffffff"
         android:layout_above="@+id/rfinger_invol"
-        android:layout_alignEnd="@+id/rfinger_invol" />
+        android:layout_alignEnd="@+id/rfinger_invol"
+        android:layout_marginBottom="-245dp" />
 
     <TextView
         android:layout_width="50dp"
@@ -76,7 +77,8 @@
         android:id="@+id/left_indic"
         android:textColor="#ffffff"
         android:layout_above="@+id/lfinger_invol"
-        android:layout_alignStart="@+id/lfinger_invol" />
+        android:layout_alignStart="@+id/lfinger_invol"
+        android:layout_marginBottom="-245dp" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -84,7 +86,6 @@
         android:layout_height="wrap_content"
         android:text="Done"
         android:id="@+id/btn_finish_involtap"
-        android:layout_marginBottom="45dp"
         android:enabled="false"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
