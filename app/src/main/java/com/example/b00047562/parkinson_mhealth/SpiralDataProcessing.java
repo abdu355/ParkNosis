@@ -60,7 +60,6 @@ public class SpiralDataProcessing {
             Log.d("Input", "SpiralDataProcessing: "+ StaticInputtedData.toString() );
 
 
-      //  Toast.makeText(context, String.valueOf(FindAccuracy()), Toast.LENGTH_SHORT).show();
 
         acceleration1 = new float[StaticInputtedData.size()];
         acceleration2 = new float[DynamicInputtedData.size()];
