@@ -17,19 +17,22 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="25dp">
+            android:layout_marginTop="25dp"
+            android:visibility="visible">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/txtXLabel"
+                android:text="Sample Using Phone accelerometer"
                 android:id="@+id/txtXLabel"
                 android:layout_alignParentTop="true"
                 android:layout_toLeftOf="@+id/txtYLabel"
                 android:layout_toStartOf="@+id/txtYLabel"
                 android:layout_weight="1"
-                android:textColor="#ffffff" />
+                android:textColor="#ffffff"
+                android:layout_span="2"
+                android:gravity="center_vertical|center_horizontal" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -39,12 +42,14 @@
                 android:id="@+id/txtXValue"
                 android:layout_column="2"
                 android:layout_weight="1"
-                android:textColor="#ffffff" />
+                android:textColor="#ffffff"
+                android:visibility="gone" />
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -71,7 +76,8 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -109,9 +115,10 @@
 
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/read_btn"
-            android:id="@+id/read_btn" />
+            android:layout_height="60dp"
+            android:text="START"
+            android:id="@+id/read_btn"
+            android:layout_marginTop="40dp" />
 
         <TableRow
             android:layout_width="match_parent"
@@ -123,14 +130,16 @@
                 android:text="@string/show_btn"
                 android:id="@+id/show_btn"
                 android:layout_gravity="center_horizontal"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:visibility="invisible" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/analysis_btn"
                 android:layout_weight="1"
-                android:text="@string/analysis_btn" />
+                android:text="@string/analysis_btn"
+                android:visibility="invisible" />
         </TableRow>
 
         <LinearLayout
@@ -138,7 +147,8 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:id="@+id/Layout_Graph_Container"
-            android:layout_marginBottom="35dp">
+            android:layout_marginBottom="35dp"
+            android:layout_marginTop="100dp">
 
         </LinearLayout>
 

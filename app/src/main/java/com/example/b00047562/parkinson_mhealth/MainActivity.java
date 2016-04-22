@@ -67,8 +67,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             loadLoginView();
         }
 
-
-
     }
     public void loadLoginView() {
         Intent intent = new Intent(this, Login.class); //go to login activity
