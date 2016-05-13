@@ -21,7 +21,6 @@
         android:layout_alignParentTop="true"
         android:layout_alignLeft="@+id/et_pass"
         android:layout_alignStart="@+id/et_pass"
-        android:text="@string/et_usremail"
         android:hint="userid@genid.com"/>
 
     <EditText
@@ -33,7 +32,7 @@
         android:layout_below="@+id/et_email"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:hint="Password"/>
+        android:hint="Password" />
 
     <TextView
         android:layout_width="wrap_content"
