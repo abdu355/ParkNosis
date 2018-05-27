@@ -17,6 +17,7 @@ Developed by students from the American Univeristy of Sharjah
 
 Sharjah, United Arab Emirates
 
+IEEE Health Conference Paper: https://edas.info/showManuscript.php?m=1570291848&ext=pdf&type=stamped
 
 ------------------------------------------
 The MIT License
